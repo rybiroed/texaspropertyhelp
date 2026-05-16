@@ -108,7 +108,7 @@ export default function StormDamagePage() {
               <div key={item.title} style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "#c0c0c0", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -143,7 +143,7 @@ export default function StormDamagePage() {
                 </div>
                 <div>
                   <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
-                  <p style={{ color: "#c0c0c0", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
+                  <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}

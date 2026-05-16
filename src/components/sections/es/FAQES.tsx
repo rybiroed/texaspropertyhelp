@@ -46,7 +46,7 @@ export default function FAQES({ items, heading = "Preguntas Frecuentes", include
                 </svg>
               </button>
               {openIndex === i && (
-                <div style={{ padding: "0 20px 18px", color: "var(--text-secondary)", fontSize: "0.9rem", lineHeight: "1.7", borderTop: "1px solid var(--border)", paddingTop: "14px" }}>
+                <div style={{ padding: "0 20px 18px", color: "#374151", fontSize: "0.9rem", lineHeight: "1.7", borderTop: "1px solid var(--border)", paddingTop: "14px" }}>
                   {item.answer}
                 </div>
               )}

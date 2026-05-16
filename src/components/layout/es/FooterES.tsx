@@ -22,7 +22,7 @@ export default function FooterES() {
               <span style={{ color: "white", fontWeight: 700, fontSize: "0.95rem" }}>Texas Property Help</span>
             </div>
             <p style={{ fontSize: "0.85rem", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>{ES.footer.tagline}</p>
-            <p style={{ fontSize: "0.8rem", marginTop: "12px", color: "rgba(255,255,255,0.4)" }}>{ES.footer.disclaimer}</p>
+            <p style={{ fontSize: "0.8rem", marginTop: "12px", color: "rgba(255,255,255,0.65)" }}>{ES.footer.disclaimer}</p>
           </div>
 
           <div>
@@ -49,7 +49,7 @@ export default function FooterES() {
               {ES.footer.requestHelp}
             </Link>
             <div style={{ marginTop: "16px" }}>
-              <Link href="/" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              <Link href="/" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
                 🇺🇸 View in English
               </Link>
             </div>
@@ -57,15 +57,15 @@ export default function FooterES() {
         </div>
 
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: "40px", paddingTop: "24px" }} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>© {year} {ES.footer.copyright}</p>
+          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }}>© {year} {ES.footer.copyright}</p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Acerca de
             </Link>
-            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Privacidad
             </Link>
-            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Términos
             </Link>
           </div>

@@ -92,7 +92,7 @@ export default function InsuranceClaimsPage() {
                 </div>
                 <div>
                   <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
-                  <p style={{ color: "#c0c0c0", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
+                  <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}
@@ -110,7 +110,7 @@ export default function InsuranceClaimsPage() {
                 "Receipts for temporary repairs",
                 "A damage log with dates and descriptions",
               ].map((item) => (
-                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#c0c0c0", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid #333333" }}>
+                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--content-on-dark)", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid #333333" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>✓</span>
                   {item}
                 </li>

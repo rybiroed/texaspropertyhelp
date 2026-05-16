@@ -58,11 +58,11 @@ export default function GuidesESPage() {
                   <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "1rem", lineHeight: "1.4", fontFamily: "Georgia, serif", marginBottom: "10px" }} className="group-hover:text-[var(--accent)]">
                     {guide.title}
                   </h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6", flex: 1 }}>
+                  <p style={{ color: "var(--content-secondary)", fontSize: "0.875rem", lineHeight: "1.6", flex: 1 }}>
                     {guide.description}
                   </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--border)" }}>
-                    {guide.readTime && <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>📖 {guide.readTime}</span>}
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--content-border)" }}>
+                    {guide.readTime && <span style={{ fontSize: "0.75rem", color: "var(--content-muted)" }}>📖 {guide.readTime}</span>}
                     <span style={{ marginLeft: "auto", color: "var(--accent)", fontWeight: 600, fontSize: "0.875rem" }}>Leer →</span>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ export default function GuidesESPage() {
           </div>
 
           <div style={{ backgroundColor: "white", border: "1px dashed var(--border)", borderRadius: "10px", padding: "32px", textAlign: "center", marginTop: "24px" }}>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.875rem" }}>
+            <p style={{ color: "var(--content-muted)", fontSize: "0.875rem" }}>
               {ES.guides.moreComingSoon}
             </p>
           </div>

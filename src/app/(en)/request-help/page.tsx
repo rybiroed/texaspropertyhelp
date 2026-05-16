@@ -51,7 +51,7 @@ export default function RequestHelpPage() {
               { icon: "🇪🇸", label: "En Español También" },
               { icon: "📞", label: "We Review Every Request" },
             ].map((item) => (
-              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "var(--text-secondary)" }}>
+              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "var(--content-secondary)" }}>
                 <span>{item.icon}</span>
                 <span>{item.label}</span>
               </div>
@@ -121,7 +121,7 @@ export default function RequestHelpPage() {
                   >
                     {i + 1}
                   </span>
-                  <span style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>
+                  <span style={{ color: "var(--content-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>
                     {step}
                   </span>
                 </li>

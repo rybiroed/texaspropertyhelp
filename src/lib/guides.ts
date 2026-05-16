@@ -51,6 +51,16 @@ export const GUIDES: GuideCard[] = [
     readTime: "5 min read",
     lastUpdated: "2025-01-15",
   },
+  {
+    title: "Complete Texas Roof Insurance Claim Timeline",
+    slug: "texas-roof-insurance-claim-timeline",
+    description:
+      "A detailed step-by-step guide for Texas homeowners covering every phase of a roof insurance claim — from emergency response and documentation through adjuster inspection, ACV/RCV payments, contractor selection, and dispute resolution.",
+    category: "insurance-claims",
+    readTime: "15 min read",
+    lastUpdated: "2026-05-16",
+    standalonePageExists: true,
+  },
 ];
 
 /**

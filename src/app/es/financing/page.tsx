@@ -106,7 +106,7 @@ export default function FinancingESPage() {
               <div key={item.title} style={{ backgroundColor: "var(--off-white)", borderRadius: "10px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -123,7 +123,7 @@ export default function FinancingESPage() {
                 "Entienda la tasa de interés, el pago mensual y el costo total",
                 "Nunca tome decisiones de pago bajo presión de un contratista",
               ].map((tip) => (
-                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: "8px" }}>
+                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#374151", marginBottom: "8px" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>→</span>
                   {tip}
                 </li>

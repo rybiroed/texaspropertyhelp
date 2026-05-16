@@ -30,7 +30,7 @@ export default function Footer() {
             <p style={{ fontSize: "0.85rem", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
               Helping Texas homeowners navigate storm damage, roofing issues, HVAC problems, insurance claims, and repair financing.
             </p>
-            <p style={{ fontSize: "0.8rem", marginTop: "12px", color: "rgba(255,255,255,0.4)" }}>
+            <p style={{ fontSize: "0.8rem", marginTop: "12px", color: "rgba(255,255,255,0.65)" }}>
               Texas Property Help is a homeowner assistance and referral platform — not an insurance company, contractor, or law firm.
             </p>
           </div>
@@ -79,7 +79,7 @@ export default function Footer() {
               Request Help →
             </Link>
             {SITE_CONFIG.email && (
-              <p style={{ fontSize: "0.8rem", marginTop: "14px", color: "rgba(255,255,255,0.5)" }}>
+              <p style={{ fontSize: "0.8rem", marginTop: "14px", color: "rgba(255,255,255,0.65)" }}>
                 Email:{" "}
                 <a href={`mailto:${SITE_CONFIG.email}`} className="hover:text-[var(--accent)]">
                   {SITE_CONFIG.email}
@@ -93,23 +93,23 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: "40px", paddingTop: "24px" }}
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
         >
-          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>
+          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }}>
             © {year} Texas Property Help. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/guides" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/guides" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Guides
             </Link>
-            <Link href="/request-help" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/request-help" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Contact
             </Link>
-            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               About
             </Link>
-            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Terms of Service
             </Link>
           </div>

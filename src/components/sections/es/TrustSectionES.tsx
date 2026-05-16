@@ -12,7 +12,7 @@ export default function TrustSectionES() {
             <div key={item.title} style={{ textAlign: "center", padding: "8px 4px" }}>
               <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{item.icon}</div>
               <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.6" }}>{item.body}</p>
+              <p style={{ color: "var(--content-secondary)", fontSize: "0.85rem", lineHeight: "1.6" }}>{item.body}</p>
             </div>
           ))}
         </div>

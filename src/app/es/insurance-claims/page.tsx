@@ -85,7 +85,7 @@ export default function InsuranceClaimsESPage() {
                 </div>
                 <div>
                   <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
+                  <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}
@@ -103,7 +103,7 @@ export default function InsuranceClaimsESPage() {
                 "Recibos de reparaciones temporales",
                 "Un registro de daños con fechas y descripciones",
               ].map((item) => (
-                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--text-secondary)", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid var(--border)" }}>
+                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#374151", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid var(--border)" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>✓</span>
                   {item}
                 </li>

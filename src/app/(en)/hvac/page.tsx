@@ -83,7 +83,7 @@ export default function HVACPage() {
               <div key={item.title} style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "#c0c0c0", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -93,7 +93,7 @@ export default function HVACPage() {
             <p style={{ fontSize: "0.875rem", color: "#ffffff", fontWeight: 600, marginBottom: "6px" }}>
               ⚠️ Heat Safety Notice
             </p>
-            <p style={{ fontSize: "0.8rem", color: "#c0c0c0", lineHeight: "1.6", margin: 0 }}>
+            <p style={{ fontSize: "0.8rem", color: "var(--content-on-dark)", lineHeight: "1.6", margin: 0 }}>
               Extreme heat can be dangerous, especially for elderly individuals, young children, and those with medical conditions. If your HVAC has failed during a heat advisory, consider cooling centers, friends or family, or temporary accommodations while arranging repairs.
             </p>
           </div>

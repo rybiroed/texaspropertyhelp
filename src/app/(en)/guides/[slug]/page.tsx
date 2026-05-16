@@ -175,10 +175,12 @@ function getGuideBody(slug: string) {
   return guides[slug] || null;
 }
 
-// Generate static params for all published guides
+// Generate static params for guides rendered by this dynamic template.
+// Guides with standalonePageExists:true have their own page file and are excluded here.
 export async function generateStaticParams() {
-  const guides = getPublishedGuides();
-  return guides.map((g) => ({ slug: g.slug }));
+  return getPublishedGuides()
+    .filter((g) => !g.standalonePageExists)
+    .map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -259,7 +261,7 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
       {/* Content */}
       <section style={{ backgroundColor: "white" }} className="py-12 px-4">
         <div className="max-w-3xl mx-auto">
-          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: "1.8", marginBottom: "32px", borderLeft: "3px solid var(--accent)", paddingLeft: "16px" }}>
+          <p style={{ color: "#374151", fontSize: "1rem", lineHeight: "1.8", marginBottom: "32px", borderLeft: "3px solid var(--accent)", paddingLeft: "16px" }}>
             {guide.description}
           </p>
 
@@ -268,16 +270,18 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
               <div key={section.heading}>
                 <h2
                   style={{
-                    color: "var(--navy)",
+                    color: "#111827",
                     fontFamily: "Georgia, serif",
-                    fontSize: "1.2rem",
-                    fontWeight: 700,
+                    fontSize: "1.375rem",
+                    fontWeight: 800,
+                    lineHeight: 1.3,
+                    marginTop: "2rem",
                     marginBottom: "12px",
                   }}
                 >
                   {section.heading}
                 </h2>
-                <div style={{ color: "var(--text-secondary)", fontSize: "0.925rem", lineHeight: "1.8" }}>
+                <div style={{ color: "#374151", fontSize: "0.925rem", lineHeight: "1.8" }}>
                   {section.content.split("\n").map((line, i) => (
                     <p key={i} style={{ marginBottom: "8px" }}>
                       {line}
@@ -304,7 +308,7 @@ export default async function GuideDetailPage({ params }: { params: Promise<{ sl
             <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "1rem", marginBottom: "12px" }}>
               Need personalized help with your property?
             </h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", marginBottom: "16px" }}>
+            <p style={{ color: "#374151", fontSize: "0.875rem", marginBottom: "16px" }}>
               Submit a request and we&apos;ll connect you with appropriate resources for your specific situation.
             </p>
             <Link

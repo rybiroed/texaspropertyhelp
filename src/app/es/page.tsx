@@ -53,7 +53,7 @@ export default function EsHomePage() {
             <h2 style={{ color: "var(--navy)", fontFamily: "Georgia, serif", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 700, marginBottom: "12px" }}>
               {ES.home.servicesHeading}
             </h2>
-            <p style={{ color: "var(--text-secondary)", maxWidth: "520px", margin: "0 auto", fontSize: "0.95rem" }}>
+            <p style={{ color: "var(--content-secondary)", maxWidth: "520px", margin: "0 auto", fontSize: "0.95rem" }}>
               {ES.home.servicesSubheading}
             </p>
           </div>

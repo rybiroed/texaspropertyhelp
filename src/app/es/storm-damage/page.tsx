@@ -74,7 +74,7 @@ export default function StormDamageESPage() {
               <div key={item.title} style={{ backgroundColor: "var(--off-white)", borderRadius: "10px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -94,7 +94,7 @@ export default function StormDamageESPage() {
                 </div>
                 <div>
                   <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
+                  <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}

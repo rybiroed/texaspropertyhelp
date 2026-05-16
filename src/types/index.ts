@@ -89,6 +89,9 @@ export interface GuideCard {
   category: ContentCategory;
   readTime?: string;
   lastUpdated: string;
+  /** True when a standalone page exists at guides/[slug]/page.tsx.
+   *  Prevents the dynamic [slug] route from trying to pre-render this slug. */
+  standalonePageExists?: boolean;
 }
 
 /**

@@ -97,7 +97,7 @@ export default function FAQ({ items, heading = "Frequently Asked Questions", inc
                 <div
                   style={{
                     padding: "0 20px 18px",
-                    color: "#c0c0c0",
+                    color: "var(--content-on-dark)",
                     fontSize: "0.9rem",
                     lineHeight: "1.7",
                     borderTop: "1px solid #333333",

@@ -82,7 +82,7 @@ export default function HVACESPage() {
               <div key={item.title} style={{ backgroundColor: "var(--off-white)", borderRadius: "10px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -91,7 +91,7 @@ export default function HVACESPage() {
             <p style={{ fontSize: "0.875rem", color: "var(--charcoal)", fontWeight: 600, marginBottom: "6px" }}>
               ⚠️ Aviso de Seguridad por Calor
             </p>
-            <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", lineHeight: "1.6", margin: 0 }}>
+            <p style={{ fontSize: "0.8rem", color: "#374151", lineHeight: "1.6", margin: 0 }}>
               El calor extremo puede ser peligroso, especialmente para personas mayores, niños pequeños y personas con condiciones médicas. Si su HVAC falla durante una advertencia de calor, considere centros de enfriamiento, amigos o familiares, o alojamiento temporal mientras organiza las reparaciones.
             </p>
           </div>

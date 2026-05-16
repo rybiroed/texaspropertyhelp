@@ -27,7 +27,7 @@ export default function RequestHelpESPage() {
         <div className="max-w-2xl mx-auto">
           <div style={{ backgroundColor: "white", border: "1px solid var(--border)", borderRadius: "10px", padding: "20px 24px", marginBottom: "24px", display: "flex", flexWrap: "wrap", gap: "16px" }}>
             {f.trustItems.map((item) => (
-              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "var(--text-secondary)" }}>
+              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", color: "var(--content-secondary)" }}>
                 <span>{item.icon}</span><span>{item.label}</span>
               </div>
             ))}
@@ -45,7 +45,7 @@ export default function RequestHelpESPage() {
               {f.nextSteps.map((step, i) => (
                 <li key={i} style={{ display: "flex", gap: "14px", paddingBottom: "14px", marginBottom: "14px", borderBottom: i < f.nextSteps.length - 1 ? "1px solid var(--border)" : "none", alignItems: "flex-start" }}>
                   <span style={{ width: "26px", height: "26px", borderRadius: "50%", backgroundColor: "var(--navy)", color: "white", fontWeight: 700, fontSize: "0.75rem", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>{i + 1}</span>
-                  <span style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>{step}</span>
+                  <span style={{ color: "var(--content-secondary)", fontSize: "0.875rem", lineHeight: "1.6" }}>{step}</span>
                 </li>
               ))}
             </ol>

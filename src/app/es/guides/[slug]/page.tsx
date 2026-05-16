@@ -133,17 +133,17 @@ export default async function GuideDetailESPage({ params }: { params: Promise<{ 
 
       <section style={{ backgroundColor: "white" }} className="py-12 px-4">
         <div className="max-w-3xl mx-auto">
-          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", lineHeight: "1.8", marginBottom: "32px", borderLeft: "3px solid var(--accent)", paddingLeft: "16px" }}>
+          <p style={{ color: "var(--content-secondary)", fontSize: "1rem", lineHeight: "1.8", marginBottom: "32px", borderLeft: "3px solid var(--accent)", paddingLeft: "16px" }}>
             {guide.description}
           </p>
 
           <div className="space-y-10">
             {content.sections.map((section) => (
               <div key={section.heading}>
-                <h2 style={{ color: "var(--navy)", fontFamily: "Georgia, serif", fontSize: "1.2rem", fontWeight: 700, marginBottom: "12px" }}>
+                <h2 style={{ color: "var(--heading-primary)", fontFamily: "Georgia, serif", fontSize: "1.375rem", fontWeight: 800, lineHeight: 1.3, marginTop: "2rem", marginBottom: "12px" }}>
                   {section.heading}
                 </h2>
-                <div style={{ color: "var(--text-secondary)", fontSize: "0.925rem", lineHeight: "1.8" }}>
+                <div style={{ color: "var(--content-secondary)", fontSize: "0.925rem", lineHeight: "1.8" }}>
                   {section.content.split("\n").map((line, i) => (
                     <p key={i} style={{ marginBottom: "8px" }}>{line}</p>
                   ))}
@@ -158,7 +158,7 @@ export default async function GuideDetailESPage({ params }: { params: Promise<{ 
             <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "1rem", marginBottom: "12px" }}>
               ¿Necesita ayuda personalizada con su propiedad?
             </h3>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", marginBottom: "16px" }}>
+            <p style={{ color: "var(--content-secondary)", fontSize: "0.875rem", marginBottom: "16px" }}>
               Envíe una solicitud y lo conectaremos con recursos apropiados para su situación específica.
             </p>
             <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "var(--navy)", color: "white", fontWeight: 700, fontSize: "0.9rem", padding: "12px 24px", borderRadius: "6px" }} className="hover:opacity-90">

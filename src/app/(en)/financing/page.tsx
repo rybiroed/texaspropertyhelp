@@ -107,7 +107,7 @@ export default function FinancingPage() {
               <div key={item.title} style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px", padding: "24px" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
                 <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "#c0c0c0", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
@@ -125,7 +125,7 @@ export default function FinancingPage() {
                 "Understand the interest rate, monthly payment, and total cost",
                 "Never make payment decisions under pressure from a contractor",
               ].map((tip) => (
-                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#c0c0c0", marginBottom: "8px" }}>
+                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--content-on-dark)", marginBottom: "8px" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>→</span>
                   {tip}
                 </li>
