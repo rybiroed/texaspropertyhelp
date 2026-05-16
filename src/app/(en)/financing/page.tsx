@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   title: "Home Repair Financing Help in Texas",
   description:
     "Explore repair financing options for Texas homeowners facing storm damage, roofing, HVAC, and emergency repair costs. Texas Property Help does not guarantee approval or financing terms.",
-  // No es-US alternate: /es/financing is a stub redirect, not a full Spanish page yet.
-  alternates: pageAlternates("/financing", null),
+  alternates: pageAlternates("/financing", "/es/financing"),
 };
 
 const optionTypes = [

@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   title: "Insurance Claim Help for Texas Homeowners",
   description:
     "Understand the homeowner insurance claim process in Texas. Texas Property Help provides general guidance on documentation, claim communication, and what to expect — not legal advice.",
-  // No es-US alternate: /es/insurance-claims is a stub redirect, not a full Spanish page yet.
-  alternates: pageAlternates("/insurance-claims", null),
+  alternates: pageAlternates("/insurance-claims", "/es/insurance-claims"),
 };
 
 const processSteps = [

@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   title: "HVAC Help in Texas",
   description:
     "Texas Property Help connects homeowners with HVAC repair and replacement resources. Get guidance on emergency AC repair, system replacement, and financing options across Texas.",
-  // No es-US alternate: /es/hvac is a stub redirect, not a full Spanish page yet.
-  alternates: pageAlternates("/hvac", null),
+  alternates: pageAlternates("/hvac", "/es/hvac"),
 };
 
 const faqs: FAQItem[] = [

@@ -4,8 +4,13 @@ import { ES } from "@/lib/translations-es";
 
 const BASE = "https://texaspropertyhelp.com";
 
-// Spanish service pages that have real content (the others redirect to /es)
-const ES_SERVICE_PAGES = ["/es/storm-damage"];
+const ES_SERVICE_PAGES = [
+  "/es/storm-damage",
+  "/es/roofing",
+  "/es/hvac",
+  "/es/insurance-claims",
+  "/es/financing",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const guides = getPublishedGuides();
@@ -24,7 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/terms-of-service`,       lastModified: new Date(), changeFrequency: "yearly",  priority: 0.3 },
   ];
 
-  // Spanish: homepage + guides + request-help have full content; service stubs excluded
   const staticES: MetadataRoute.Sitemap = [
     { url: `${BASE}/es`,             lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${BASE}/es/guides`,      lastModified: new Date(), changeFrequency: "weekly",  priority: 0.7 },
