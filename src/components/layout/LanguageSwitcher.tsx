@@ -2,17 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GUIDE_SLUG_EN_TO_ES, GUIDE_SLUG_ES_TO_EN } from "@/lib/metadata";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
   const isES = pathname === "/es" || pathname.startsWith("/es/");
 
-  const enPath = isES
-    ? pathname === "/es" ? "/" : pathname.slice(3)
-    : pathname;
-  const esPath = isES
-    ? pathname
-    : pathname === "/" ? "/es" : `/es${pathname}`;
+  const enGuideMatch = pathname.match(/^\/guides\/([^/]+)$/);
+  const esGuideMatch = pathname.match(/^\/es\/guides\/([^/]+)$/);
+
+  let enPath: string;
+  let esPath: string;
+
+  if (enGuideMatch) {
+    const esSlug = GUIDE_SLUG_EN_TO_ES[enGuideMatch[1]];
+    enPath = pathname;
+    esPath = esSlug ? `/es/guides/${esSlug}` : "/es/guides";
+  } else if (esGuideMatch) {
+    const enSlug = GUIDE_SLUG_ES_TO_EN[esGuideMatch[1]];
+    enPath = enSlug ? `/guides/${enSlug}` : "/guides";
+    esPath = pathname;
+  } else {
+    enPath = isES ? (pathname === "/es" ? "/" : pathname.slice(3)) : pathname;
+    esPath = isES ? pathname : (pathname === "/" ? "/es" : `/es${pathname}`);
+  }
 
   return (
     <div
