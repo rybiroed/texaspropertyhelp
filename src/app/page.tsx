@@ -5,12 +5,14 @@ import TrustSection from "@/components/sections/TrustSection";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import { SITE_CONFIG } from "@/lib/config";
+import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
   title: "Texas Property Help | Storm Damage, Roofing, HVAC & Insurance Help",
   description:
     "Texas Property Help connects homeowners with trusted resources for storm damage, roofing, HVAC, insurance claim guidance, and repair financing across Texas.",
+  alternates: pageAlternates("/", "/es"),
 };
 
 const services = [

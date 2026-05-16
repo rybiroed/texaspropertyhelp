@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FAQES from "@/components/sections/es/FAQES";
 import DisclaimerBoxES from "@/components/sections/es/DisclaimerBoxES";
+import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
   title: "Ayuda con Daños por Tormenta en Texas",
   description:
     "Aprenda qué hacer después de daños por granizo, viento o tormenta en su propiedad en Texas. Texas Property Help conecta a propietarios con recursos para evaluación de daños, documentación y referencias para reparaciones de emergencia.",
-  alternates: { languages: { "en-US": "https://texaspropertyhelp.com/storm-damage" } },
+  alternates: pageAlternates("/storm-damage", "/es/storm-damage", true),
 };
 
 const steps = [

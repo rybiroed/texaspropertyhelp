@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import GuideCard from "@/components/sections/GuideCard";
 import CTASection from "@/components/sections/CTASection";
 import { getPublishedGuides } from "@/lib/guides";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Homeowner Guides for Texas Property Owners",
   description:
     "Step-by-step guides for Texas homeowners covering storm damage response, roof insurance claims, emergency repairs, and HVAC financing.",
+  alternates: pageAlternates("/guides", "/es/guides"),
 };
 
 export default function GuidesPage() {

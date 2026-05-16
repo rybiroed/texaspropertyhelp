@@ -3,12 +3,15 @@ import Link from "next/link";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
+import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
   title: "Roofing Help in Texas",
   description:
     "Texas Property Help connects homeowners with roofing inspection, repair, and replacement resources. Learn what to expect and how to navigate insurance-related roof claims.",
+  // No es-US alternate: /es/roofing is a stub redirect, not a full Spanish page yet.
+  alternates: pageAlternates("/roofing", null),
 };
 
 const roofServices = [

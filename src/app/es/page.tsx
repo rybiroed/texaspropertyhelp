@@ -4,14 +4,13 @@ import ServiceCard from "@/components/sections/ServiceCard";
 import TrustSectionES from "@/components/sections/es/TrustSectionES";
 import FAQES from "@/components/sections/es/FAQES";
 import { ES } from "@/lib/translations-es";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Texas Property Help | Ayuda para Propietarios en Texas",
   description:
     "Texas Property Help conecta a propietarios con recursos para daños por tormenta, techos, HVAC, reclamaciones de seguro y financiamiento de reparaciones en Texas.",
-  alternates: {
-    languages: { "en-US": "https://texaspropertyhelp.com" },
-  },
+  alternates: pageAlternates("/", "/es", true),
 };
 
 export default function EsHomePage() {

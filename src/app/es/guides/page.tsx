@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ES } from "@/lib/translations-es";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Guías para Propietarios de Texas",
   description:
     "Guías paso a paso para propietarios de Texas sobre daños por tormenta, reclamaciones de seguro, reparaciones de emergencia y financiamiento de HVAC.",
-  alternates: { languages: { "en-US": "https://texaspropertyhelp.com/guides" } },
+  alternates: pageAlternates("/guides", "/es/guides", true),
 };
 
 const categoryLabels: Record<string, string> = {

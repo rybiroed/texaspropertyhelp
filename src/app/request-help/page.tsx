@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import LeadForm from "@/components/sections/LeadForm";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Request Property Help",
   description:
     "Submit your Texas property help request. Tell us about your situation — storm damage, roofing, HVAC, insurance, or financing — and we'll connect you with the right resources.",
   robots: { index: true, follow: true },
+  alternates: pageAlternates("/request-help", "/es/request-help"),
 };
 
 export default function RequestHelpPage() {

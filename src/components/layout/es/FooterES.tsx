@@ -58,7 +58,17 @@ export default function FooterES() {
 
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: "40px", paddingTop: "24px" }} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>© {year} {ES.footer.copyright}</p>
-          <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>{ES.footer.notInsurer}</p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              Acerca de
+            </Link>
+            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              Privacidad
+            </Link>
+            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              Términos
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

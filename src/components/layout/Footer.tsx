@@ -96,12 +96,21 @@ export default function Footer() {
           <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }}>
             © {year} Texas Property Help. All rights reserved.
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <Link href="/guides" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
               Guides
             </Link>
             <Link href="/request-help" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
               Contact
+            </Link>
+            <Link href="/about" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              About
+            </Link>
+            <Link href="/privacy-policy" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.4)" }} className="hover:text-[var(--accent)]">
+              Terms of Service
             </Link>
           </div>
         </div>

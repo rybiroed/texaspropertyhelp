@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ES } from "@/lib/translations-es";
 import DisclaimerBoxES from "@/components/sections/es/DisclaimerBoxES";
+import { pageAlternates, GUIDE_SLUG_ES_TO_EN } from "@/lib/metadata";
 
 const categoryLabels: Record<string, string> = {
   "storm-damage": "Daños por Tormenta",
@@ -75,10 +76,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const guide = ES.guideCards.find((g) => g.slug === slug);
   if (!guide) return { title: "Guía no encontrada" };
+  const enSlug = GUIDE_SLUG_ES_TO_EN[slug];
   return {
     title: guide.title,
     description: guide.description,
-    alternates: { languages: { "en-US": `https://texaspropertyhelp.com/guides` } },
+    alternates: pageAlternates(
+      enSlug ? `/guides/${enSlug}` : "/guides",
+      `/es/guides/${slug}`,
+      true,
+    ),
   };
 }
 

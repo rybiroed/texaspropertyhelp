@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getGuideBySlug, getPublishedGuides } from "@/lib/guides";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
 import CTASection from "@/components/sections/CTASection";
+import { pageAlternates, GUIDE_SLUG_EN_TO_ES } from "@/lib/metadata";
 
 /**
  * Guide content registry.
@@ -184,9 +185,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const guide = getGuideBySlug(slug);
   if (!guide) return { title: "Guide Not Found" };
+  const esSlug = GUIDE_SLUG_EN_TO_ES[slug];
   return {
     title: guide.title,
     description: guide.description,
+    alternates: pageAlternates(
+      `/guides/${slug}`,
+      esSlug ? `/es/guides/${esSlug}` : null,
+    ),
   };
 }
 

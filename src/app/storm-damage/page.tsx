@@ -3,12 +3,14 @@ import Link from "next/link";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
+import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
   title: "Storm Damage Help in Texas",
   description:
     "Learn what to do after hail, wind, or storm damage to your Texas property. Texas Property Help connects homeowners with resources for damage assessment, insurance documentation, and emergency repair referrals.",
+  alternates: pageAlternates("/storm-damage", "/es/storm-damage"),
 };
 
 const steps = [

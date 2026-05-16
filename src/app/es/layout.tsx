@@ -17,13 +17,8 @@ export const metadata: Metadata = {
     url: "https://texaspropertyhelp.com/es",
     siteName: "Texas Property Help",
   },
-  alternates: {
-    canonical: "https://texaspropertyhelp.com/es",
-    languages: {
-      "en-US": "https://texaspropertyhelp.com",
-      "es-US": "https://texaspropertyhelp.com/es",
-    },
-  },
+  // alternates (canonical + hreflang) are set per-page, not here, because
+  // a layout-level canonical would incorrectly stamp the same URL on all child routes.
 };
 
 export default function EsLayout({ children }: { children: React.ReactNode }) {

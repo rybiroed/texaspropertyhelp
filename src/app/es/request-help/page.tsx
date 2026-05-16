@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import LeadFormES from "@/components/sections/es/LeadFormES";
 import DisclaimerBoxES from "@/components/sections/es/DisclaimerBoxES";
 import { ES } from "@/lib/translations-es";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Solicitar Ayuda para su Propiedad",
   description:
     "Envíe su solicitud de ayuda para propiedad en Texas. Cuéntenos sobre su situación — daños por tormenta, techo, HVAC, seguro o financiamiento — y lo conectaremos con los recursos adecuados.",
-  alternates: { languages: { "en-US": "https://texaspropertyhelp.com/request-help" } },
+  alternates: pageAlternates("/request-help", "/es/request-help", true),
 };
 
 export default function RequestHelpESPage() {

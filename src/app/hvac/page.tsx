@@ -3,12 +3,15 @@ import Link from "next/link";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
+import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
   title: "HVAC Help in Texas",
   description:
     "Texas Property Help connects homeowners with HVAC repair and replacement resources. Get guidance on emergency AC repair, system replacement, and financing options across Texas.",
+  // No es-US alternate: /es/hvac is a stub redirect, not a full Spanish page yet.
+  alternates: pageAlternates("/hvac", null),
 };
 
 const faqs: FAQItem[] = [
