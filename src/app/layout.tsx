@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { SITE_CONFIG } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
@@ -43,9 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <GoogleAnalytics />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        {children}
         <Analytics />
       </body>
     </html>
