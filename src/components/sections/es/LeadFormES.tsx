@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { SITE_CONFIG } from "@/lib/config";
 import { ES } from "@/lib/translations-es";
-import type { LeadFormData, PropertyType, HelpType, UrgencyLevel } from "@/types";
+import type { LeadFormData, HelpType } from "@/types";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -19,8 +19,26 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
   const [errorMessage, setErrorMessage] = useState("");
   const honeypotRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
+  const trackingRef = useRef({
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    referrer: "",
+    landing_page: "",
+  });
 
   const f = ES.form;
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    trackingRef.current = {
+      utm_source: params.get("utm_source") ?? "",
+      utm_medium: params.get("utm_medium") ?? "",
+      utm_campaign: params.get("utm_campaign") ?? "",
+      referrer: document.referrer,
+      landing_page: window.location.href,
+    };
+  }, []);
 
   useEffect(() => {
     if (errorMessage && errorRef.current) {
@@ -76,6 +94,7 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
           submittedAt: new Date().toISOString(),
           pageSource,
           _hp: honeypotRef.current?.value || "",
+          ...trackingRef.current,
         }),
       });
       if (!response.ok) {

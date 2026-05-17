@@ -57,6 +57,25 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
   const [errorMessage, setErrorMessage] = useState("");
   const honeypotRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
+  const trackingRef = useRef({
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    referrer: "",
+    landing_page: "",
+  });
+
+  useEffect(() => {
+    // Capture attribution context once when the form mounts
+    const params = new URLSearchParams(window.location.search);
+    trackingRef.current = {
+      utm_source: params.get("utm_source") ?? "",
+      utm_medium: params.get("utm_medium") ?? "",
+      utm_campaign: params.get("utm_campaign") ?? "",
+      referrer: document.referrer,
+      landing_page: window.location.href,
+    };
+  }, []);
 
   useEffect(() => {
     if (errorMessage && errorRef.current) {
@@ -106,6 +125,7 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
       submittedAt: new Date().toISOString(),
       pageSource,
       _hp: honeypotRef.current?.value || "",
+      ...trackingRef.current,
     };
 
     const url = SITE_CONFIG.leadApiUrl;

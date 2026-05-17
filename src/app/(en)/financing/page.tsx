@@ -86,7 +86,7 @@ export default function FinancingPage() {
             Home Repair Financing Options for Texas Homeowners
           </h1>
           <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "16px" }}>
-            When insurance doesn't cover everything — or you need repair funding fast — there may be financing options available. We help homeowners understand what's out there.
+            When insurance doesn&apos;t cover everything — or you need repair funding fast — there may be financing options available. We help homeowners understand what&apos;s out there.
           </p>
           <DisclaimerBox type="financing" />
           <div style={{ marginTop: "24px" }}>

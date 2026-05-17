@@ -22,10 +22,15 @@ CREATE TABLE IF NOT EXISTS leads (
   urgency               text NOT NULL,                      -- 'emergency' | 'urgent' | 'soon' | 'planning'
   notes                 text,
 
-  -- Tracking
+  -- Tracking — client-side context (captured on form mount)
   source_page           text,
   utm_source            text,
+  utm_medium            text,
   utm_campaign          text,
+  referrer              text,
+  landing_page          text,
+  -- Tracking — server-side context (from request headers)
+  user_agent            text,
   ip_hash               text,                               -- SHA-256(salt + IP), truncated to 32 chars
 
   -- CRM workflow
