@@ -61,6 +61,16 @@ export const GUIDES: GuideCard[] = [
     lastUpdated: "2026-05-16",
     standalonePageExists: true,
   },
+  {
+    title: "Texas Hail Damage Homeowner Checklist",
+    slug: "texas-hail-damage-homeowner-checklist",
+    description:
+      "A comprehensive step-by-step checklist for Texas homeowners after a hail storm — covering immediate safety, documentation, temporary repairs, insurance filing deadlines, adjuster visits, contractor vetting, and scam avoidance.",
+    category: "storm-damage",
+    readTime: "18 min read",
+    lastUpdated: "2026-05-16",
+    standalonePageExists: true,
+  },
 ];
 
 /**

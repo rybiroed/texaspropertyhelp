@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { SITE_CONFIG } from "@/lib/config";
 import type { LeadFormData, PropertyType, HelpType, UrgencyLevel } from "@/types";
 
@@ -55,6 +55,14 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
   const [form, setForm] = useState<LeadFormData>(emptyForm);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (errorMessage && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [errorMessage]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const { name, value, type } = e.target;
@@ -77,11 +85,15 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    console.log("[LeadForm] handleSubmit fired");
+
     if (!form.consentGiven) {
+      console.error("[LeadForm] Blocked: consent not given");
       setErrorMessage("Please check the consent box to continue.");
       return;
     }
     if (form.helpNeeded.length === 0) {
+      console.error("[LeadForm] Blocked: no help type selected");
       setErrorMessage("Please select at least one type of help needed.");
       return;
     }
@@ -89,31 +101,18 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
     setStatus("submitting");
     setErrorMessage("");
 
-    const payload: LeadFormData = {
+    const payload = {
       ...form,
       submittedAt: new Date().toISOString(),
       pageSource,
+      _hp: honeypotRef.current?.value || "",
     };
 
-    // ─────────────────────────────────────────────────────────────
-    // LEAD API CONNECTION POINT
-    // This is where the form data is sent to your backend.
-    //
-    // 1. Set NEXT_PUBLIC_LEAD_API_URL in your .env.local file
-    //    Example: NEXT_PUBLIC_LEAD_API_URL=https://api.yourdomain.com/lead
-    //
-    // 2. The payload matches the LeadFormData type in src/types/index.ts
-    //    Your backend should accept a POST request with JSON body.
-    //
-    // 3. Expected success response: HTTP 200 or 201
-    //    Expected error response: HTTP 4xx/5xx with optional { message: string }
-    //
-    // 4. For CRM integrations (HubSpot, Salesforce, GoHighLevel, etc.),
-    //    create a server-side route in src/app/api/lead/route.ts
-    //    that transforms this payload before forwarding.
-    // ─────────────────────────────────────────────────────────────
+    const url = SITE_CONFIG.leadApiUrl;
+    console.log("[LeadForm] POSTing to:", url);
+
     try {
-      const response = await fetch(SITE_CONFIG.leadApiUrl, {
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -121,12 +120,14 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
+        console.error("[LeadForm] Response not ok — status:", response.status, "body:", data);
         throw new Error(data.message || "Submission failed. Please try again.");
       }
 
       setStatus("success");
       setForm(emptyForm);
     } catch (err: unknown) {
+      console.error("[LeadForm] Submit error:", err);
       setStatus("error");
       setErrorMessage(
         err instanceof Error ? err.message : "Something went wrong. Please try again or contact us directly."
@@ -158,6 +159,16 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
+      {/* Honeypot — hidden from real users, traps bots */}
+      <input
+        ref={honeypotRef}
+        type="text"
+        name="website_url"
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ position: "absolute", width: "1px", height: "1px", opacity: 0, pointerEvents: "none" }}
+        aria-hidden="true"
+      />
       {/* Personal Info */}
       <div>
         <h3 style={{ color: "#1a1a1a", fontWeight: 700, fontSize: "1rem", marginBottom: "16px", paddingBottom: "8px", borderBottom: "1px solid #dddddd" }}>
@@ -390,6 +401,8 @@ export default function LeadForm({ pageSource = "request-help" }: { pageSource?:
       {/* Error message */}
       {(status === "error" || errorMessage) && (
         <div
+          ref={errorRef}
+          role="alert"
           style={{
             backgroundColor: "#fff5f5",
             border: "1px solid #fc8181",

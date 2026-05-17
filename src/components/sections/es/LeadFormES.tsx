@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { SITE_CONFIG } from "@/lib/config";
 import { ES } from "@/lib/translations-es";
 import type { LeadFormData, PropertyType, HelpType, UrgencyLevel } from "@/types";
@@ -17,8 +17,16 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
   const [form, setForm] = useState<LeadFormData>(emptyForm);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   const f = ES.form;
+
+  useEffect(() => {
+    if (errorMessage && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [errorMessage]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const { name, value, type } = e.target;
@@ -40,23 +48,45 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.consentGiven) { setErrorMessage("Por favor marque la casilla de consentimiento para continuar."); return; }
-    if (form.helpNeeded.length === 0) { setErrorMessage("Por favor seleccione al menos un tipo de ayuda necesaria."); return; }
-    setStatus("submitting"); setErrorMessage("");
+    console.log("[LeadFormES] handleSubmit fired");
+
+    if (!form.consentGiven) {
+      console.error("[LeadFormES] Blocked: consent not given");
+      setErrorMessage("Por favor marque la casilla de consentimiento para continuar.");
+      return;
+    }
+    if (form.helpNeeded.length === 0) {
+      console.error("[LeadFormES] Blocked: no help type selected");
+      setErrorMessage("Por favor seleccione al menos un tipo de ayuda necesaria.");
+      return;
+    }
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const url = SITE_CONFIG.leadApiUrl;
+    console.log("[LeadFormES] POSTing to:", url);
 
     try {
-      const response = await fetch(SITE_CONFIG.leadApiUrl, {
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, submittedAt: new Date().toISOString(), pageSource }),
+        body: JSON.stringify({
+          ...form,
+          submittedAt: new Date().toISOString(),
+          pageSource,
+          _hp: honeypotRef.current?.value || "",
+        }),
       });
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
+        console.error("[LeadFormES] Response not ok — status:", response.status, "body:", data);
         throw new Error(data.message || f.errorDefault);
       }
       setStatus("success");
       setForm(emptyForm);
     } catch (err: unknown) {
+      console.error("[LeadFormES] Submit error:", err);
       setStatus("error");
       setErrorMessage(err instanceof Error ? err.message : f.errorDefault);
     }
@@ -74,6 +104,16 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
+      {/* Honeypot — hidden from real users, traps bots */}
+      <input
+        ref={honeypotRef}
+        type="text"
+        name="website_url"
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ position: "absolute", width: "1px", height: "1px", opacity: 0, pointerEvents: "none" }}
+        aria-hidden="true"
+      />
       <div>
         <h3 style={sectionHead}>{f.sectionContact}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -144,7 +184,11 @@ export default function LeadFormES({ pageSource = "request-help-es" }: { pageSou
       </div>
 
       {(status === "error" || errorMessage) && (
-        <div style={{ backgroundColor: "#fff5f5", border: "1px solid #fc8181", borderRadius: "6px", padding: "12px 16px", fontSize: "0.875rem", color: "#c53030" }}>
+        <div
+          ref={errorRef}
+          role="alert"
+          style={{ backgroundColor: "#fff5f5", border: "1px solid #fc8181", borderRadius: "6px", padding: "12px 16px", fontSize: "0.875rem", color: "#c53030" }}
+        >
           {errorMessage}
         </div>
       )}

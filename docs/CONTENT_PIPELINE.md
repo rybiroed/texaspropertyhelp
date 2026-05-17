@@ -165,7 +165,7 @@ Before merging to main and deploying:
 
 ---
 
-## 9. Submit to Google / Bing
+## 9. Submit to Google / Bing / AI Search Engines
 
 After deploying to production:
 
@@ -175,14 +175,25 @@ After deploying to production:
 3. Click "Request Indexing"
 4. Record the submission date
 
-**Bing Webmaster Tools**
-1. Navigate to the site in Bing Webmaster Tools
-2. Use URL Submission to submit the new guide URL
-3. Record the submission date
+**IndexNow (Bing, Yandex, and AI-connected engines)**
+
+The site has an IndexNow endpoint at `/api/indexnow`. Submit new or updated URLs immediately after deployment:
+
+```bash
+curl -X POST https://texaspropertyhelp.com/api/indexnow \
+  -H "Authorization: Bearer <INDEXNOW_SUBMIT_SECRET>" \
+  -H "Content-Type: application/json" \
+  -d '{"urls":["/guides/your-new-guide-slug", "/es/guides/tu-guia-nueva"]}'
+```
+
+Prerequisites (one-time setup):
+1. Generate a hex key: `openssl rand -hex 16`
+2. Set `INDEXNOW_KEY` and `INDEXNOW_SUBMIT_SECRET` in Vercel environment variables
+3. Verify the key is accessible at `https://texaspropertyhelp.com/api/indexnow-key`
 
 **Sitemap ping** (optional, for bulk updates)
 - The sitemap at `/sitemap.xml` is auto-generated from `getPublishedGuides()`. No manual update needed.
-- Bing can be pinged via: `https://www.bing.com/ping?sitemap=https://texaspropertyhelp.com/sitemap.xml`
+- Bing: `https://www.bing.com/ping?sitemap=https://texaspropertyhelp.com/sitemap.xml`
 
 ---
 
@@ -234,6 +245,44 @@ In GA4, create a custom event to track clicks on `/request-help` links that orig
 | `hvac` | `[topic]-hvac-texas` | When to repair vs replace HVAC |
 | `financing` | `[financing-type]-texas-homeowners` | Home equity options for repairs |
 | `emergency-repair` | `emergency-[situation]-steps` | Emergency roof leak steps |
+
+---
+
+---
+
+## Appendix: Standalone Guide Template Structure
+
+Use this structure for new standalone authority guides (e.g., `texas-hail-damage-homeowner-checklist`):
+
+**File location:** `src/app/(en)/guides/[slug]/page.tsx`
+
+**Minimum required sections:**
+1. Hero section — navy bg, badge, H1, short description, primary CTA button
+2. Lead body — article content using `.article-body` CSS class for readable typography
+3. Tables — use `.article-table` class, `<th scope="col">` for accessibility
+4. Scam/fraud warning (where applicable) — use `<DisclaimerBox type="general" />`
+5. FAQ — use `<FAQ items={faqs} heading="..." includeSchema={true} />` for FAQPage schema
+6. CTA section — use `<CTASection />` component
+
+**Required schema markup (inline in page.tsx):**
+```typescript
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "...",
+  datePublished: "YYYY-MM-DD",
+  dateModified: "YYYY-MM-DD",
+  author: { "@type": "Organization", name: "Texas Property Help" },
+  publisher: { "@type": "Organization", name: "Texas Property Help", url: "https://texaspropertyhelp.com" },
+};
+```
+
+**Required in `src/lib/guides.ts`:**
+- Add entry with `standalonePageExists: true`
+- Set `lastUpdated` to the ISO date of publication
+
+**Required in `src/lib/metadata.ts`:**
+- Add EN↔ES slug pair to `GUIDE_SLUG_EN_TO_ES` if a Spanish version exists or is planned
 
 ---
 

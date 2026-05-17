@@ -19,7 +19,7 @@ export const SITE_CONFIG = {
   // The form handler in src/components/sections/LeadForm.tsx
   // calls this endpoint with a POST request.
   // ─────────────────────────────────────────────
-  leadApiUrl: process.env.NEXT_PUBLIC_LEAD_API_URL || "/api/lead-placeholder",
+  leadApiUrl: process.env.NEXT_PUBLIC_LEAD_API_URL || "/api/leads",
 
   // Social / OG
   ogImage: "/images/og-default.png", // Add this image to public/images/
