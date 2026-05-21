@@ -52,5 +52,6 @@ export const NAV_LINKS = [
   { label: "Insurance Claims", href: "/insurance-claims" },
   { label: "Financing", href: "/financing" },
   { label: "Guides", href: "/guides" },
+  { label: "For Professionals", href: "/for-professionals" },
   { label: "Get Help", href: "/request-help", cta: true },
 ];
