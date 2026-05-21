@@ -7,6 +7,14 @@ function clamp(raw: unknown, maxLen: number): string | null {
   return trimmed.length > 0 ? trimmed.slice(0, maxLen) : null;
 }
 
+function toStringArray(raw: unknown): string[] {
+  if (Array.isArray(raw)) {
+    return raw.map((v) => String(v).trim()).filter(Boolean);
+  }
+  if (!raw || typeof raw !== "string") return [];
+  return raw.split(",").map((v) => v.trim()).filter(Boolean);
+}
+
 export async function POST(req: NextRequest): Promise<NextResponse> {
   let raw: Record<string, unknown>;
   try {
@@ -35,8 +43,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     phone,
     email:               clamp(raw.email, 200),
     trade,
-    service_area:        clamp(raw.service_area, 500),
-    languages:           clamp(raw.languages, 200),
+    service_area:        toStringArray(raw.service_area),
+    languages:           toStringArray(raw.languages),
     emergency_available: raw.emergency_available === true || raw.emergency_available === "true",
     notes:               clamp(raw.notes, 2000),
     status:              "pending",
