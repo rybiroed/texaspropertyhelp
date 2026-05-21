@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseClient } from "@/lib/supabase";
+import { sendContractorAdminNotification } from "@/lib/email";
+import type { ContractorEmailData } from "@/lib/email";
+
+const CONTRACTOR_ADMIN_EMAIL =
+  process.env.CONTRACTOR_NOTIFICATION_EMAIL || "Viktor@grymman.com";
+
+const ALLOWED_RADII = new Set([10, 25, 50, 75, 100, 150, 250, 500]);
 
 function clamp(raw: unknown, maxLen: number): string | null {
   if (!raw || typeof raw !== "string") return null;
@@ -24,30 +31,31 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   const companyName = clamp(raw.company_name, 200);
-  const phone = clamp(raw.phone, 50);
-  const trade = clamp(raw.trade, 100);
+  const phone       = clamp(raw.phone, 50);
+  const trade       = clamp(raw.trade, 100);
+  const zipCode     = clamp(raw.zip_code, 20);
 
-  if (!companyName) {
-    return NextResponse.json({ message: "Company name is required." }, { status: 400 });
-  }
-  if (!phone) {
-    return NextResponse.json({ message: "Phone number is required." }, { status: 400 });
-  }
-  if (!trade) {
-    return NextResponse.json({ message: "Trade is required." }, { status: 400 });
-  }
+  if (!companyName) return NextResponse.json({ message: "Company name is required." }, { status: 400 });
+  if (!phone)       return NextResponse.json({ message: "Phone number is required." }, { status: 400 });
+  if (!trade)       return NextResponse.json({ message: "Trade is required." }, { status: 400 });
+  if (!zipCode)     return NextResponse.json({ message: "ZIP code is required." }, { status: 400 });
+
+  const radiusRaw = Number(raw.service_radius_miles);
+  const serviceRadiusMiles = ALLOWED_RADII.has(radiusRaw) ? radiusRaw : 50;
 
   const record = {
-    company_name:        companyName,
-    contact_name:        clamp(raw.contact_name, 200),
+    company_name:         companyName,
+    contact_name:         clamp(raw.contact_name, 200),
     phone,
-    email:               clamp(raw.email, 200),
+    email:                clamp(raw.email, 200),
     trade,
-    service_area:        toStringArray(raw.service_area),
-    languages:           toStringArray(raw.languages),
-    emergency_available: raw.emergency_available === true || raw.emergency_available === "true",
-    notes:               clamp(raw.notes, 2000),
-    status:              "pending",
+    zip_code:             zipCode,
+    service_radius_miles: serviceRadiusMiles,
+    service_area:         toStringArray(raw.service_area),
+    languages:            toStringArray(raw.languages),
+    emergency_available:  raw.emergency_available === true || raw.emergency_available === "true",
+    notes:                clamp(raw.notes, 2000),
+    status:               "pending",
   };
 
   const supabase = getSupabaseClient();
@@ -63,6 +71,29 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   } else {
     console.log("[contractors] Supabase not configured — contractor data:");
     console.log(JSON.stringify(record, null, 2));
+  }
+
+  // Send admin notification — failure does not affect the 201 response.
+  const emailData: ContractorEmailData = {
+    company_name:         record.company_name,
+    contact_name:         record.contact_name,
+    phone:                record.phone,
+    email:                record.email,
+    trade:                record.trade,
+    zip_code:             record.zip_code,
+    service_radius_miles: record.service_radius_miles,
+    service_area:         record.service_area,
+    languages:            record.languages,
+    emergency_available:  record.emergency_available,
+    notes:                record.notes,
+    status:               record.status,
+  };
+
+  try {
+    await sendContractorAdminNotification(emailData, CONTRACTOR_ADMIN_EMAIL);
+    console.log("[contractors/email] admin notification sent");
+  } catch (err) {
+    console.error("[contractors/email] failed to send admin notification:", (err as Error)?.message ?? err);
   }
 
   return NextResponse.json({ success: true }, { status: 201 });

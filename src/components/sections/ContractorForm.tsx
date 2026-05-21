@@ -14,12 +14,16 @@ const TRADES = [
   "Other",
 ];
 
+const RADIUS_OPTIONS = [10, 25, 50, 75, 100, 150, 250, 500] as const;
+
 interface FormState {
   company_name: string;
   contact_name: string;
   phone: string;
   email: string;
   trade: string;
+  zip_code: string;
+  service_radius_miles: number;
   service_area: string;
   languages: string;
   emergency_available: boolean;
@@ -32,6 +36,8 @@ const EMPTY: FormState = {
   phone: "",
   email: "",
   trade: "",
+  zip_code: "",
+  service_radius_miles: 50,
   service_area: "",
   languages: "",
   emergency_available: false,
@@ -51,6 +57,7 @@ export default function ContractorForm() {
     if (!form.company_name.trim()) next.company_name = "Company name is required.";
     if (!form.phone.trim()) next.phone = "Phone number is required.";
     if (!form.trade) next.trade = "Please select your trade.";
+    if (!form.zip_code.trim()) next.zip_code = "ZIP code is required.";
     setErrors(next);
     if (Object.keys(next).length > 0) {
       setTimeout(() => firstErrorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
@@ -131,9 +138,14 @@ export default function ContractorForm() {
     marginTop: "4px",
   };
 
-  const fieldWrap = (hasError: boolean): React.CSSProperties => ({
-    ...(hasError ? { borderColor: "var(--danger)" } : {}),
-  });
+  const hintStyle: React.CSSProperties = {
+    fontSize: "0.8125rem",
+    color: "var(--content-muted)",
+    marginTop: "4px",
+  };
+
+  const errBorder = (field: keyof FormState): React.CSSProperties =>
+    errors[field] ? { borderColor: "var(--danger)" } : {};
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -156,6 +168,7 @@ export default function ContractorForm() {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ marginBottom: "16px" }}>
+
         {/* Company Name */}
         <div style={{ gridColumn: "1 / -1" }}>
           <label htmlFor="company_name" style={labelStyle}>
@@ -167,7 +180,7 @@ export default function ContractorForm() {
             autoComplete="organization"
             value={form.company_name}
             onChange={(e) => setForm({ ...form, company_name: e.target.value })}
-            style={{ ...fieldStyle, ...fieldWrap(!!errors.company_name) }}
+            style={{ ...fieldStyle, ...errBorder("company_name") }}
             placeholder="Your business name"
           />
           {errors.company_name && <p style={errorStyle}>{errors.company_name}</p>}
@@ -200,7 +213,7 @@ export default function ContractorForm() {
             autoComplete="tel"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            style={{ ...fieldStyle, ...fieldWrap(!!errors.phone) }}
+            style={{ ...fieldStyle, ...errBorder("phone") }}
             placeholder="(512) 555-0100"
           />
           {errors.phone && <p style={errorStyle}>{errors.phone}</p>}
@@ -231,7 +244,7 @@ export default function ContractorForm() {
             id="trade"
             value={form.trade}
             onChange={(e) => setForm({ ...form, trade: e.target.value })}
-            style={{ ...fieldStyle, ...fieldWrap(!!errors.trade) }}
+            style={{ ...fieldStyle, ...errBorder("trade") }}
           >
             <option value="">Select trade…</option>
             {TRADES.map((t) => (
@@ -241,10 +254,46 @@ export default function ContractorForm() {
           {errors.trade && <p style={errorStyle}>{errors.trade}</p>}
         </div>
 
+        {/* ZIP Code */}
+        <div>
+          <label htmlFor="zip_code" style={labelStyle}>
+            ZIP Code <span style={{ color: "var(--danger)" }}>*</span>
+          </label>
+          <input
+            id="zip_code"
+            type="text"
+            inputMode="numeric"
+            value={form.zip_code}
+            onChange={(e) => setForm({ ...form, zip_code: e.target.value })}
+            style={{ ...fieldStyle, ...errBorder("zip_code") }}
+            placeholder="78701"
+            maxLength={10}
+          />
+          {errors.zip_code && <p style={errorStyle}>{errors.zip_code}</p>}
+        </div>
+
+        {/* Service Radius */}
+        <div style={{ gridColumn: "1 / -1" }}>
+          <label htmlFor="service_radius_miles" style={labelStyle}>
+            Service Radius
+          </label>
+          <select
+            id="service_radius_miles"
+            value={form.service_radius_miles}
+            onChange={(e) => setForm({ ...form, service_radius_miles: Number(e.target.value) })}
+            style={fieldStyle}
+          >
+            {RADIUS_OPTIONS.map((r) => (
+              <option key={r} value={r}>{r} miles</option>
+            ))}
+          </select>
+          <p style={hintStyle}>How far from your ZIP code are you willing to receive leads?</p>
+        </div>
+
         {/* Service Area */}
         <div style={{ gridColumn: "1 / -1" }}>
           <label htmlFor="service_area" style={labelStyle}>
-            Service Area
+            Specific Service Cities / Areas
           </label>
           <input
             id="service_area"
@@ -252,8 +301,9 @@ export default function ContractorForm() {
             value={form.service_area}
             onChange={(e) => setForm({ ...form, service_area: e.target.value })}
             style={fieldStyle}
-            placeholder="e.g. Austin, Houston, DFW"
+            placeholder="e.g. Austin, Killeen, Temple"
           />
+          <p style={hintStyle}>Separate multiple areas with commas.</p>
         </div>
 
         {/* Languages */}

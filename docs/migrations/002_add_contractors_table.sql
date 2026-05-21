@@ -14,8 +14,10 @@ CREATE TABLE IF NOT EXISTS contractors (
 
   -- Service profile
   trade                text NOT NULL,   -- e.g. 'roofing', 'hvac', 'general'
-  service_area         text,
-  languages            text,            -- free-text, e.g. "English, Spanish"
+  zip_code             text,
+  service_radius_miles integer NOT NULL DEFAULT 50,
+  service_area         text[],
+  languages            text[],
   emergency_available  boolean NOT NULL DEFAULT false,
   notes                text,
 
