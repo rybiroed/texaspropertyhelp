@@ -20,6 +20,8 @@ Never commit `.env.local` or any file containing real secrets to git.
 | `RESEND_API_KEY` | Your Resend API key | Without this, all emails are silently skipped |
 | `RESEND_FROM_EMAIL` | `leads@texaspropertyhelp.com` | **Must be this exact value.** Must be verified in Resend. |
 | `ADMIN_NOTIFICATION_EMAIL` | Your admin inbox address | Where new lead notifications are delivered |
+| `ADMIN_PASSWORD` | **Required before deploying admin** | Strong random value — protects all `/admin/*` routes. Generate with `openssl rand -base64 24`. |
+| `CONTRACTOR_NOTIFICATION_EMAIL` | Contractor application alerts | Defaults to `Viktor@grymman.com` if not set |
 
 ### Optional (feature degrades gracefully without these)
 
@@ -73,14 +75,18 @@ docs/schema.sql
 
 Creates: `leads` table, all indexes, RLS enabled (service role bypasses RLS).
 
-### Step 2 — Apply intelligence columns migration (existing project)
+### Step 2 — Apply migrations in order (existing project)
+
+Run these in order if the project was created before each migration was added:
 
 ```
-docs/migrations/001_add_lead_intelligence.sql
+docs/migrations/001_add_lead_intelligence.sql   — UTM/referrer/user-agent columns on leads
+docs/migrations/002_add_contractors_table.sql   — contractors table (clean install baseline)
+docs/migrations/003_add_contractor_geo_fields.sql — zip_code, service_radius_miles on contractors
+docs/migrations/004_add_lead_status.sql         — lead status column + migrates legacy values
 ```
 
-Adds: `utm_medium`, `referrer`, `landing_page`, `user_agent` columns.  
-All nullable — existing rows are unaffected.
+All migrations are idempotent — safe to re-run on an existing database.
 
 ### Verify after running
 
@@ -267,4 +273,5 @@ These must be resolved before going live. The site will build and run without th
 - **Rate limiting is Supabase-dependent.** If Supabase is unavailable, the rate limit check is skipped and all valid submissions are allowed through. This is intentional (fail-open) to avoid blocking real users during a DB outage.
 - **Rate limiting is not shared across Vercel instances.** Each serverless invocation queries Supabase independently. The database is authoritative, so this is correct behavior — not a bug.
 - **Honeypot stops naive bots only.** Bots that parse CSS or skip invisible fields bypass it. A Cloudflare Turnstile challenge can be added later if bot volume warrants it.
-- **No admin dashboard.** Leads are visible only in the Supabase table view. A read-only admin portal is documented in `docs/PORTAL_ARCHITECTURE.md` but not yet built.
+- **Admin guard is a password cookie, not real auth.** `ADMIN_PASSWORD` is compared in plaintext on the server. Use a strong random value. Replace with Supabase Auth or Clerk before adding additional admin users or highly sensitive operations.
+- **Admin cookie scope is `/admin`.** The `admin_auth` cookie is only sent for `/admin/*` requests — API routes under `/api/admin/*` are reachable without the cookie. Add server-side auth checks to sensitive admin API routes as needed.

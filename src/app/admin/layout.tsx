@@ -1,7 +1,5 @@
 import Link from "next/link";
-
-// TODO: Add auth protection before making this public-facing.
-// Currently accessible to anyone who knows the /admin URL.
+import LogoutButton from "./LogoutButton";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,13 +40,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             Leads
           </Link>
         </nav>
-        <span style={{ marginLeft: "auto" }}>
+        <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "16px" }}>
           <Link
             href="/"
             style={{ color: "#555", fontSize: "0.75rem", textDecoration: "none" }}
           >
             ← Public site
           </Link>
+          <LogoutButton />
         </span>
       </header>
       <main style={{ padding: "24px" }}>{children}</main>
