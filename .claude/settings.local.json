@@ -4,7 +4,21 @@
       "Bash(npm run *)",
       "Bash(npx next *)",
       "Bash(./node_modules/.bin/next build *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(cd \"\\\\\\\\wsl.localhost\\\\Ubuntu\\\\home\\\\rybiroed\\\\projects\\\\texaspropertyhelp\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(wsl -d Ubuntu -e bash -c 'cd ~/projects/texaspropertyhelp && git add src/app/api/contractors/route.ts && git commit -m '\\\\''Fix contractor API: convert service_area and languages to string arrays *)",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && git push origin main\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && git add src/app/api/contractors/route.ts src/components/sections/ContractorForm.tsx src/lib/email.ts docs/migrations/002_add_contractors_table.sql docs/migrations/003_add_contractor_geo_fields.sql && git status\")",
+      "Bash(wsl -d Ubuntu -e bash -c 'cd ~/projects/texaspropertyhelp && git commit -m '\\\\''Prepare contractor geo routing and email notifications *)",
+      "Bash(ls -la ~/ 2>/dev/null | head -30)",
+      "Read(//c/Users/VG654/**)",
+      "Bash(xargs grep -l \"Contractor\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && npm run build 2>&1\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && git add docs/migrations/004_add_lead_status.sql src/app/admin/ src/app/api/admin/ && git status\")",
+      "Bash(wsl -d Ubuntu -e bash -c 'cd ~/projects/texaspropertyhelp && git commit -m '\\\\''Add lead review and contractor matching system *)",
+      "Bash(wsl -d Ubuntu -e bash -c \"ls ~/projects/texaspropertyhelp/node_modules/next/dist/docs/ 2>/dev/null | head -40\")"
     ]
   }
 }

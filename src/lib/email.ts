@@ -731,3 +731,59 @@ export async function sendHomeownerConfirmation(lead: LeadEmailData): Promise<vo
     text: buildHomeownerText(lead),
   });
 }
+
+// ─── Contractor magic-link login ──────────────────────────────────────────────
+
+export interface ContractorMagicLinkData {
+  company_name: string;
+  login_url: string;
+  expires_minutes: number;
+}
+
+export async function sendContractorMagicLink(
+  data: ContractorMagicLinkData,
+  recipientEmail: string,
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) {
+    console.log("[contractor/magic-link] Resend not configured — login URL:", data.login_url);
+    return;
+  }
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login — Texas Property Help Contractor Portal</title></head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:system-ui,-apple-system,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">
+      <tr><td style="background:#000000;padding:20px 28px;border-bottom:3px solid #76b900;">
+        <span style="font-size:13px;font-weight:800;color:#76b900;letter-spacing:0.05em;">TPH</span>
+        <span style="font-size:13px;color:#888;margin-left:10px;letter-spacing:0.05em;text-transform:uppercase;">Contractor Portal</span>
+      </td></tr>
+      <tr><td style="padding:32px 28px;">
+        <h1 style="margin:0 0 8px;font-size:20px;font-weight:700;color:#111;">${escapeHtml(data.company_name)}</h1>
+        <p style="margin:0 0 24px;font-size:14px;color:#6b7280;">Your login link is ready. Click the button below to access your contractor dashboard.</p>
+        <a href="${escapeHtml(data.login_url)}" style="display:inline-block;background:#76b900;color:#000;font-weight:700;font-size:15px;padding:13px 28px;border-radius:6px;text-decoration:none;">Log In to Dashboard →</a>
+        <p style="margin:20px 0 0;font-size:12px;color:#9ca3af;">This link expires in ${data.expires_minutes} minutes and can only be used once. Do not share it.</p>
+        <p style="margin:8px 0 0;font-size:11px;color:#d1d5db;word-break:break-all;">If the button doesn't work, copy this link: ${escapeHtml(data.login_url)}</p>
+      </td></tr>
+      <tr><td style="background:#f9fafb;padding:16px 28px;border-top:1px solid #e5e7eb;">
+        <p style="margin:0;font-size:11px;color:#9ca3af;">Texas Property Help · Contractor Network · If you did not request this link, you can ignore this email.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+
+  const text = `Texas Property Help — Contractor Portal Login\n\nHello, ${data.company_name}.\n\nClick the link below to log in to your contractor dashboard:\n${data.login_url}\n\nThis link expires in ${data.expires_minutes} minutes and can only be used once. Do not share it.\n\nIf you did not request this link, you can ignore this email.`;
+
+  await resend.emails.send({
+    from: FROM,
+    to: recipientEmail,
+    subject: `Your login link — Texas Property Help Contractor Portal`,
+    html,
+    text,
+  });
+}

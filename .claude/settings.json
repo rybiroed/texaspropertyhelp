@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wsl -d Ubuntu -e bash -c \"ls ~/projects/texaspropertyhelp/node_modules/next/dist/docs/01-app/03-building-your-application/ 2>/dev/null\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"find ~/projects/texaspropertyhelp/node_modules/next/dist/docs -name '*.md' | grep -i 'middleware\\\\|routing' | head -20\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"find ~/projects/texaspropertyhelp/node_modules/next/dist/docs -name '*.md' | xargs grep -l -i 'middleware' 2>/dev/null | head -10\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cat ~/projects/texaspropertyhelp/node_modules/next/dist/docs/01-app/02-guides/authentication.md\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cat ~/projects/texaspropertyhelp/node_modules/next/dist/docs/01-app/02-guides/upgrading/version-16.md\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cat ~/projects/texaspropertyhelp/node_modules/next/dist/docs/01-app/01-getting-started/16-proxy.md\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"find ~/projects/texaspropertyhelp/node_modules/next/dist/docs -path '*/file-conventions/proxy*' | head -5\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"find ~/projects/texaspropertyhelp/node_modules/next/dist/docs -name 'proxy*' 2>/dev/null\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cat ~/projects/texaspropertyhelp/node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/proxy.md\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"ls ~/projects/texaspropertyhelp/.env* 2>/dev/null\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"ls ~/projects/texaspropertyhelp/docs/\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && git add src/proxy.ts src/app/admin/login/ src/app/admin/LogoutButton.tsx src/app/admin/layout.tsx src/app/api/admin/login/ src/app/api/admin/logout/ .env.example docs/production-deployment-checklist.md && git status\")",
+      "Bash(wsl -d Ubuntu -e bash -c \"cd ~/projects/texaspropertyhelp && git add src/proxy.ts src/app/admin/login/ src/app/admin/LogoutButton.tsx src/app/admin/layout.tsx src/app/api/admin/login/ src/app/api/admin/logout/ docs/production-deployment-checklist.md && git status\")",
+      "Bash(wsl -d Ubuntu -e bash -c 'cd ~/projects/texaspropertyhelp && git commit -m '\\\\''Protect admin routes with temporary password guard *)"
+    ]
+  }
+}
