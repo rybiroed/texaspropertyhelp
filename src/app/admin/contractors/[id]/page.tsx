@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getSupabaseClient } from "@/lib/supabase";
 import ContractorStatusControls from "./ContractorStatusControls";
+import type { ComplianceState } from "./ContractorStatusControls";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,7 @@ type Contractor = {
   emergency_available: boolean;
   notes: string | null;
   website: string | null;
+  social_profile: string | null;
   years_in_business: number | null;
   status: string;
   approved_at: string | null;
@@ -87,18 +89,28 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function BoolBadge({ value, trueLabel, falseLabel }: { value: boolean; trueLabel: string; falseLabel: string }) {
+function CheckRow({ ok, label }: { ok: boolean; label: string }) {
   return (
-    <span style={{
-      backgroundColor: value ? "#d1fae5" : "#f3f4f6",
-      color: value ? "#065f46" : "#9ca3af",
-      padding: "2px 8px",
-      borderRadius: "4px",
-      fontSize: "0.75rem",
-      fontWeight: 700,
-    }}>
-      {value ? trueLabel : falseLabel}
-    </span>
+    <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "7px 0", borderBottom: "1px solid #f3f4f6" }}>
+      <span style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "20px",
+        height: "20px",
+        borderRadius: "50%",
+        backgroundColor: ok ? "#d1fae5" : "#fee2e2",
+        color: ok ? "#065f46" : "#991b1b",
+        fontWeight: 700,
+        fontSize: "0.75rem",
+        flexShrink: 0,
+      }}>
+        {ok ? "✓" : "✗"}
+      </span>
+      <span style={{ fontSize: "0.85rem", color: ok ? "#111" : "#991b1b", fontWeight: ok ? 400 : 600 }}>
+        {label}
+      </span>
+    </div>
   );
 }
 
@@ -130,6 +142,18 @@ export default async function ContractorDetailPage({
   const typedAssignments = (assignments ?? []) as unknown as Assignment[];
   const stStyle = STATUS_STYLE[c.status] ?? { bg: "#f3f4f6", color: "#374151" };
 
+  const hasOnlinePresence = !!(c.website?.trim()) || !!(c.social_profile?.trim());
+  const yearsOk = c.years_in_business != null && c.years_in_business > 0;
+
+  const compliance: ComplianceState = {
+    agreementSigned:   c.agreement_signed,
+    insuranceUploaded: c.insurance_uploaded,
+    yearsInBusiness:   yearsOk,
+    hasOnlinePresence,
+  };
+
+  const approvalBlocked = !compliance.agreementSigned || !compliance.insuranceUploaded || !compliance.yearsInBusiness || !compliance.hasOnlinePresence;
+
   const reasonForStatus =
     c.status === "rejected"  ? c.rejected_reason :
     c.status === "suspended" ? c.suspended_reason :
@@ -148,6 +172,11 @@ export default async function ContractorDetailPage({
         <span style={{ marginLeft: "8px", backgroundColor: stStyle.bg, color: stStyle.color, padding: "2px 8px", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 700 }}>
           {STATUS_LABELS[c.status] ?? c.status}
         </span>
+        {approvalBlocked && c.status !== "approved" && (
+          <span style={{ backgroundColor: "#fee2e2", color: "#991b1b", padding: "2px 8px", borderRadius: "4px", fontSize: "0.72rem", fontWeight: 700 }}>
+            Compliance Incomplete
+          </span>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -157,10 +186,36 @@ export default async function ContractorDetailPage({
 
           <Card>
             <SectionTitle>Status</SectionTitle>
-            <ContractorStatusControls id={c.id} currentStatus={c.status} />
+            <ContractorStatusControls id={c.id} currentStatus={c.status} compliance={compliance} />
             {reasonForStatus && (
               <p style={{ fontSize: "0.8rem", color: "#6b7280", marginTop: "10px", marginBottom: 0 }}>
                 <strong>Reason:</strong> {reasonForStatus}
+              </p>
+            )}
+          </Card>
+
+          {/* Compliance checklist */}
+          <Card style={{ borderColor: approvalBlocked ? "#fca5a5" : "#e5e7eb" }}>
+            <SectionTitle>Compliance Checklist</SectionTitle>
+
+            {approvalBlocked && (
+              <div style={{ backgroundColor: "#fff1f2", border: "1px solid #fca5a5", borderRadius: "6px", padding: "10px 14px", marginBottom: "14px" }}>
+                <p style={{ fontSize: "0.82rem", fontWeight: 700, color: "#991b1b", margin: 0 }}>
+                  Contractor cannot be approved until all compliance requirements are completed.
+                </p>
+              </div>
+            )}
+
+            <div>
+              <CheckRow ok={c.agreement_signed}   label="Contractor Network Agreement signed" />
+              <CheckRow ok={c.insurance_uploaded}  label="Insurance certificate uploaded" />
+              <CheckRow ok={yearsOk}               label={yearsOk ? `Years in business: ${c.years_in_business}` : "Years in business missing or invalid"} />
+              <CheckRow ok={hasOnlinePresence}     label={hasOnlinePresence ? "Online presence verified (website or social profile)" : "Website or social profile missing"} />
+            </div>
+
+            {!approvalBlocked && (
+              <p style={{ fontSize: "0.8rem", color: "#065f46", fontWeight: 600, marginTop: "12px", marginBottom: 0 }}>
+                All compliance requirements met. Contractor is eligible for approval.
               </p>
             )}
           </Card>
@@ -177,6 +232,7 @@ export default async function ContractorDetailPage({
               <Field label="Service Area" value={(c.service_area ?? []).join(", ")} />
               <Field label="Languages"    value={(c.languages ?? []).join(", ")} />
               <Field label="Website"      value={c.website ? <a href={c.website} target="_blank" rel="noopener noreferrer" style={{ color: "#76b900" }}>{c.website}</a> : null} />
+              <Field label="Social Profile" value={c.social_profile ? <a href={c.social_profile} target="_blank" rel="noopener noreferrer" style={{ color: "#76b900" }}>{c.social_profile}</a> : null} />
               <Field label="Years in Business" value={c.years_in_business != null ? String(c.years_in_business) : null} />
               <Field label="Emergency"    value={c.emergency_available ? "Available" : "No"} />
             </div>
@@ -186,11 +242,15 @@ export default async function ContractorDetailPage({
           </Card>
 
           <Card>
-            <SectionTitle>Compliance</SectionTitle>
+            <SectionTitle>Agreement & Insurance</SectionTitle>
             <div className="grid grid-cols-2 gap-x-8">
               <Field
                 label="Agreement Signed"
-                value={<BoolBadge value={c.agreement_signed} trueLabel="Signed" falseLabel="Not signed" />}
+                value={
+                  <span style={{ backgroundColor: c.agreement_signed ? "#d1fae5" : "#fee2e2", color: c.agreement_signed ? "#065f46" : "#991b1b", padding: "2px 8px", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 700 }}>
+                    {c.agreement_signed ? "Signed" : "Not signed"}
+                  </span>
+                }
               />
               <Field label="Agreement Version" value={c.agreement_version} />
               <Field
@@ -202,7 +262,11 @@ export default async function ContractorDetailPage({
               <div />
               <Field
                 label="Insurance Uploaded"
-                value={<BoolBadge value={c.insurance_uploaded} trueLabel="Uploaded" falseLabel="Not uploaded" />}
+                value={
+                  <span style={{ backgroundColor: c.insurance_uploaded ? "#d1fae5" : "#fee2e2", color: c.insurance_uploaded ? "#065f46" : "#991b1b", padding: "2px 8px", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 700 }}>
+                    {c.insurance_uploaded ? "Uploaded" : "Not uploaded"}
+                  </span>
+                }
               />
               <Field
                 label="Insurance Expires"

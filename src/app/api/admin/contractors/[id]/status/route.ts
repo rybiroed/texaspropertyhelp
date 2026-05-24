@@ -3,6 +3,24 @@ import { getSupabaseClient } from "@/lib/supabase";
 
 const ALLOWED_STATUSES = new Set(["pending_review", "approved", "rejected", "suspended", "blocked"]);
 
+type ContractorRow = {
+  agreement_signed: boolean;
+  insurance_uploaded: boolean;
+  years_in_business: number | null;
+  website: string | null;
+  social_profile: string | null;
+};
+
+function getMissingRequirements(c: ContractorRow): string[] {
+  const missing: string[] = [];
+  if (!c.agreement_signed)                  missing.push("agreement_signed");
+  if (!c.insurance_uploaded)                missing.push("insurance_uploaded");
+  if (!c.years_in_business || c.years_in_business <= 0) missing.push("years_in_business");
+  const hasPresence = !!(c.website?.trim()) || !!(c.social_profile?.trim());
+  if (!hasPresence)                         missing.push("website_or_social_profile");
+  return missing;
+}
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -28,6 +46,40 @@ export async function PATCH(
     return NextResponse.json({ message: "Database not configured." }, { status: 503 });
   }
 
+  // ── Fetch current contractor state ───────────────────────────────────────
+  const { data: contractor, error: fetchError } = await supabase
+    .from("contractors")
+    .select("agreement_signed, insurance_uploaded, years_in_business, website, social_profile")
+    .eq("id", id)
+    .single();
+
+  if (fetchError || !contractor) {
+    return NextResponse.json({ message: "Contractor not found." }, { status: 404 });
+  }
+
+  // ── Compliance gate (approval only) ──────────────────────────────────────
+  if (status === "approved") {
+    const missing = getMissingRequirements(contractor as ContractorRow);
+    if (missing.length > 0) {
+      // Log failed approval attempt
+      try {
+        await supabase.from("contractor_events").insert({
+          contractor_id: id,
+          event_type:    "approval_failed",
+          performed_by:  "admin",
+          metadata:      { missing },
+        });
+      } catch (err) {
+        console.error("[contractors/status] approval_failed event log error:", (err as Error)?.message ?? err);
+      }
+      return NextResponse.json(
+        { error: "Compliance requirements incomplete", missing },
+        { status: 400 },
+      );
+    }
+  }
+
+  // ── Apply status update ───────────────────────────────────────────────────
   const now = new Date().toISOString();
   const update: Record<string, unknown> = { status };
 
@@ -45,13 +97,13 @@ export async function PATCH(
     update.blocked_reason = reason;
   }
 
-  const { error } = await supabase.from("contractors").update(update).eq("id", id);
-  if (error) {
-    console.error("[contractors/status] update error:", error.message);
+  const { error: updateError } = await supabase.from("contractors").update(update).eq("id", id);
+  if (updateError) {
+    console.error("[contractors/status] update error:", updateError.message);
     return NextResponse.json({ message: "Failed to update status." }, { status: 500 });
   }
 
-  // Log to contractor_events (non-blocking)
+  // ── Audit log ────────────────────────────────────────────────────────────
   try {
     await supabase.from("contractor_events").insert({
       contractor_id: id,
