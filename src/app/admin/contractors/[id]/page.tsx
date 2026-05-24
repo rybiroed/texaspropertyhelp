@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getSupabaseClient } from "@/lib/supabase";
 import ContractorStatusControls from "./ContractorStatusControls";
 import type { ComplianceState } from "./ContractorStatusControls";
+import DocumentsPanel from "./DocumentsPanel";
+import type { ContractorDocument } from "./DocumentsPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -89,25 +91,16 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function CheckRow({ ok, label }: { ok: boolean; label: string }) {
+function CheckRow({ ok, warn, label }: { ok: boolean; warn?: boolean; label: string }) {
+  const iconBg    = ok ? "#d1fae5" : warn ? "#fef3c7" : "#fee2e2";
+  const iconColor = ok ? "#065f46" : warn ? "#92400e" : "#991b1b";
+  const icon      = ok ? "✓" : warn ? "!" : "✗";
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "7px 0", borderBottom: "1px solid #f3f4f6" }}>
-      <span style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "20px",
-        height: "20px",
-        borderRadius: "50%",
-        backgroundColor: ok ? "#d1fae5" : "#fee2e2",
-        color: ok ? "#065f46" : "#991b1b",
-        fontWeight: 700,
-        fontSize: "0.75rem",
-        flexShrink: 0,
-      }}>
-        {ok ? "✓" : "✗"}
+      <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "20px", height: "20px", borderRadius: "50%", backgroundColor: iconBg, color: iconColor, fontWeight: 700, fontSize: "0.75rem", flexShrink: 0 }}>
+        {icon}
       </span>
-      <span style={{ fontSize: "0.85rem", color: ok ? "#111" : "#991b1b", fontWeight: ok ? 400 : 600 }}>
+      <span style={{ fontSize: "0.85rem", color: ok ? "#111" : warn ? "#92400e" : "#991b1b", fontWeight: ok ? 400 : 600 }}>
         {label}
       </span>
     </div>
@@ -126,38 +119,95 @@ export default async function ContractorDetailPage({
     return <div style={{ color: "#c53030" }}>Supabase not configured.</div>;
   }
 
-  const [{ data: contractor, error }, { data: assignments }] = await Promise.all([
-    supabase.from("contractors").select("*").eq("id", id).single(),
-    supabase
-      .from("lead_assignments")
-      .select("id, created_at, status, lead:leads(id, full_name, city, urgency)")
-      .eq("contractor_id", id)
-      .order("created_at", { ascending: false })
-      .limit(50),
-  ]);
+  const [{ data: contractor, error }, { data: rawAssignments }, { data: rawDocs }] =
+    await Promise.all([
+      supabase.from("contractors").select("*").eq("id", id).single(),
+      supabase
+        .from("lead_assignments")
+        .select("id, created_at, status, lead:leads(id, full_name, city, urgency)")
+        .eq("contractor_id", id)
+        .order("created_at", { ascending: false })
+        .limit(50),
+      supabase
+        .from("contractor_documents")
+        .select("id, created_at, document_type, original_filename, mime_type, verification_status, verified_at, verified_by, rejection_reason, expires_at")
+        .eq("contractor_id", id)
+        .order("created_at", { ascending: false }),
+    ]);
 
   if (error || !contractor) notFound();
 
-  const c = contractor as Contractor;
-  const typedAssignments = (assignments ?? []) as unknown as Assignment[];
-  const stStyle = STATUS_STYLE[c.status] ?? { bg: "#f3f4f6", color: "#374151" };
+  const c                = contractor as Contractor;
+  const typedAssignments = (rawAssignments ?? []) as unknown as Assignment[];
 
+  // ── Lazy expiration: mark verified docs whose insurance has passed expires_at ──
+  const now = new Date().toISOString();
+  let docs = (rawDocs ?? []) as ContractorDocument[];
+
+  const expiredIds = docs
+    .filter((d) => d.verification_status === "verified" && d.expires_at && d.expires_at < now)
+    .map((d) => d.id);
+
+  if (expiredIds.length > 0) {
+    await supabase
+      .from("contractor_documents")
+      .update({ verification_status: "expired" })
+      .in("id", expiredIds);
+
+    // Log insurance_expired events for expired insurance docs
+    const expiredInsuranceIds = docs
+      .filter((d) => expiredIds.includes(d.id) && d.document_type === "insurance")
+      .map((d) => d.id);
+
+    if (expiredInsuranceIds.length > 0) {
+      try {
+        await supabase.from("contractor_events").insert(
+          expiredInsuranceIds.map((docId) => ({
+            contractor_id: id,
+            event_type:    "insurance_expired",
+            performed_by:  "system",
+            metadata:      { document_id: docId },
+          })),
+        );
+      } catch (err) {
+        console.error("[contractor/detail] insurance_expired event log error:", (err as Error)?.message ?? err);
+      }
+    }
+
+    // Update in-memory docs to reflect expiration
+    docs = docs.map((d) =>
+      expiredIds.includes(d.id) ? { ...d, verification_status: "expired" } : d,
+    );
+  }
+
+  // ── Compute compliance state from verified documents ──────────────────────
+  const hasVerifiedInsurance = docs.some(
+    (d) => d.document_type === "insurance" && d.verification_status === "verified",
+  );
+  const hasVerifiedId = docs.some(
+    (d) => d.document_type === "id" && d.verification_status === "verified",
+  );
   const hasOnlinePresence = !!(c.website?.trim()) || !!(c.social_profile?.trim());
-  const yearsOk = c.years_in_business != null && c.years_in_business > 0;
+  const yearsOk           = c.years_in_business != null && c.years_in_business > 0;
 
   const compliance: ComplianceState = {
-    agreementSigned:   c.agreement_signed,
-    insuranceUploaded: c.insurance_uploaded,
-    yearsInBusiness:   yearsOk,
+    agreementSigned:      c.agreement_signed,
+    yearsInBusiness:      yearsOk,
     hasOnlinePresence,
+    hasVerifiedInsurance,
+    hasVerifiedId,
   };
 
-  const approvalBlocked = !compliance.agreementSigned || !compliance.insuranceUploaded || !compliance.yearsInBusiness || !compliance.hasOnlinePresence;
+  const approvalBlocked = Object.values(compliance).some((v) => !v);
+  const stStyle         = STATUS_STYLE[c.status] ?? { bg: "#f3f4f6", color: "#374151" };
 
   const reasonForStatus =
-    c.status === "rejected"  ? c.rejected_reason :
+    c.status === "rejected"  ? c.rejected_reason  :
     c.status === "suspended" ? c.suspended_reason :
-    c.status === "blocked"   ? c.blocked_reason : null;
+    c.status === "blocked"   ? c.blocked_reason   : null;
+
+  // Pending review doc counts for display
+  const pendingDocCount = docs.filter((d) => d.verification_status === "pending_review").length;
 
   return (
     <div style={{ maxWidth: "960px" }}>
@@ -175,6 +225,11 @@ export default async function ContractorDetailPage({
         {approvalBlocked && c.status !== "approved" && (
           <span style={{ backgroundColor: "#fee2e2", color: "#991b1b", padding: "2px 8px", borderRadius: "4px", fontSize: "0.72rem", fontWeight: 700 }}>
             Compliance Incomplete
+          </span>
+        )}
+        {pendingDocCount > 0 && (
+          <span style={{ backgroundColor: "#fef3c7", color: "#92400e", padding: "2px 8px", borderRadius: "4px", fontSize: "0.72rem", fontWeight: 700 }}>
+            {pendingDocCount} doc{pendingDocCount > 1 ? "s" : ""} pending review
           </span>
         )}
       </div>
@@ -195,7 +250,7 @@ export default async function ContractorDetailPage({
           </Card>
 
           {/* Compliance checklist */}
-          <Card style={{ borderColor: approvalBlocked ? "#fca5a5" : "#e5e7eb" }}>
+          <Card style={{ borderColor: approvalBlocked ? "#fca5a5" : "#86efac" }}>
             <SectionTitle>Compliance Checklist</SectionTitle>
 
             {approvalBlocked && (
@@ -207,10 +262,33 @@ export default async function ContractorDetailPage({
             )}
 
             <div>
-              <CheckRow ok={c.agreement_signed}   label="Contractor Network Agreement signed" />
-              <CheckRow ok={c.insurance_uploaded}  label="Insurance certificate uploaded" />
-              <CheckRow ok={yearsOk}               label={yearsOk ? `Years in business: ${c.years_in_business}` : "Years in business missing or invalid"} />
-              <CheckRow ok={hasOnlinePresence}     label={hasOnlinePresence ? "Online presence verified (website or social profile)" : "Website or social profile missing"} />
+              <CheckRow ok={c.agreement_signed} label="Contractor Network Agreement signed" />
+              <CheckRow ok={yearsOk} label={yearsOk ? `Years in business: ${c.years_in_business}` : "Years in business missing or invalid"} />
+              <CheckRow ok={hasOnlinePresence} label={hasOnlinePresence ? "Online presence verified (website or social profile)" : "Website or social profile missing"} />
+              <CheckRow
+                ok={hasVerifiedInsurance}
+                warn={docs.some((d) => d.document_type === "insurance" && d.verification_status === "pending_review")}
+                label={
+                  hasVerifiedInsurance
+                    ? "Insurance certificate verified"
+                    : docs.some((d) => d.document_type === "insurance" && d.verification_status === "pending_review")
+                    ? "Insurance uploaded — pending review"
+                    : docs.some((d) => d.document_type === "insurance" && d.verification_status === "expired")
+                    ? "Insurance certificate expired"
+                    : "Insurance certificate not uploaded"
+                }
+              />
+              <CheckRow
+                ok={hasVerifiedId}
+                warn={docs.some((d) => d.document_type === "id" && d.verification_status === "pending_review")}
+                label={
+                  hasVerifiedId
+                    ? "Government ID verified"
+                    : docs.some((d) => d.document_type === "id" && d.verification_status === "pending_review")
+                    ? "Government ID uploaded — pending review"
+                    : "Government ID not uploaded"
+                }
+              />
             </div>
 
             {!approvalBlocked && (
@@ -223,26 +301,24 @@ export default async function ContractorDetailPage({
           <Card>
             <SectionTitle>Profile</SectionTitle>
             <div className="grid grid-cols-2 gap-x-8">
-              <Field label="Company"      value={c.company_name} />
-              <Field label="Contact"      value={c.contact_name} />
-              <Field label="Phone"        value={<a href={`tel:${c.phone}`} style={{ color: "#76b900" }}>{c.phone}</a>} />
-              <Field label="Email"        value={c.email ? <a href={`mailto:${c.email}`} style={{ color: "#76b900" }}>{c.email}</a> : null} />
-              <Field label="Trade"        value={c.trade} />
-              <Field label="ZIP / Radius" value={`${c.zip_code ?? "—"} · ${c.service_radius_miles} mi`} />
-              <Field label="Service Area" value={(c.service_area ?? []).join(", ")} />
-              <Field label="Languages"    value={(c.languages ?? []).join(", ")} />
-              <Field label="Website"      value={c.website ? <a href={c.website} target="_blank" rel="noopener noreferrer" style={{ color: "#76b900" }}>{c.website}</a> : null} />
+              <Field label="Company"        value={c.company_name} />
+              <Field label="Contact"        value={c.contact_name} />
+              <Field label="Phone"          value={<a href={`tel:${c.phone}`} style={{ color: "#76b900" }}>{c.phone}</a>} />
+              <Field label="Email"          value={c.email ? <a href={`mailto:${c.email}`} style={{ color: "#76b900" }}>{c.email}</a> : null} />
+              <Field label="Trade"          value={c.trade} />
+              <Field label="ZIP / Radius"   value={`${c.zip_code ?? "—"} · ${c.service_radius_miles} mi`} />
+              <Field label="Service Area"   value={(c.service_area ?? []).join(", ")} />
+              <Field label="Languages"      value={(c.languages ?? []).join(", ")} />
+              <Field label="Website"        value={c.website ? <a href={c.website} target="_blank" rel="noopener noreferrer" style={{ color: "#76b900" }}>{c.website}</a> : null} />
               <Field label="Social Profile" value={c.social_profile ? <a href={c.social_profile} target="_blank" rel="noopener noreferrer" style={{ color: "#76b900" }}>{c.social_profile}</a> : null} />
               <Field label="Years in Business" value={c.years_in_business != null ? String(c.years_in_business) : null} />
-              <Field label="Emergency"    value={c.emergency_available ? "Available" : "No"} />
+              <Field label="Emergency"      value={c.emergency_available ? "Available" : "No"} />
             </div>
-            {c.notes && (
-              <Field label="Notes" value={c.notes} />
-            )}
+            {c.notes && <Field label="Notes" value={c.notes} />}
           </Card>
 
           <Card>
-            <SectionTitle>Agreement & Insurance</SectionTitle>
+            <SectionTitle>Agreement</SectionTitle>
             <div className="grid grid-cols-2 gap-x-8">
               <Field
                 label="Agreement Signed"
@@ -259,64 +335,26 @@ export default async function ContractorDetailPage({
                   ? new Date(c.agreement_signed_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
                   : null}
               />
-              <div />
-              <Field
-                label="Insurance Uploaded"
-                value={
-                  <span style={{ backgroundColor: c.insurance_uploaded ? "#d1fae5" : "#fee2e2", color: c.insurance_uploaded ? "#065f46" : "#991b1b", padding: "2px 8px", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 700 }}>
-                    {c.insurance_uploaded ? "Uploaded" : "Not uploaded"}
-                  </span>
-                }
-              />
-              <Field
-                label="Insurance Expires"
-                value={c.insurance_expires_at
-                  ? new Date(c.insurance_expires_at).toLocaleDateString("en-US", { dateStyle: "medium" })
-                  : null}
-              />
             </div>
           </Card>
 
           <Card>
             <SectionTitle>Admin History</SectionTitle>
             <div className="grid grid-cols-2 gap-x-8">
-              <Field
-                label="Created"
-                value={new Date(c.created_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
-              />
-              <Field
-                label="Approved At"
-                value={c.approved_at
-                  ? `${new Date(c.approved_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}${c.approved_by ? ` by ${c.approved_by}` : ""}`
-                  : null}
-              />
-              <Field
-                label="Rejected At"
-                value={c.rejected_at
-                  ? new Date(c.rejected_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
-                  : null}
-              />
-              <Field label="Rejected Reason" value={c.rejected_reason} />
-              <Field
-                label="Suspended At"
-                value={c.suspended_at
-                  ? new Date(c.suspended_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
-                  : null}
-              />
-              <Field label="Suspended Reason" value={c.suspended_reason} />
-              <Field
-                label="Blocked At"
-                value={c.blocked_at
-                  ? new Date(c.blocked_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })
-                  : null}
-              />
-              <Field label="Blocked Reason" value={c.blocked_reason} />
+              <Field label="Created" value={new Date(c.created_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })} />
+              <Field label="Approved At" value={c.approved_at ? `${new Date(c.approved_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}${c.approved_by ? ` by ${c.approved_by}` : ""}` : null} />
+              <Field label="Rejected At"       value={c.rejected_at  ? new Date(c.rejected_at).toLocaleString("en-US",  { dateStyle: "medium", timeStyle: "short" }) : null} />
+              <Field label="Rejected Reason"   value={c.rejected_reason} />
+              <Field label="Suspended At"      value={c.suspended_at ? new Date(c.suspended_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" }) : null} />
+              <Field label="Suspended Reason"  value={c.suspended_reason} />
+              <Field label="Blocked At"        value={c.blocked_at   ? new Date(c.blocked_at).toLocaleString("en-US",   { dateStyle: "medium", timeStyle: "short" }) : null} />
+              <Field label="Blocked Reason"    value={c.blocked_reason} />
             </div>
           </Card>
         </div>
 
-        {/* Right: dispatch summary */}
-        <div>
+        {/* Right column */}
+        <div className="space-y-4">
           <Card>
             <SectionTitle>
               Leads Received ({typedAssignments.length})
@@ -330,10 +368,7 @@ export default async function ContractorDetailPage({
                   return (
                     <div key={a.id} style={{ padding: "10px 12px", backgroundColor: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "6px" }}>
                       {lead ? (
-                        <Link
-                          href={`/admin/leads/${lead.id}`}
-                          style={{ fontWeight: 700, fontSize: "0.83rem", color: "#111", textDecoration: "none" }}
-                        >
+                        <Link href={`/admin/leads/${lead.id}`} style={{ fontWeight: 700, fontSize: "0.83rem", color: "#111", textDecoration: "none" }}>
                           {lead.full_name}
                         </Link>
                       ) : (
@@ -356,6 +391,21 @@ export default async function ContractorDetailPage({
             )}
           </Card>
         </div>
+      </div>
+
+      {/* Documents — full width below grid */}
+      <div style={{ marginTop: "16px" }}>
+        <Card>
+          <SectionTitle>
+            Documents ({docs.length})
+            {pendingDocCount > 0 && (
+              <span style={{ marginLeft: "8px", backgroundColor: "#fef3c7", color: "#92400e", padding: "1px 6px", borderRadius: "3px", fontSize: "0.7rem" }}>
+                {pendingDocCount} pending
+              </span>
+            )}
+          </SectionTitle>
+          <DocumentsPanel contractorId={c.id} initialDocs={docs} />
+        </Card>
       </div>
     </div>
   );

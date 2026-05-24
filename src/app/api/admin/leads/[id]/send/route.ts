@@ -45,6 +45,26 @@ export async function POST(
     return NextResponse.json({ message: "Contractor is not approved to receive leads." }, { status: 403 });
   }
 
+  // ── 1b. Verify non-expired insurance document ────────────────────────────
+  const now = new Date().toISOString();
+  const { data: insuranceDocs } = await supabase
+    .from("contractor_documents")
+    .select("id, expires_at")
+    .eq("contractor_id", contractorId)
+    .eq("document_type", "insurance")
+    .eq("verification_status", "verified");
+
+  const hasValidInsurance = (insuranceDocs ?? []).some(
+    (d: { expires_at: string | null }) => !d.expires_at || d.expires_at > now,
+  );
+
+  if (!hasValidInsurance) {
+    return NextResponse.json(
+      { message: "Contractor insurance has expired or is not verified. Cannot dispatch lead." },
+      { status: 403 },
+    );
+  }
+
   // ── 2. Insert assignment record ──────────────────────────────────────────
   const { data: assignment, error: assignError } = await supabase
     .from("lead_assignments")

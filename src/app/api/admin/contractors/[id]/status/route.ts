@@ -5,19 +5,44 @@ const ALLOWED_STATUSES = new Set(["pending_review", "approved", "rejected", "sus
 
 type ContractorRow = {
   agreement_signed: boolean;
-  insurance_uploaded: boolean;
   years_in_business: number | null;
   website: string | null;
   social_profile: string | null;
 };
 
-function getMissingRequirements(c: ContractorRow): string[] {
+type DocRow = {
+  document_type: string;
+  verification_status: string;
+  expires_at: string | null;
+};
+
+function getMissingRequirements(
+  c: ContractorRow,
+  docs: DocRow[],
+  now: string,
+): string[] {
   const missing: string[] = [];
-  if (!c.agreement_signed)                  missing.push("agreement_signed");
-  if (!c.insurance_uploaded)                missing.push("insurance_uploaded");
+
+  if (!c.agreement_signed) missing.push("agreement_signed");
   if (!c.years_in_business || c.years_in_business <= 0) missing.push("years_in_business");
   const hasPresence = !!(c.website?.trim()) || !!(c.social_profile?.trim());
-  if (!hasPresence)                         missing.push("website_or_social_profile");
+  if (!hasPresence) missing.push("website_or_social_profile");
+
+  // Verified insurance that hasn't expired
+  const hasVerifiedInsurance = docs.some(
+    (d) =>
+      d.document_type === "insurance" &&
+      d.verification_status === "verified" &&
+      (!d.expires_at || d.expires_at > now),
+  );
+  if (!hasVerifiedInsurance) missing.push("verified_insurance_document");
+
+  // Verified government ID
+  const hasVerifiedId = docs.some(
+    (d) => d.document_type === "id" && d.verification_status === "verified",
+  );
+  if (!hasVerifiedId) missing.push("verified_government_id");
+
   return missing;
 }
 
@@ -46,12 +71,18 @@ export async function PATCH(
     return NextResponse.json({ message: "Database not configured." }, { status: 503 });
   }
 
-  // ── Fetch current contractor state ───────────────────────────────────────
-  const { data: contractor, error: fetchError } = await supabase
-    .from("contractors")
-    .select("agreement_signed, insurance_uploaded, years_in_business, website, social_profile")
-    .eq("id", id)
-    .single();
+  // ── Fetch contractor + documents in parallel ──────────────────────────────
+  const [{ data: contractor, error: fetchError }, { data: docs }] = await Promise.all([
+    supabase
+      .from("contractors")
+      .select("agreement_signed, years_in_business, website, social_profile")
+      .eq("id", id)
+      .single(),
+    supabase
+      .from("contractor_documents")
+      .select("document_type, verification_status, expires_at")
+      .eq("contractor_id", id),
+  ]);
 
   if (fetchError || !contractor) {
     return NextResponse.json({ message: "Contractor not found." }, { status: 404 });
@@ -59,9 +90,14 @@ export async function PATCH(
 
   // ── Compliance gate (approval only) ──────────────────────────────────────
   if (status === "approved") {
-    const missing = getMissingRequirements(contractor as ContractorRow);
+    const now     = new Date().toISOString();
+    const missing = getMissingRequirements(
+      contractor as ContractorRow,
+      (docs ?? []) as DocRow[],
+      now,
+    );
+
     if (missing.length > 0) {
-      // Log failed approval attempt
       try {
         await supabase.from("contractor_events").insert({
           contractor_id: id,

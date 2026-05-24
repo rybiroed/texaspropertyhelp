@@ -5,25 +5,27 @@ import { useRouter } from "next/navigation";
 
 export type ComplianceState = {
   agreementSigned: boolean;
-  insuranceUploaded: boolean;
   yearsInBusiness: boolean;
   hasOnlinePresence: boolean;
+  hasVerifiedInsurance: boolean;
+  hasVerifiedId: boolean;
 };
 
 const ACTIONS = [
-  { status: "approved",       label: "Approve",        bg: "#76b900", color: "#000", confirm: false },
-  { status: "rejected",       label: "Reject",         bg: "#dc2626", color: "#fff", confirm: true  },
-  { status: "suspended",      label: "Suspend",        bg: "#f59e0b", color: "#000", confirm: true  },
-  { status: "blocked",        label: "Block",          bg: "#111",    color: "#fff", confirm: true  },
+  { status: "approved",       label: "Approve",          bg: "#76b900", color: "#000", confirm: false },
+  { status: "rejected",       label: "Reject",           bg: "#dc2626", color: "#fff", confirm: true  },
+  { status: "suspended",      label: "Suspend",          bg: "#f59e0b", color: "#000", confirm: true  },
+  { status: "blocked",        label: "Block",            bg: "#111",    color: "#fff", confirm: true  },
   { status: "pending_review", label: "Reset to Pending", bg: "#e5e7eb", color: "#374151", confirm: false },
 ] as const;
 
 function getMissingLabels(c: ComplianceState): string[] {
   const missing: string[] = [];
-  if (!c.agreementSigned)    missing.push("Agreement not signed");
-  if (!c.insuranceUploaded)  missing.push("Insurance not uploaded");
-  if (!c.yearsInBusiness)    missing.push("Years in business missing");
-  if (!c.hasOnlinePresence)  missing.push("Website or social profile missing");
+  if (!c.agreementSigned)       missing.push("Agreement not signed");
+  if (!c.yearsInBusiness)       missing.push("Years in business missing");
+  if (!c.hasOnlinePresence)     missing.push("Website or social profile missing");
+  if (!c.hasVerifiedInsurance)  missing.push("Verified insurance certificate required");
+  if (!c.hasVerifiedId)         missing.push("Verified government ID required");
   return missing;
 }
 
@@ -37,13 +39,13 @@ export default function ContractorStatusControls({
   compliance: ComplianceState;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading]   = useState<string | null>(null);
+  const [error, setError]       = useState<string | null>(null);
   const [reasonFor, setReasonFor] = useState<string | null>(null);
-  const [reason, setReason] = useState("");
+  const [reason, setReason]     = useState("");
 
   const missingRequirements = getMissingLabels(compliance);
-  const approvalBlocked = missingRequirements.length > 0;
+  const approvalBlocked     = missingRequirements.length > 0;
 
   async function apply(status: string, resolvedReason?: string) {
     setLoading(status);
@@ -73,15 +75,7 @@ export default function ContractorStatusControls({
     <div>
       {/* Compliance block warning */}
       {approvalBlocked && (
-        <div
-          style={{
-            backgroundColor: "#fff1f2",
-            border: "1px solid #fca5a5",
-            borderRadius: "6px",
-            padding: "12px 14px",
-            marginBottom: "14px",
-          }}
-        >
+        <div style={{ backgroundColor: "#fff1f2", border: "1px solid #fca5a5", borderRadius: "6px", padding: "12px 14px", marginBottom: "14px" }}>
           <p style={{ fontSize: "0.82rem", fontWeight: 700, color: "#991b1b", margin: "0 0 8px 0" }}>
             Contractor cannot be approved until all compliance requirements are completed.
           </p>
@@ -95,39 +89,38 @@ export default function ContractorStatusControls({
 
       <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
         {ACTIONS.map((a) => {
-          const isCurrent   = currentStatus === a.status;
-          const isLoading   = loading === a.status;
-          const isApprove   = a.status === "approved";
-          const isDisabled  = isCurrent || !!loading || (isApprove && approvalBlocked);
+          const isCurrent  = currentStatus === a.status;
+          const isLoading  = loading === a.status;
+          const isApprove  = a.status === "approved";
+          const isDisabled = isCurrent || !!loading || (isApprove && approvalBlocked);
 
           return (
-            <div key={a.status} style={{ position: "relative" }}>
-              <button
-                disabled={isDisabled}
-                onClick={() => {
-                  if (a.confirm) {
-                    setReasonFor(a.status);
-                    setReason("");
-                  } else {
-                    apply(a.status);
-                  }
-                }}
-                title={isApprove && approvalBlocked ? "Compliance requirements incomplete" : undefined}
-                style={{
-                  padding: "7px 14px",
-                  borderRadius: "5px",
-                  border: "none",
-                  backgroundColor: isDisabled ? "#e5e7eb" : a.bg,
-                  color: isDisabled ? "#9ca3af" : a.color,
-                  fontWeight: 700,
-                  fontSize: "0.8rem",
-                  cursor: isDisabled ? "not-allowed" : "pointer",
-                  opacity: isApprove && approvalBlocked ? 0.5 : isCurrent ? 0.6 : 1,
-                }}
-              >
-                {isLoading ? "Saving…" : isCurrent ? `✓ ${a.label}` : a.label}
-              </button>
-            </div>
+            <button
+              key={a.status}
+              disabled={isDisabled}
+              onClick={() => {
+                if (a.confirm) {
+                  setReasonFor(a.status);
+                  setReason("");
+                } else {
+                  apply(a.status);
+                }
+              }}
+              title={isApprove && approvalBlocked ? "Compliance requirements incomplete" : undefined}
+              style={{
+                padding: "7px 14px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: isDisabled ? "#e5e7eb" : a.bg,
+                color: isDisabled ? "#9ca3af" : a.color,
+                fontWeight: 700,
+                fontSize: "0.8rem",
+                cursor: isDisabled ? "not-allowed" : "pointer",
+                opacity: isApprove && approvalBlocked ? 0.5 : isCurrent ? 0.6 : 1,
+              }}
+            >
+              {isLoading ? "Saving…" : isCurrent ? `✓ ${a.label}` : a.label}
+            </button>
           );
         })}
       </div>

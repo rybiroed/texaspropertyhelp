@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import DocumentUpload from "./DocumentUpload";
 
 const TRADES = [
   "Roofing",
@@ -55,6 +56,7 @@ export default function ContractorForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contractorId, setContractorId] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
   const firstErrorRef = useRef<HTMLDivElement>(null);
 
@@ -90,6 +92,7 @@ export default function ContractorForm() {
         setServerError(data.message ?? "Something went wrong. Please try again.");
         return;
       }
+      setContractorId((data as { contractorId?: string }).contractorId ?? null);
       setSubmitted(true);
     } catch {
       setServerError("Network error. Please check your connection and try again.");
@@ -100,22 +103,37 @@ export default function ContractorForm() {
 
   if (submitted) {
     return (
-      <div
-        style={{
-          backgroundColor: "#f0fdf4",
-          border: "1px solid #86efac",
-          borderRadius: "10px",
-          padding: "32px 28px",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ fontSize: "2rem", marginBottom: "12px" }}>✓</div>
-        <h3 style={{ color: "var(--success)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "12px" }}>
-          Application Received
-        </h3>
-        <p style={{ color: "var(--content-secondary)", fontSize: "0.9375rem", lineHeight: 1.7, margin: 0 }}>
-          Thanks. We received your contractor application. We will review your service area and contact you before sending leads.
-        </p>
+      <div>
+        <div
+          style={{
+            backgroundColor: "#f0fdf4",
+            border: "1px solid #86efac",
+            borderRadius: "10px",
+            padding: "24px 28px",
+            marginBottom: "28px",
+          }}
+        >
+          <div style={{ fontSize: "2rem", marginBottom: "10px" }}>✓</div>
+          <h3 style={{ color: "var(--success)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "10px" }}>
+            Application Received
+          </h3>
+          <p style={{ color: "var(--content-secondary)", fontSize: "0.9375rem", lineHeight: 1.7, margin: 0 }}>
+            Thanks. Now upload your compliance documents below. Lead access is disabled until verification is complete.
+          </p>
+        </div>
+
+        {contractorId ? (
+          <>
+            <h3 style={{ fontWeight: 700, fontSize: "1rem", color: "var(--content-primary)", marginBottom: "16px", marginTop: 0 }}>
+              Upload Required Documents
+            </h3>
+            <DocumentUpload contractorId={contractorId} />
+          </>
+        ) : (
+          <p style={{ color: "var(--content-secondary)", fontSize: "0.9rem" }}>
+            We received your application. Our team will reach out about document submission.
+          </p>
+        )}
       </div>
     );
   }

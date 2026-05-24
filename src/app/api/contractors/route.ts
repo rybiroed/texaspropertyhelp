@@ -71,6 +71,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     agreement_version:    "v1",
   };
 
+  // contractorId is returned to the client so they can upload documents in the same session
+  let contractorId: string | null = null;
+
   const supabase = getSupabaseClient();
   if (supabase) {
     const { data: inserted, error } = await supabase.from("contractors").insert(record).select("id").single();
@@ -81,6 +84,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         { status: 500 }
       );
     }
+    contractorId = inserted.id;
+
     // Log contractor_created event (non-blocking)
     try {
       await supabase.from("contractor_events").insert({
@@ -120,5 +125,5 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     console.error("[contractors/email] failed to send admin notification:", (err as Error)?.message ?? err);
   }
 
-  return NextResponse.json({ success: true }, { status: 201 });
+  return NextResponse.json({ success: true, contractorId }, { status: 201 });
 }
