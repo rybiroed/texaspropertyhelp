@@ -7,12 +7,6 @@ export async function PATCH(
 ): Promise<NextResponse> {
   const { id: contractorId } = await params;
 
-  // Admin auth check
-  const adminCookie = req.cookies.get("admin_auth");
-  if (adminCookie?.value !== "1") {
-    return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
-  }
-
   let body: Record<string, unknown>;
   try {
     body = await req.json();

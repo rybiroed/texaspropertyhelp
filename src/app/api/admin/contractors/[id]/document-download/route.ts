@@ -10,12 +10,6 @@ export async function GET(
 ): Promise<NextResponse> {
   const { id: contractorId } = await params;
 
-  // Admin auth check
-  const adminCookie = req.cookies.get("admin_auth");
-  if (adminCookie?.value !== "1") {
-    return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
-  }
-
   const docId = req.nextUrl.searchParams.get("docId");
   if (!docId) {
     return NextResponse.json({ message: "docId query parameter is required." }, { status: 400 });
