@@ -32,7 +32,7 @@ export async function PATCH(
     return NextResponse.json({ message: "Service unavailable." }, { status: 503 });
   }
 
-  // Verify assignment belongs to this contractor and is in pending_response state
+  // Verify assignment belongs to this contractor and is awaiting a response
   const { data: assignment, error: fetchError } = await supabase
     .from("lead_assignments")
     .select("id, status, contractor_id")
@@ -41,28 +41,30 @@ export async function PATCH(
     .single();
 
   if (fetchError || !assignment) {
+    console.error(`[assignment/respond] fetch failed assignment=${assignmentId} contractor=${contractorId}:`, fetchError?.message ?? "not found");
     return NextResponse.json({ message: "Assignment not found." }, { status: 404 });
   }
 
   if (assignment.status !== "sent") {
+    console.log(`[assignment/respond] assignment=${assignmentId} already responded status=${assignment.status}`);
     return NextResponse.json(
       { message: "Assignment is no longer awaiting a response." },
       { status: 409 },
     );
   }
 
-  const now = new Date().toISOString();
   const newStatus = action === "accept" ? "accepted" : "declined";
 
   const { error: updateError } = await supabase
     .from("lead_assignments")
-    .update({ status: newStatus, responded_at: now })
+    .update({ status: newStatus })
     .eq("id", assignmentId);
 
   if (updateError) {
-    console.error("[assignment/respond] update error:", updateError.message);
+    console.error(`[assignment/respond] update failed assignment=${assignmentId} contractor=${contractorId} prev=sent next=${newStatus}:`, updateError.message);
     return NextResponse.json({ message: "Failed to update assignment." }, { status: 500 });
   }
 
+  console.log(`[assignment/respond] assignment=${assignmentId} contractor=${contractorId} prev=sent next=${newStatus}`);
   return NextResponse.json({ success: true, status: newStatus });
 }
