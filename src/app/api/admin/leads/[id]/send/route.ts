@@ -41,6 +41,9 @@ export async function POST(
   if (contractorError || !contractor) {
     return NextResponse.json({ message: "Contractor not found." }, { status: 404 });
   }
+  if (contractor.status !== "approved") {
+    return NextResponse.json({ message: "Contractor is not approved to receive leads." }, { status: 403 });
+  }
 
   // ── 2. Insert assignment record ──────────────────────────────────────────
   const { data: assignment, error: assignError } = await supabase
@@ -63,13 +66,21 @@ export async function POST(
   // ── 3. Update lead status to matched ────────────────────────────────────
   await supabase.from("leads").update({ status: "matched" }).eq("id", leadId);
 
-  // ── 4. Log dispatch event ────────────────────────────────────────────────
-  await supabase.from("dispatch_events").insert({
-    lead_id:       leadId,
-    contractor_id: contractorId,
-    event_type:    "lead_sent",
-    metadata:      { assignment_id: assignment.id },
-  });
+  // ── 4. Log dispatch event + contractor audit event ──────────────────────
+  await Promise.all([
+    supabase.from("dispatch_events").insert({
+      lead_id:       leadId,
+      contractor_id: contractorId,
+      event_type:    "lead_sent",
+      metadata:      { assignment_id: assignment.id },
+    }),
+    supabase.from("contractor_events").insert({
+      contractor_id: contractorId,
+      event_type:    "lead_sent",
+      performed_by:  "admin",
+      metadata:      { lead_id: leadId, assignment_id: assignment.id },
+    }),
+  ]);
 
   // ── 5. Send contractor email (non-blocking on failure) ───────────────────
   const contractorEmail: string | null = contractor.email ?? null;

@@ -39,6 +39,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             Leads
           </Link>
+          <Link
+            href="/admin/contractors"
+            style={{ color: "#c0c0c0", fontSize: "0.85rem", textDecoration: "none" }}
+          >
+            Contractors
+          </Link>
         </nav>
         <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "16px" }}>
           <Link

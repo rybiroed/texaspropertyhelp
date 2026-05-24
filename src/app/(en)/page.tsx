@@ -11,7 +11,7 @@ import type { FAQItem } from "@/types";
 export const metadata: Metadata = {
   title: "Texas Property Help | Storm Damage, Roofing, HVAC & Insurance Help",
   description:
-    "Texas Property Help connects homeowners with trusted resources for storm damage, roofing, HVAC, insurance claim guidance, and repair financing across Texas.",
+    "Texas Property Help connects homeowners with local service professionals for storm damage, roofing, HVAC, insurance claim guidance, and repair financing across Texas.",
   alternates: pageAlternates("/", "/es"),
 };
 

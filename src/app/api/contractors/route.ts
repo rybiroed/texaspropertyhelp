@@ -40,8 +40,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (!trade)       return NextResponse.json({ message: "Trade is required." }, { status: 400 });
   if (!zipCode)     return NextResponse.json({ message: "ZIP code is required." }, { status: 400 });
 
+  const agreementAccepted = raw.agreement_accepted === true || raw.agreement_accepted === "true";
+  if (!agreementAccepted) {
+    return NextResponse.json({ message: "You must agree to the Contractor Network Agreement." }, { status: 400 });
+  }
+
   const radiusRaw = Number(raw.service_radius_miles);
   const serviceRadiusMiles = ALLOWED_RADII.has(radiusRaw) ? radiusRaw : 50;
+
+  const yearsRaw = Number(raw.years_in_business);
+  const yearsInBusiness = Number.isInteger(yearsRaw) && yearsRaw >= 0 && yearsRaw <= 100 ? yearsRaw : null;
 
   const record = {
     company_name:         companyName,
@@ -55,18 +63,34 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     languages:            toStringArray(raw.languages),
     emergency_available:  raw.emergency_available === true || raw.emergency_available === "true",
     notes:                clamp(raw.notes, 2000),
-    status:               "pending",
+    website:              clamp(raw.website, 500),
+    years_in_business:    yearsInBusiness,
+    status:               "pending_review",
+    agreement_signed:     true,
+    agreement_signed_at:  new Date().toISOString(),
+    agreement_version:    "v1",
   };
 
   const supabase = getSupabaseClient();
   if (supabase) {
-    const { error } = await supabase.from("contractors").insert(record);
-    if (error) {
-      console.error("[contractors] Supabase insert error:", error.message);
+    const { data: inserted, error } = await supabase.from("contractors").insert(record).select("id").single();
+    if (error || !inserted) {
+      console.error("[contractors] Supabase insert error:", error?.message);
       return NextResponse.json(
         { message: "Failed to save your application. Please try again." },
         { status: 500 }
       );
+    }
+    // Log contractor_created event (non-blocking)
+    try {
+      await supabase.from("contractor_events").insert({
+        contractor_id: inserted.id,
+        event_type:    "contractor_created",
+        performed_by:  "applicant",
+        metadata:      { trade: record.trade, zip_code: record.zip_code },
+      });
+    } catch (err) {
+      console.error("[contractors] event log error:", (err as Error)?.message ?? err);
     }
   } else {
     console.log("[contractors] Supabase not configured — contractor data:");

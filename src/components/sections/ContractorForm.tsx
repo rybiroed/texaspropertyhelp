@@ -28,6 +28,9 @@ interface FormState {
   languages: string;
   emergency_available: boolean;
   notes: string;
+  website: string;
+  years_in_business: string;
+  agreement_accepted: boolean;
 }
 
 const EMPTY: FormState = {
@@ -42,6 +45,9 @@ const EMPTY: FormState = {
   languages: "",
   emergency_available: false,
   notes: "",
+  website: "",
+  years_in_business: "",
+  agreement_accepted: false,
 };
 
 export default function ContractorForm() {
@@ -58,6 +64,7 @@ export default function ContractorForm() {
     if (!form.phone.trim()) next.phone = "Phone number is required.";
     if (!form.trade) next.trade = "Please select your trade.";
     if (!form.zip_code.trim()) next.zip_code = "ZIP code is required.";
+    if (!form.agreement_accepted) next.agreement_accepted = "You must agree to the Contractor Network Agreement.";
     setErrors(next);
     if (Object.keys(next).length > 0) {
       setTimeout(() => firstErrorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
@@ -306,6 +313,40 @@ export default function ContractorForm() {
           <p style={hintStyle}>Separate multiple areas with commas.</p>
         </div>
 
+        {/* Website */}
+        <div>
+          <label htmlFor="website" style={labelStyle}>
+            Website
+          </label>
+          <input
+            id="website"
+            type="url"
+            autoComplete="url"
+            value={form.website}
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+            style={fieldStyle}
+            placeholder="https://yourcompany.com"
+          />
+        </div>
+
+        {/* Years in Business */}
+        <div>
+          <label htmlFor="years_in_business" style={labelStyle}>
+            Years in Business
+          </label>
+          <input
+            id="years_in_business"
+            type="number"
+            inputMode="numeric"
+            min={0}
+            max={100}
+            value={form.years_in_business}
+            onChange={(e) => setForm({ ...form, years_in_business: e.target.value })}
+            style={fieldStyle}
+            placeholder="e.g. 5"
+          />
+        </div>
+
         {/* Languages */}
         <div>
           <label htmlFor="languages" style={labelStyle}>
@@ -346,8 +387,37 @@ export default function ContractorForm() {
             value={form.notes}
             onChange={(e) => setForm({ ...form, notes: e.target.value })}
             style={{ ...fieldStyle, resize: "vertical" }}
-            placeholder="License numbers, certifications, years in business, or anything else useful…"
+            placeholder="License numbers, certifications, or anything else useful…"
           />
+        </div>
+
+        {/* Agreement */}
+        <div style={{ gridColumn: "1 / -1", marginTop: "8px" }}>
+          <div
+            style={{
+              backgroundColor: errors.agreement_accepted ? "#fff5f5" : "#f9fafb",
+              border: `1px solid ${errors.agreement_accepted ? "#feb2b2" : "var(--content-border)"}`,
+              borderRadius: "6px",
+              padding: "14px 16px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+              <input
+                id="agreement_accepted"
+                type="checkbox"
+                checked={form.agreement_accepted}
+                onChange={(e) => setForm({ ...form, agreement_accepted: e.target.checked })}
+                style={{ width: "18px", height: "18px", accentColor: "var(--accent)", flexShrink: 0, marginTop: "2px" }}
+              />
+              <label htmlFor="agreement_accepted" style={{ fontSize: "0.875rem", color: "var(--content-primary)", lineHeight: 1.5, cursor: "pointer" }}>
+                <span style={{ fontWeight: 700, color: "var(--danger)" }}>* </span>
+                I agree to the{" "}
+                <strong>Contractor Network Agreement</strong>
+                {" "}— I understand that Texas Property Help connects homeowners with independent contractors, does not guarantee work, and may suspend or remove contractors who do not maintain professional standards.
+              </label>
+            </div>
+            {errors.agreement_accepted && <p style={{ ...errorStyle, marginTop: "8px", marginBottom: 0 }}>{errors.agreement_accepted}</p>}
+          </div>
         </div>
       </div>
 

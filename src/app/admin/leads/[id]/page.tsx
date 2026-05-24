@@ -209,7 +209,7 @@ export default async function LeadDetailPage({
     supabase
       .from("contractors")
       .select("id, company_name, contact_name, phone, email, trade, zip_code, service_radius_miles, service_area, emergency_available, status")
-      .in("status", ["pending", "approved"])
+      .eq("status", "approved")
       .order("company_name"),
     supabase
       .from("lead_assignments")
