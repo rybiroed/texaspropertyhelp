@@ -6,16 +6,16 @@ import { useRouter } from "next/navigation";
 export type LeadAssignment = {
   id: string;
   status: string;
-  sent_at: string;
-  responded_at: string | null;
+  created_at: string;
   lead: {
     full_name: string;
     city: string;
     zip_code: string;
-    help_needed: string[];
+    property_type: string;
+    issue_types: string[];
     urgency: string;
-    description: string | null;
-    // Only populated for accepted assignments
+    notes: string | null;
+    // Only populated for accepted assignments (gated server-side)
     email: string | null;
     phone: string | null;
   };
@@ -35,7 +35,7 @@ const URGENCY_COLORS: Record<string, { bg: string; color: string }> = {
   planning:  { bg: "#2b6cb0", color: "#fff" },
 };
 
-const HELP_LABELS: Record<string, string> = {
+const ISSUE_LABELS: Record<string, string> = {
   "storm-damage":             "Storm Damage",
   "roof-inspection":          "Roof Inspection",
   "roof-repair":              "Roof Repair",
@@ -149,13 +149,14 @@ export default function LeadResponsePanel({ assignments }: { assignments: LeadAs
               >
                 {effectiveStatus === "accepted" ? "Accepted" :
                  effectiveStatus === "declined" ? "Declined" :
-                 "Awaiting Response"}
+                 effectiveStatus === "sent"     ? "Action Required" :
+                 "Pending"}
               </span>
             </div>
 
             {/* Services requested */}
             <div style={{ marginBottom: "10px", display: "flex", flexWrap: "wrap", gap: "4px" }}>
-              {(a.lead.help_needed ?? []).map((h) => (
+              {(a.lead.issue_types ?? []).map((h) => (
                 <span
                   key={h}
                   style={{
@@ -167,15 +168,20 @@ export default function LeadResponsePanel({ assignments }: { assignments: LeadAs
                     fontWeight: 500,
                   }}
                 >
-                  {HELP_LABELS[h] ?? h}
+                  {ISSUE_LABELS[h] ?? h}
                 </span>
               ))}
+              {a.lead.property_type && (
+                <span style={{ backgroundColor: "#eff6ff", color: "#1d4ed8", padding: "2px 8px", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 500 }}>
+                  {a.lead.property_type}
+                </span>
+              )}
             </div>
 
-            {/* Description */}
-            {a.lead.description && (
+            {/* Notes */}
+            {a.lead.notes && (
               <p style={{ fontSize: "0.85rem", color: "#374151", margin: "0 0 10px", lineHeight: 1.5 }}>
-                {a.lead.description}
+                {a.lead.notes}
               </p>
             )}
 
@@ -213,7 +219,7 @@ export default function LeadResponsePanel({ assignments }: { assignments: LeadAs
             )}
 
             {/* Action buttons */}
-            {effectiveStatus === "pending_response" && (
+            {effectiveStatus === "sent" && (
               <div style={{ display: "flex", gap: "8px" }}>
                 <button
                   onClick={() => handleRespond(a.id, "accept")}
@@ -257,10 +263,7 @@ export default function LeadResponsePanel({ assignments }: { assignments: LeadAs
             )}
 
             <p style={{ fontSize: "0.72rem", color: "#9ca3af", margin: "8px 0 0" }}>
-              Sent: {new Date(a.sent_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
-              {a.responded_at && (
-                <> · Responded: {new Date(a.responded_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</>
-              )}
+              Sent: {new Date(a.created_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
             </p>
           </div>
         );

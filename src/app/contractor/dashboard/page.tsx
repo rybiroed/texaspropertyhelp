@@ -60,11 +60,11 @@ export default async function ContractorDashboardPage() {
     supabase
       .from("lead_assignments")
       .select(
-        `id, status, sent_at, responded_at,
-         lead:leads(full_name, city, zip_code, help_needed, urgency, description, email, phone)`,
+        `id, status, created_at,
+         lead:leads(full_name, city, zip_code, property_type, issue_types, urgency, notes, email, phone)`,
       )
       .eq("contractor_id", contractorId)
-      .order("sent_at", { ascending: false }),
+      .order("created_at", { ascending: false }),
   ]);
 
   if (contractorRes.error || !contractorRes.data) {
@@ -76,37 +76,42 @@ export default async function ContractorDashboardPage() {
   const rawAssignments = (assignmentsRes.data ?? []) as unknown as Array<{
     id: string;
     status: string;
-    sent_at: string;
-    responded_at: string | null;
+    created_at: string;
     lead: {
       full_name: string;
       city: string;
       zip_code: string;
-      help_needed: string[];
+      property_type: string;
+      issue_types: string[];
       urgency: string;
-      description: string | null;
+      notes: string | null;
       email: string | null;
       phone: string | null;
     } | null;
   }>;
 
+  console.log(`[contractor/dashboard] contractor_id=${contractorId} assignments_found=${rawAssignments.length}`);
+  if (assignmentsRes.error) {
+    console.error("[contractor/dashboard] assignments query error:", assignmentsRes.error.message);
+  }
+
   // Gate contact details: only expose email/phone for accepted assignments
   const assignments: LeadAssignment[] = rawAssignments
     .filter((a) => a.lead !== null)
     .map((a) => ({
-      id:           a.id,
-      status:       a.status,
-      sent_at:      a.sent_at,
-      responded_at: a.responded_at,
+      id:         a.id,
+      status:     a.status,
+      created_at: a.created_at,
       lead: {
-        full_name:   a.lead!.full_name,
-        city:        a.lead!.city,
-        zip_code:    a.lead!.zip_code,
-        help_needed: a.lead!.help_needed ?? [],
-        urgency:     a.lead!.urgency,
-        description: a.lead!.description,
-        email:       a.status === "accepted" ? a.lead!.email : null,
-        phone:       a.status === "accepted" ? a.lead!.phone : null,
+        full_name:     a.lead!.full_name,
+        city:          a.lead!.city,
+        zip_code:      a.lead!.zip_code,
+        property_type: a.lead!.property_type,
+        issue_types:   a.lead!.issue_types ?? [],
+        urgency:       a.lead!.urgency,
+        notes:         a.lead!.notes,
+        email:         a.status === "accepted" ? a.lead!.email : null,
+        phone:         a.status === "accepted" ? a.lead!.phone : null,
       },
     }));
 

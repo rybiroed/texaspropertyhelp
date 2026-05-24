@@ -44,7 +44,7 @@ export async function PATCH(
     return NextResponse.json({ message: "Assignment not found." }, { status: 404 });
   }
 
-  if (assignment.status !== "pending_response") {
+  if (assignment.status !== "sent") {
     return NextResponse.json(
       { message: "Assignment is no longer awaiting a response." },
       { status: 409 },
