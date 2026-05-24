@@ -486,6 +486,212 @@ export async function sendContractorAdminNotification(
   });
 }
 
+// ─── Contractor lead dispatch email ──────────────────────────────────────────
+
+export interface ContractorDispatchEmailData {
+  // Homeowner contact
+  homeowner_name: string;
+  homeowner_phone: string;
+  homeowner_email: string;
+  // Property
+  city: string;
+  zip_code: string;
+  // Request details
+  issue_types: string[];
+  urgency: string;
+  insurance_claim_opened: boolean;
+  notes: string | null;
+  // Assignment context
+  contractor_company_name: string;
+  assigned_at: string;
+  lead_id: string;
+}
+
+const DISPATCH_ISSUE_LABELS: Record<string, string> = {
+  "storm-damage":             "Storm Damage Assessment",
+  "roof-inspection":          "Roof Inspection",
+  "roof-repair":              "Roof Repair",
+  "roof-replacement":         "Roof Replacement",
+  "hvac-repair":              "HVAC Repair",
+  "hvac-replacement":         "HVAC Replacement",
+  "insurance-claim-guidance": "Insurance Claim Guidance",
+  "repair-financing":         "Repair Financing",
+  "emergency-repair":         "Emergency Repair",
+  "general-repair":           "General Property Repair",
+  "other":                    "Other / Not Sure",
+};
+
+const DISPATCH_URGENCY_LABEL: Record<string, string> = {
+  emergency: "🚨 Emergency",
+  urgent:    "⚠️ Urgent",
+  soon:      "Needed Soon",
+  planning:  "Planning Ahead",
+};
+
+function buildDispatchHtml(d: ContractorDispatchEmailData): string {
+  const issueList = d.issue_types
+    .map((t) => `<li style="margin-bottom:4px;">${DISPATCH_ISSUE_LABELS[t] ?? escapeHtml(t)}</li>`)
+    .join("");
+  const urgencyLabel = DISPATCH_URGENCY_LABEL[d.urgency] ?? escapeHtml(d.urgency);
+  const assignedDate = new Date(d.assigned_at).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  // Placeholder CTA links — accept/decline logic not yet implemented.
+  const acceptUrl = `https://texaspropertyhelp.com/contractor/respond?action=accept&lead=${d.lead_id}`;
+  const declineUrl = `https://texaspropertyhelp.com/contractor/respond?action=decline&lead=${d.lead_id}`;
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#eeeeee;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#eeeeee;padding:32px 16px;">
+  <tr><td align="center">
+  <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;border-radius:4px;overflow:hidden;">
+
+    <tr>
+      <td style="background:#000000;padding:20px 24px;">
+        <p style="margin:0 0 4px;font-size:10px;font-weight:700;color:#76b900;text-transform:uppercase;letter-spacing:0.12em;">Texas Property Help</p>
+        <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;">New Lead Available</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:#ffffff;padding:20px 24px 8px;">
+        <p style="margin:0 0 4px;font-size:14px;color:#374151;">Hello <strong>${escapeHtml(d.contractor_company_name)}</strong>,</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#374151;line-height:1.6;">
+          A homeowner in <strong>${escapeHtml(d.city)}, TX</strong> is looking for help.
+          Their contact information is below. Please reach out directly at your earliest convenience.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:#ffffff;padding:4px 24px 24px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #eeeeee;border-radius:4px;overflow:hidden;margin-top:12px;">
+
+          ${sectionHead("Homeowner Contact")}
+          ${row("Name",  e(d.homeowner_name))}
+          ${row("Phone", `<a href="tel:${escapeHtml(d.homeowner_phone)}" style="color:#76b900;font-weight:700;">${escapeHtml(d.homeowner_phone)}</a>`)}
+          ${row("Email", `<a href="mailto:${escapeHtml(d.homeowner_email)}" style="color:#76b900;">${escapeHtml(d.homeowner_email)}</a>`)}
+
+          ${sectionHead("Property")}
+          ${row("City",     e(d.city))}
+          ${row("ZIP Code", e(d.zip_code))}
+
+          ${sectionHead("Request")}
+          ${row("Help Needed",    `<ul style="margin:0;padding-left:16px;line-height:1.7;">${issueList}</ul>`)}
+          ${row("Urgency",        urgencyLabel)}
+          ${row("Insurance Claim", d.insurance_claim_opened ? "Yes — claim already opened" : "No")}
+          ${d.notes ? row("Message", `<span style="white-space:pre-wrap;">${escapeHtml(d.notes)}</span>`) : ""}
+
+          ${sectionHead("Assignment")}
+          ${row("Assigned To", e(d.contractor_company_name))}
+          ${row("Sent At",     assignedDate)}
+
+        </table>
+      </td>
+    </tr>
+
+    <!-- CTA buttons -->
+    <tr>
+      <td style="background:#ffffff;padding:0 24px 28px;text-align:center;">
+        <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+          <tr>
+            <td style="padding-right:12px;">
+              <a href="${acceptUrl}" style="display:inline-block;background:#76b900;color:#000000;font-weight:700;font-size:14px;padding:12px 24px;border-radius:5px;text-decoration:none;">
+                Accept Lead
+              </a>
+            </td>
+            <td>
+              <a href="${declineUrl}" style="display:inline-block;background:#f3f4f6;color:#374151;font-weight:600;font-size:14px;padding:12px 24px;border-radius:5px;text-decoration:none;">
+                Decline Lead
+              </a>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:14px 0 0;font-size:11px;color:#9ca3af;">
+          You may also contact the homeowner directly using the information above.
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:#f9f9f9;padding:14px 24px;border-top:1px solid #dddddd;">
+        <p style="margin:0;font-size:11px;color:#aaaaaa;">
+          Texas Property Help is a referral and intake platform. We are not a contractor, insurer, or lender.
+          This lead was matched to you based on your trade and service area.
+        </p>
+      </td>
+    </tr>
+
+  </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+}
+
+function buildDispatchText(d: ContractorDispatchEmailData): string {
+  const sep = "─".repeat(44);
+  const issueStr = d.issue_types.map((t) => DISPATCH_ISSUE_LABELS[t] ?? t).join(", ");
+  const urgencyLabel = DISPATCH_URGENCY_LABEL[d.urgency] ?? d.urgency;
+  const assignedDate = new Date(d.assigned_at).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+  return [
+    "NEW LEAD AVAILABLE — Texas Property Help",
+    sep,
+    "",
+    `Hello ${d.contractor_company_name},`,
+    "",
+    `A homeowner in ${d.city}, TX is looking for help.`,
+    "Please reach out directly at your earliest convenience.",
+    "",
+    "HOMEOWNER CONTACT",
+    `  Name:  ${d.homeowner_name}`,
+    `  Phone: ${d.homeowner_phone}`,
+    `  Email: ${d.homeowner_email}`,
+    "",
+    "PROPERTY",
+    `  City:    ${d.city}, TX`,
+    `  ZIP:     ${d.zip_code}`,
+    "",
+    "REQUEST",
+    `  Help Needed:    ${issueStr}`,
+    `  Urgency:        ${urgencyLabel}`,
+    `  Insurance Claim: ${d.insurance_claim_opened ? "Yes" : "No"}`,
+    ...(d.notes ? [`  Message:        ${d.notes}`] : []),
+    "",
+    "ASSIGNMENT",
+    `  Assigned To: ${d.contractor_company_name}`,
+    `  Sent At:     ${assignedDate}`,
+    "",
+    sep,
+    "Texas Property Help is a referral and intake platform.",
+    "We are not a contractor, insurer, or lender.",
+    "https://texaspropertyhelp.com",
+  ].join("\n");
+}
+
+export async function sendContractorDispatch(
+  data: ContractorDispatchEmailData,
+  recipientEmail: string,
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  await resend.emails.send({
+    from: FROM,
+    to: recipientEmail,
+    subject: "New Lead Available — Texas Property Help",
+    html: buildDispatchHtml(data),
+    text: buildDispatchText(data),
+  });
+}
+
 // ─── Public send functions ────────────────────────────────────────────────────
 
 export async function sendAdminNotification(lead: LeadEmailData): Promise<void> {
