@@ -1,0 +1,152 @@
+{
+  "name": "Contractor Outreach — Texas Property Help",
+  "description": "Weekly automated search for new contractors in Texas + outreach emails via Resend",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "parameters": {
+        "rule": { "interval": [{ "field": "weeks", "weekdaysInterval": [1], "triggerAtHour": 9 }] }
+      }
+    },
+    {
+      "id": "cities",
+      "name": "Texas Cities",
+      "type": "n8n-nodes-base.set",
+      "parameters": {
+        "values": {
+          "array": [
+            { "city": "Houston", "state": "TX", "lang": "es", "trade": "roofing" },
+            { "city": "San Antonio", "state": "TX", "lang": "es", "trade": "roofing" },
+            { "city": "Dallas", "state": "TX", "lang": "en", "trade": "roofing" },
+            { "city": "Austin", "state": "TX", "lang": "en", "trade": "hvac" },
+            { "city": "Fort Worth", "state": "TX", "lang": "en", "trade": "roofing" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "split",
+      "name": "Split By City",
+      "type": "n8n-nodes-base.splitInBatches",
+      "parameters": { "batchSize": 1 }
+    },
+    {
+      "id": "google_search",
+      "name": "Google Maps Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "https://maps.googleapis.com/maps/api/place/textsearch/json",
+        "queryParameters": {
+          "parameters": [
+            { "name": "query", "value": "={{ $json.trade }} contractor {{ $json.city }} TX" },
+            { "name": "key", "value": "={{ $env.GOOGLE_MAPS_API_KEY }}" },
+            { "name": "type", "value": "general_contractor" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "filter_quality",
+      "name": "Filter Quality Contractors",
+      "type": "n8n-nodes-base.filter",
+      "parameters": {
+        "conditions": {
+          "number": [
+            { "value1": "={{ $json.rating }}", "operation": "largerEqual", "value2": 4.0 },
+            { "value1": "={{ $json.user_ratings_total }}", "operation": "largerEqual", "value2": 10 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_supabase",
+      "name": "Check if Already in DB",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/contractors",
+        "queryParameters": {
+          "parameters": [
+            { "name": "select", "value": "id" },
+            { "name": "company_name", "value": "=eq.{{ $json.name }}" }
+          ]
+        },
+        "headers": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.SUPABASE_SERVICE_ROLE_KEY }}" },
+            { "name": "Authorization", "value": "Bearer {{ $env.SUPABASE_SERVICE_ROLE_KEY }}" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "skip_existing",
+      "name": "Skip if Already in DB",
+      "type": "n8n-nodes-base.filter",
+      "parameters": {
+        "conditions": {
+          "number": [
+            { "value1": "={{ $json.length }}", "operation": "equal", "value2": 0 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "send_email_en",
+      "name": "Send Outreach Email (EN)",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "headers": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{ $env.RESEND_API_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "body": {
+          "from": "Viktor <leads@texaspropertyhelp.com>",
+          "to": "={{ $json.website || 'noreply@example.com' }}",
+          "subject": "Get Homeowner Leads in {{ $json.city }} — Texas Property Help",
+          "html": "<p>Hi,</p><p>We run <strong>Texas Property Help</strong> (texaspropertyhelp.com) — a homeowner assistance platform connecting Texas homeowners with qualified contractors after storm damage, roofing issues, and HVAC failures.</p><p>We have open capacity for contractors in {{ $json.city }}. <strong>No monthly fees</strong> — you receive pre-qualified leads directly.</p><p><a href='https://texaspropertyhelp.com/for-professionals'>Apply in 5 minutes →</a></p><p>Viktor<br>Texas Property Help</p>"
+        }
+      }
+    },
+    {
+      "id": "log_outreach",
+      "name": "Log Outreach to Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/outreach_log",
+        "headers": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.SUPABASE_SERVICE_ROLE_KEY }}" },
+            { "name": "Authorization", "value": "Bearer {{ $env.SUPABASE_SERVICE_ROLE_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "body": {
+          "company_name": "={{ $json.name }}",
+          "city": "={{ $json.city }}",
+          "source": "google_maps",
+          "template": "outreach_en_v1",
+          "status": "sent"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "trigger": { "main": [["cities"]] },
+    "cities": { "main": [["split"]] },
+    "split": { "main": [["google_search"]] },
+    "google_search": { "main": [["filter_quality"]] },
+    "filter_quality": { "main": [["check_supabase"]] },
+    "check_supabase": { "main": [["skip_existing"]] },
+    "skip_existing": { "main": [["send_email_en"]] },
+    "send_email_en": { "main": [["log_outreach"]] }
+  }
+}
