@@ -81,6 +81,16 @@ export const GUIDES: GuideCard[] = [
     lastUpdated: "2026-05-30",
     standalonePageExists: true,
   },
+  {
+    title: "What to Do After Hail Damage in Houston, TX",
+    slug: "hail-damage-houston-tx",
+    description:
+      "Step-by-step guide for Houston homeowners after hail damage — how to document damage, file an insurance claim, choose a licensed contractor, and avoid common mistakes in the Houston area.",
+    category: "storm-damage",
+    readTime: "7 min read",
+    lastUpdated: "2026-05-30",
+    standalonePageExists: true,
+  },
 ];
 
 /**
