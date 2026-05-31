@@ -4,8 +4,10 @@ import ServiceCard from "@/components/sections/ServiceCard";
 import TrustSection from "@/components/sections/TrustSection";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
+import GuideCard from "@/components/sections/GuideCard";
 import { SITE_CONFIG } from "@/lib/config";
 import { pageAlternates } from "@/lib/metadata";
+import { getPublishedGuides } from "@/lib/guides";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
@@ -83,6 +85,11 @@ const homeFaqs: FAQItem[] = [
 ];
 
 export default function HomePage() {
+  // Get 3 most recent guides sorted by lastUpdated
+  const recentGuides = getPublishedGuides()
+    .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
+    .slice(0, 3);
+
   return (
     <>
       {/* Hero */}
@@ -192,6 +199,33 @@ export default function HomePage() {
       </section>
 
       <TrustSection />
+
+      {/* Recent Guides — auto-updates when agents add new content */}
+      <section style={{ backgroundColor: "#050505", borderTop: "1px solid #1a1a1a" }} className="py-14 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "28px", flexWrap: "wrap", gap: "12px" }}>
+            <div>
+              <p style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "6px" }}>
+                Latest Resources
+              </p>
+              <h2 style={{ color: "#ffffff", fontSize: "clamp(1.3rem, 3vw, 1.75rem)", fontWeight: 800, margin: 0 }}>
+                Recent Homeowner Guides
+              </h2>
+            </div>
+            <Link
+              href="/guides"
+              style={{ color: "var(--accent)", fontWeight: 600, fontSize: "0.9375rem", textDecoration: "none", whiteSpace: "nowrap" }}
+            >
+              All guides →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {recentGuides.map((guide) => (
+              <GuideCard key={guide.slug} {...guide} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ */}
       <FAQ items={homeFaqs} heading="Common Questions About Texas Property Help" />
