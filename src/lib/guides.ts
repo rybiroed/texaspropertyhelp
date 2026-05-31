@@ -91,6 +91,16 @@ export const GUIDES: GuideCard[] = [
     lastUpdated: "2026-05-30",
     standalonePageExists: true,
   },
+  {
+    title: "How to Check Your Roof After a Storm in Texas",
+    slug: "how-to-check-roof-after-storm-texas",
+    description:
+      "Step-by-step guide for Texas homeowners: inspect your roof after hail, document damage, decide whether to file an insurance claim, and find a licensed contractor. Also available in Spanish.",
+    category: "storm-damage",
+    readTime: "6 min read",
+    lastUpdated: "2026-05-31",
+    standalonePageExists: true,
+  },
 ];
 
 /**
