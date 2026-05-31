@@ -32,6 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/houston`,                     lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/san-antonio`,                 lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/dallas`,                      lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/austin`,                      lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE}/fort-worth`,                  lastModified: new Date(), changeFrequency: "monthly", priority: 0.80 },
   ];
 
   const staticES: MetadataRoute.Sitemap = [
