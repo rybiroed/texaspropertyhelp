@@ -71,6 +71,16 @@ export const GUIDES: GuideCard[] = [
     lastUpdated: "2026-05-16",
     standalonePageExists: true,
   },
+  {
+    title: "Texas Storm Season: Do You Need a New Roof or Just Repairs?",
+    slug: "texas-storm-roof-repair-or-replace",
+    description:
+      "After a Texas storm, homeowners wonder: does insurance cover full roof replacement or just repairs? Learn how adjusters decide, what supplements mean, ACV vs RCV, and how to protect your claim.",
+    category: "storm-damage",
+    readTime: "8 min read",
+    lastUpdated: "2026-05-30",
+    standalonePageExists: true,
+  },
 ];
 
 /**
