@@ -52,6 +52,12 @@ export const NAV_LINKS = [
   { label: "Insurance Claims", href: "/insurance-claims" },
   { label: "Financing", href: "/financing" },
   { label: "Guides", href: "/guides" },
-  { label: "For Professionals", href: "/for-professionals" },
   { label: "Get Help", href: "/request-help", cta: true },
+];
+
+// Footer-only links (not in main nav)
+export const FOOTER_EXTRA_LINKS = [
+  { label: "For Professionals (EN)", href: "/for-professionals" },
+  { label: "Para Profesionales (ES)", href: "/es/para-profesionales" },
+  { label: "Updates", href: "/updates" },
 ];

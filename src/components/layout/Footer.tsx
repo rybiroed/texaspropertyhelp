@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE_CONFIG, NAV_LINKS } from "@/lib/config";
+import { SITE_CONFIG, NAV_LINKS, FOOTER_EXTRA_LINKS } from "@/lib/config";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -43,16 +43,27 @@ export default function Footer() {
             <ul className="space-y-2">
               {NAV_LINKS.filter((l) => !l.cta).map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.65)" }}
-                    className="hover:text-[var(--accent)]"
-                  >
+                  <Link href={link.href} style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
+            {/* Professionals + Updates */}
+            <div style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              <h4 style={{ color: "rgba(255,255,255,0.4)", fontWeight: 700, fontSize: "0.75rem", marginBottom: "10px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Contractors
+              </h4>
+              <ul className="space-y-2">
+                {FOOTER_EXTRA_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Contact + CTA */}
