@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const services = [
   { title: "Daños por Tormenta", description: "Granizo, viento y daños por agua — obtenga ayuda para documentar y resolver daños a su propiedad después de tormentas en Texas.", href: "/es/storm-damage", icon: "⛈️", image: "https://images.unsplash.com/photo-1504608524841-42785f1c8f8?w=600&q=75", accentColor: "#ef4444" },
-  { title: "Ayuda con Techado", description: "Desde inspección hasta reemplazo de techo — conéctese con profesionales certificados de techado en Texas.", href: "/es/roofing", icon: "🏠", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75", accentColor: "#76b900" },
+  { title: "Ayuda con Techado", description: "Desde inspección hasta reemplazo de techo — conéctese con profesionales certificados de techado en Texas.", href: "/es/roofing", icon: "🏠", image: "/images/roofing-hero.png", accentColor: "#76b900" },
   { title: "Ayuda con HVAC", description: "Reparación de emergencia de AC, reemplazo de sistema y opciones de financiamiento para problemas de calefacción y enfriamiento.", href: "/es/hvac", icon: "🌡️", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=75", accentColor: "#0ea5e9" },
   { title: "Reclamaciones de Seguro", description: "Entienda el proceso de reclamaciones de seguro — documentación, comunicación y qué esperar en cada paso.", href: "/es/insurance-claims", icon: "📄", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75", accentColor: "#8b5cf6" },
   { title: "Financiamiento de Reparaciones", description: "Explore opciones de financiamiento para reparaciones de emergencia y planificadas cuando los costos son un obstáculo.", href: "/es/financing", icon: "💳", image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=600&q=75", accentColor: "#f59e0b" },
@@ -140,3 +140,4 @@ export default function EsHomePage() {
     </>
   );
 }
+

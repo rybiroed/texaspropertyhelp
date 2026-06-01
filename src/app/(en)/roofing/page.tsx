@@ -35,7 +35,7 @@ export default function RoofingPage() {
     <>
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
-        <Image src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="Roofing Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <Image src="/images/roofing-hero.png" alt="Roofing Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.90) 0%, rgba(0,15,0,0.72) 100%)" }} />
         <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(118,185,0,0.15)", border: "1px solid rgba(118,185,0,0.4)", color: "#a3e635", fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
@@ -107,3 +107,4 @@ export default function RoofingPage() {
     </>
   );
 }
+

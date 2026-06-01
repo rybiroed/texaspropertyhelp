@@ -33,7 +33,7 @@ const services = [
     description: "From roof inspection to repair and replacement, get connected with qualified roofing professionals across Texas.",
     href: "/roofing",
     icon: "🏠",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75",
+    image: "/images/roofing-hero.png",
     accentColor: "#76b900",
   },
   {
@@ -268,4 +268,5 @@ export default function HomePage() {
     </>
   );
 }
+
 
