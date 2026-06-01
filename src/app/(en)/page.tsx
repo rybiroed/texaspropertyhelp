@@ -6,6 +6,7 @@ import TrustSection from "@/components/sections/TrustSection";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import GuideCard from "@/components/sections/GuideCard";
+import NewsStrip from "@/components/sections/NewsStrip";
 import { SITE_CONFIG } from "@/lib/config";
 import { pageAlternates } from "@/lib/metadata";
 import { getPublishedGuides } from "@/lib/guides";
@@ -227,6 +228,9 @@ export default function HomePage() {
 
       <TrustSection />
 
+      {/* Live News Strip */}
+      <NewsStrip guides={recentGuides} />
+
       {/* Recent Guides */}
       <section style={{ backgroundColor: "#111827" }} className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
@@ -264,3 +268,4 @@ export default function HomePage() {
     </>
   );
 }
+
