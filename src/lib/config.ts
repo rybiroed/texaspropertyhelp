@@ -60,4 +60,5 @@ export const FOOTER_EXTRA_LINKS = [
   { label: "For Professionals (EN)", href: "/for-professionals" },
   { label: "Para Profesionales (ES)", href: "/es/para-profesionales" },
   { label: "Updates", href: "/updates" },
+  { label: "FAQ", href: "/faq" },
 ];

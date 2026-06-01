@@ -111,6 +111,9 @@ export default function Footer() {
             <Link href="/guides" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Guides
             </Link>
+            <Link href="/faq" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
+              FAQ
+            </Link>
             <Link href="/request-help" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }} className="hover:text-[var(--accent)]">
               Contact
             </Link>
