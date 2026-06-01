@@ -21,7 +21,7 @@ export default function GuidesPage() {
         <Image src="/images/guides-hero.jpg" alt="Texas homeowner guides" fill style={{ objectFit: "cover", objectPosition: "center top" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,20,10,0.65) 0%, rgba(0,30,15,0.50) 100%)" }} />
         <div className="max-w-4xl mx-auto text-center" style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(16,185,129,0.15)", color: "#34d399", border: "1px solid rgba(16,185,129,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(118,185,0,0.15)", color: "#76b900", border: "1px solid rgba(118,185,0,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
             📚 Homeowner Resources
           </div>
           <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "16px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
