@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
@@ -77,15 +78,17 @@ const faqs: FAQItem[] = [
 export default function FinancingPage() {
   return (
     <>
-      <section style={{ backgroundColor: "#000000" }} className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <p style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "12px" }}>
-            Repair Financing
-          </p>
-          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "16px" }}>
-            Home Repair Financing Options for Texas Homeowners
+      <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
+        <Image src="/images/financing-hero.jpg" alt="Home repair financing Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(20,15,0,0.65) 0%, rgba(30,20,0,0.50) 100%)" }} />
+        <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(245,158,11,0.15)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
+            💳 Repair Financing
+          </div>
+          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "16px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+            Home Repair Financing Options<br />for Texas Homeowners
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "16px" }}>
+          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "16px" }}>
             When insurance doesn&apos;t cover everything — or you need repair funding fast — there may be financing options available. We help homeowners understand what&apos;s out there.
           </p>
           <DisclaimerBox type="financing" />
@@ -97,24 +100,24 @@ export default function FinancingPage() {
         </div>
       </section>
 
-      <section style={{ backgroundColor: "#0a0a0a" }} className="py-14 px-4">
+      <section style={{ backgroundColor: "#f9fafb" }} className="py-14 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 style={{ color: "#ffffff", fontSize: "1.6rem", fontWeight: 800, marginBottom: "32px" }}>
+          <h2 style={{ color: "#111827", fontSize: "1.6rem", fontWeight: 800, marginBottom: "32px" }}>
             Types of Repair Financing to Explore
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {optionTypes.map((item) => (
-              <div key={item.title} style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px", padding: "24px" }}>
+              <div key={item.title} style={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "4px", padding: "24px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
                 <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
-                <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+                <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
+                <p style={{ color: "#4b5563", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
               </div>
             ))}
           </div>
 
           {/* Important notice */}
-          <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderLeft: "4px solid var(--accent)", borderRadius: "4px", padding: "20px", marginTop: "32px" }}>
-            <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "10px" }}>
+          <div style={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderLeft: "4px solid var(--accent)", borderRadius: "4px", padding: "20px", marginTop: "32px" }}>
+            <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "0.95rem", marginBottom: "10px" }}>
               📌 Before You Finance Any Repair
             </h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -125,7 +128,7 @@ export default function FinancingPage() {
                 "Understand the interest rate, monthly payment, and total cost",
                 "Never make payment decisions under pressure from a contractor",
               ].map((tip) => (
-                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--content-on-dark)", marginBottom: "8px" }}>
+                <li key={tip} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#4b5563", marginBottom: "8px" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>→</span>
                   {tip}
                 </li>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import CTASection from "@/components/sections/CTASection";
 import FAQ from "@/components/sections/FAQ";
 import DisclaimerBox from "@/components/sections/DisclaimerBox";
@@ -58,15 +59,17 @@ const faqs: FAQItem[] = [
 export default function InsuranceClaimsPage() {
   return (
     <>
-      <section style={{ backgroundColor: "#000000" }} className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <p style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "12px" }}>
-            Insurance Claim Help
-          </p>
-          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "16px" }}>
-            Understanding the Homeowner Insurance Claim Process
+      <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
+        <Image src="/images/insurance-hero.jpg" alt="Insurance claim help Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(30,0,60,0.65) 0%, rgba(10,0,30,0.50) 100%)" }} />
+        <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(139,92,246,0.15)", color: "#a78bfa", border: "1px solid rgba(139,92,246,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
+            📄 Insurance Claim Help
+          </div>
+          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, lineHeight: 1.2, marginBottom: "16px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+            Understanding the Homeowner<br />Insurance Claim Process
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "28px" }}>
+          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1rem", maxWidth: "600px", lineHeight: 1.7, marginBottom: "24px" }}>
             Filing a homeowner insurance claim can feel overwhelming. We provide general homeowner guidance on the process — not legal or insurance advice — to help you navigate with more confidence.
           </p>
           <DisclaimerBox type="legal" />
@@ -79,27 +82,27 @@ export default function InsuranceClaimsPage() {
       </section>
 
       {/* Process */}
-      <section style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid #333" }} className="py-14 px-4">
+      <section style={{ backgroundColor: "#f9fafb" }} className="py-14 px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 style={{ color: "#ffffff", fontSize: "1.6rem", fontWeight: 800, marginBottom: "32px" }}>
+          <h2 style={{ color: "#111827", fontSize: "1.6rem", fontWeight: 800, marginBottom: "32px" }}>
             The General Claims Process
           </h2>
           <div className="space-y-4">
             {processSteps.map((s) => (
-              <div key={s.step} style={{ display: "flex", gap: "20px", backgroundColor: "#1a1a1a", borderRadius: "4px", padding: "24px", border: "1px solid #333333" }}>
+              <div key={s.step} style={{ display: "flex", gap: "20px", backgroundColor: "white", borderRadius: "4px", padding: "24px", border: "1px solid #e5e7eb", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
                 <div style={{ width: "36px", height: "36px", borderRadius: "50%", backgroundColor: "var(--accent)", color: "#000000", fontWeight: 700, fontSize: "0.875rem", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {s.step}
                 </div>
                 <div>
-                  <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
-                  <p style={{ color: "var(--content-on-dark)", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
+                  <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "0.95rem", marginBottom: "6px" }}>{s.title}</h3>
+                  <p style={{ color: "#4b5563", fontSize: "0.875rem", lineHeight: "1.6", margin: 0 }}>{s.body}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div style={{ backgroundColor: "#1a1a1a", border: "1px solid #333333", borderRadius: "4px", padding: "24px", marginTop: "32px" }}>
-            <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "1rem", marginBottom: "16px" }}>📎 Key Documents to Keep</h3>
+          <div style={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "4px", padding: "24px", marginTop: "32px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}>
+            <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "1rem", marginBottom: "16px" }}>📎 Key Documents to Keep</h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {[
                 "Your insurance policy declarations page",
@@ -110,7 +113,7 @@ export default function InsuranceClaimsPage() {
                 "Receipts for temporary repairs",
                 "A damage log with dates and descriptions",
               ].map((item) => (
-                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "var(--content-on-dark)", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid #333333" }}>
+                <li key={item} style={{ display: "flex", gap: "10px", fontSize: "0.875rem", color: "#4b5563", paddingBottom: "8px", marginBottom: "8px", borderBottom: "1px solid #f3f4f6" }}>
                   <span style={{ color: "var(--accent)", fontWeight: 700, flexShrink: 0 }}>✓</span>
                   {item}
                 </li>
