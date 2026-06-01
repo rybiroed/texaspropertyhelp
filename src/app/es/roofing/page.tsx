@@ -1,115 +1,99 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import FAQES from "@/components/sections/es/FAQES";
 import DisclaimerBoxES from "@/components/sections/es/DisclaimerBoxES";
 import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Ayuda con Techado en Texas",
-  description:
-    "Texas Property Help conecta a propietarios de Texas con recursos para inspección, reparación y reemplazo de techos. Sepa qué esperar y cómo navegar reclamaciones de seguro relacionadas con su techo.",
+  title: "Ayuda con Techado en Texas | Texas Property Help",
+  description: "Texas Property Help conecta a propietarios con recursos para inspección, reparación y reemplazo de techo. Aprenda cómo navegar reclamaciones de seguro relacionadas con techos.",
   alternates: pageAlternates("/roofing", "/es/roofing", true),
 };
 
-const roofServices = [
-  { icon: "🔍", title: "Inspección de Techo", body: "Una inspección profesional puede identificar daños, evaluar la vida útil restante y documentar problemas para reclamaciones de seguro." },
-  { icon: "🔧", title: "Reparación de Techo", body: "Reparaciones parciales para áreas específicas dañadas — tejas faltantes, problemas de revestimiento, fugas pequeñas — cuando no se necesita reemplazo completo." },
-  { icon: "🏗️", title: "Reemplazo de Techo", body: "Re-techado completo cuando el daño es extenso, el techo llegó al final de su vida útil, o la aseguradora requiere reemplazo tras una pérdida cubierta." },
-  { icon: "📋", title: "Apoyo en Reclamaciones de Seguro", body: "Le ayudamos a entender qué documentación necesita su aseguradora y cómo comunicarse eficazmente durante el proceso de reclamación." },
-  { icon: "💧", title: "Respuesta a Fugas de Emergencia", body: "Las fugas activas de techo necesitan atención inmediata. Podemos conectarle con recursos de respuesta de emergencia." },
-  { icon: "💳", title: "Opciones de Financiamiento", body: "Los costos de techado pueden ser significativos. Explore opciones de financiamiento que pueden ayudar cuando el seguro no cubre el costo total." },
+const services = [
+  { icon: "🔍", title: "Inspección de Techo", body: "Una inspección profesional identifica daños, evalúa la vida útil restante y documenta problemas para reclamaciones de seguro.", color: "#76b900" },
+  { icon: "🔧", title: "Reparación de Techo", body: "Reparaciones parciales para áreas específicas — tejas faltantes, problemas de flashing, pequeñas filtraciones — cuando no se necesita reemplazo total.", color: "#3b82f6" },
+  { icon: "🏗️", title: "Reemplazo de Techo", button: "Cuando el daño es extenso o la aseguradora requiere reemplazo después de una pérdida cubierta.", color: "#f59e0b" },
+  { icon: "📋", title: "Apoyo con Reclamaciones", body: "Entender qué documentación de techado necesita su aseguradora y cómo comunicarse efectivamente durante el proceso.", color: "#8b5cf6" },
+  { icon: "💧", title: "Respuesta de Emergencia", body: "Las filtraciones activas necesitan atención inmediata. Lo conectamos con recursos de respuesta de emergencia.", color: "#ef4444" },
+  { icon: "💳", title: "Opciones de Financiamiento", body: "Los costos de techado pueden ser significativos. Explore opciones de financiamiento cuando el seguro no cubre el costo total.", color: "#10b981" },
 ];
 
 const faqs: FAQItem[] = [
-  {
-    question: "¿Cómo sé si necesito reparación de techo o reemplazo completo?",
-    answer:
-      "La decisión depende de la extensión y tipo de daño, la edad del techo y los términos de su póliza de seguro. Una inspección profesional puede darle información factual para tomar una decisión informada. Podemos conectarle con un inspector.",
-  },
-  {
-    question: "¿Mi seguro pagará un techo nuevo?",
-    answer:
-      "Si el seguro cubre el trabajo de techo depende de su póliza específica, la causa del daño, la edad del techo y si el daño supera el deducible. Las aseguradoras determinan esto según su propia evaluación — no está garantizado.",
-  },
-  {
-    question: "¿Cuánto tiempo dura normalmente un reemplazo de techo en Texas?",
-    answer:
-      "La mayoría de los reemplazos residenciales toman de uno a tres días, dependiendo del tamaño del hogar, el material de techado, las condiciones climáticas y el calendario del contratista. Confirme el tiempo con el contratista que contrate.",
-  },
-  {
-    question: "¿Puedo elegir mi propio contratista de techado para una reclamación de seguro?",
-    answer:
-      "En Texas, los propietarios generalmente tienen el derecho de elegir su propio contratista con licencia. Sin embargo, confirme con su aseguradora qué documentación y estimados requieren. Los contratistas deben proporcionar estimados escritos detallados.",
-  },
-  {
-    question: "¿Qué es una garantía de mano de obra y por qué importa?",
-    answer:
-      "Una garantía de mano de obra cubre errores de instalación realizados por el contratista, separada de la garantía del fabricante sobre los materiales. Al comparar estimados, pregunte por ambas garantías y obtenga los términos por escrito.",
-  },
+  { question: "¿Cómo sé si necesito reparación o reemplazo completo de techo?", answer: "La decisión depende del alcance y tipo de daño, la edad de su techo y los términos de su póliza de seguro. Una inspección profesional le dará información factual para tomar una decisión informada." },
+  { question: "¿Mi seguro pagará un techo nuevo?", answer: "Si el seguro cubre el trabajo de techo depende de su póliza específica, la causa del daño, la edad del techo y si el daño supera su deducible. Las aseguradoras toman esta determinación según su evaluación." },
+  { question: "¿Cómo evito estafas de techado después de una tormenta?", answer: "Trabaje con contratistas locales certificados con reseñas verificables y una dirección física. Evite vendedores puerta a puerta que aparecen inmediatamente después de tormentas. Nunca pague el costo total por adelantado." },
+  { question: "¿Cuánto tiempo tarda un reemplazo de techo en Texas?", answer: "La mayoría de los reemplazos de techo residenciales en Texas toman 1-3 días dependiendo del tamaño del techo, complejidad y condiciones climáticas. Su contratista debe darle un cronograma por escrito." },
 ];
 
 export default function RoofingESPage() {
   return (
     <>
-      <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <p style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "12px" }}>
-            Techado
-          </p>
-          <h1 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: "16px" }}>
-            Ayuda con Techado para Propietarios de Texas
+      <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
+        <Image src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="Techado Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.90) 0%, rgba(0,15,0,0.72) 100%)" }} />
+        <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "inline-flex", gap: "8px", alignItems: "center", backgroundColor: "rgba(118,185,0,0.15)", border: "1px solid rgba(118,185,0,0.4)", color: "#a3e635", fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: "100px", textTransform: "uppercase", marginBottom: "20px" }}>
+            🏠 Servicios de Techado en Texas
+          </div>
+          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.9rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "16px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+            Ayuda con Techado para<br /><span style={{ color: "#76b900" }}>Propietarios de Texas</span>
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1rem", maxWidth: "580px", lineHeight: 1.7, marginBottom: "28px" }}>
-            Desde inspecciones de rutina hasta reemplazos por daños de tormenta, los problemas de techado requieren documentación cuidadosa y decisiones informadas. Le ayudamos a entender sus opciones y conectarle con los profesionales adecuados.
+          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", maxWidth: "560px", lineHeight: 1.75, marginBottom: "28px" }}>
+            Desde inspección hasta reemplazo completo — conéctese con profesionales certificados de techado en Texas que conocen las reclamaciones de seguro y los códigos locales.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "var(--accent)", color: "white", fontWeight: 700, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px" }} className="hover:opacity-90">
-              Solicitar Ayuda con Techado →
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "#76b900", color: "#000", fontWeight: 800, fontSize: "1rem", padding: "14px 28px", borderRadius: "6px", textDecoration: "none", boxShadow: "0 4px 16px rgba(118,185,0,0.4)" }}>
+              Obtener Ayuda con Techado →
             </Link>
-            <Link href="/es/guides/lista-verificacion-reclamacion-seguro-techo" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px", border: "2px solid rgba(255,255,255,0.4)" }} className="hover:bg-white/10">
-              Lista de Verificación para Reclamación
+            <Link href="/es/guides" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 24px", borderRadius: "6px", border: "2px solid rgba(255,255,255,0.3)", textDecoration: "none" }}>
+              Guía: ¿Reparar o Reemplazar?
             </Link>
           </div>
         </div>
       </section>
 
-      <section style={{ backgroundColor: "white" }} className="py-14 px-4">
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 style={{ color: "var(--navy)", fontFamily: "Georgia, serif", fontSize: "1.6rem", fontWeight: 700, marginBottom: "32px" }}>
-            Servicios de Techado con los que Ayudamos
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {roofServices.map((item) => (
-              <div key={item.title} style={{ backgroundColor: "var(--off-white)", borderRadius: "10px", padding: "24px" }}>
-                <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
-                <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Servicios</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 800 }}>Cómo Podemos Ayudar con Su Techo</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {services.map((item) => (
+              <div key={item.title} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "24px", borderTop: `4px solid ${item.color}`, boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{item.icon}</div>
+                <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "1rem", marginBottom: "8px" }}>{item.title}</h3>
+                <p style={{ color: "#6b7280", fontSize: "0.875rem", lineHeight: "1.65", margin: 0 }}>{item.body || item.button}</p>
               </div>
             ))}
           </div>
-          <DisclaimerBoxES type="insurance" />
         </div>
       </section>
 
-      <FAQES items={faqs} heading="Preguntas sobre Techado" />
-
-      <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, marginBottom: "16px" }}>
-            ¿Problemas con su Techo? Déjenos Ayudarle.
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1rem", marginBottom: "28px", maxWidth: "500px", margin: "0 auto 28px" }}>
-            Envíe una solicitud y lo conectaremos con recursos locales para inspección de techo, apoyo en reclamaciones de seguro y reparaciones de emergencia.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "var(--accent)", color: "white", fontWeight: 700, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px" }} className="hover:opacity-90">
-              Solicitar Ayuda Ahora
-            </Link>
-            <Link href="/es/guides" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px", border: "2px solid rgba(255,255,255,0.4)" }} className="hover:bg-white/10">
-              Ver Guías
-            </Link>
+      <section style={{ backgroundColor: "#f3f4f6" }} className="py-14 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.7rem)", fontWeight: 800, marginBottom: "28px", textAlign: "center" }}>Mercado Hispano en Texas</h2>
+          <div style={{ backgroundColor: "#ffffff", borderRadius: "10px", padding: "28px", boxShadow: "0 1px 8px rgba(0,0,0,0.07)", borderLeft: "4px solid #76b900", marginBottom: "20px" }}>
+            <p style={{ color: "#374151", fontSize: "0.95rem", lineHeight: 1.75, margin: 0 }}>
+              Más del <strong>40% de los propietarios en Houston, San Antonio y Dallas son hispanos</strong>. En Texas Property Help, nos aseguramos de que la barrera del idioma nunca sea un obstáculo para obtener ayuda justa con reclamaciones de seguro, contratistas certificados y recursos de reparación.
+            </p>
           </div>
+          <DisclaimerBoxES />
+        </div>
+      </section>
+
+      <FAQES items={faqs} heading="Preguntas Frecuentes sobre Techado" />
+
+      <section style={{ backgroundColor: "#111827" }} className="py-12 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 style={{ color: "white", fontSize: "1.6rem", fontWeight: 800, marginBottom: "12px" }}>¿Necesita un Techador en Texas?</h2>
+          <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "24px" }}>Envíe una solicitud y lo conectamos con profesionales locales certificados para inspección, reparación o reemplazo.</p>
+          <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "#76b900", color: "#000", fontWeight: 800, fontSize: "1rem", padding: "14px 32px", borderRadius: "6px", textDecoration: "none" }}>
+            Obtener Ayuda con Techado →
+          </Link>
         </div>
       </section>
     </>

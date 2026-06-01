@@ -1,123 +1,112 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import FAQES from "@/components/sections/es/FAQES";
 import DisclaimerBoxES from "@/components/sections/es/DisclaimerBoxES";
 import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Ayuda con HVAC en Texas",
-  description:
-    "Texas Property Help conecta a propietarios de Texas con recursos para reparación y reemplazo de HVAC. Obtenga orientación sobre reparación de emergencia de aire acondicionado y opciones de financiamiento.",
+  title: "Ayuda con HVAC en Texas | Reparación y Reemplazo de AC",
+  description: "Texas Property Help conecta a propietarios con recursos para reparación y reemplazo de HVAC. Obtenga orientación sobre reparación de emergencia de AC y opciones de financiamiento en Texas.",
   alternates: pageAlternates("/hvac", "/es/hvac", true),
 };
 
+const services = [
+  { icon: "🚨", title: "Reparación de Emergencia", body: "Para situaciones urgentes — especialmente durante el calor extremo de Texas — lo conectamos con servicios de HVAC de emergencia.", color: "#ef4444" },
+  { icon: "🔧", title: "Referencias para Reparación", body: "Técnicos calificados de HVAC para diagnóstico y reparación de sistemas de enfriamiento, calefacción y ventilación.", color: "#3b82f6" },
+  { icon: "🏗️", title: "Reemplazo de Sistema", body: "Cuando la reparación no es rentable, le ayudamos a entender el proceso de reemplazo y cómo evaluar cotizaciones.", color: "#76b900" },
+  { icon: "⛈️", title: "Daños por Tormenta", body: "El granizo puede dañar unidades exteriores de HVAC. Lo ayudamos a documentar los daños para su reclamación de seguro.", color: "#8b5cf6" },
+  { icon: "💳", title: "Financiamiento de HVAC", body: "El reemplazo de HVAC es un costo significativo. Explore opciones de financiamiento que reduzcan la carga financiera inicial.", color: "#f59e0b" },
+  { icon: "📋", title: "Documentación de Seguro", body: "Si hay daños por tormenta involucrados, la documentación adecuada del HVAC es crítica para una reclamación completa.", color: "#10b981" },
+];
+
 const faqs: FAQItem[] = [
-  {
-    question: "¿El seguro de hogar cubre fallas de HVAC?",
-    answer:
-      "Las pólizas estándar generalmente no cubren fallas de HVAC por desgaste normal. Sin embargo, daños por tormenta a una unidad de HVAC — como granizo que golpea el condensador — pueden estar cubiertos. Revise su póliza o contacte a su agente.",
-  },
-  {
-    question: "¿Qué debo hacer si mi aire acondicionado deja de funcionar durante el verano de Texas?",
-    answer:
-      "Para alivio inmediato: cierre persianas y cortinas, use ventiladores para circular el aire, minimice el uso de aparatos que generen calor y considere alojamiento temporal si tiene miembros vulnerables en el hogar (personas mayores, bebés, mascotas). Luego solicite asistencia de emergencia para HVAC.",
-  },
-  {
-    question: "¿Cuánto duran los sistemas de HVAC en Texas?",
-    answer:
-      "Los sistemas de HVAC en Texas a menudo trabajan más duro debido al calor extremo. Los aires acondicionados en Texas pueden durar 10 a 15 años, a veces menos, dependiendo del mantenimiento y el uso. Una evaluación profesional puede darle información específica sobre su sistema.",
-  },
-  {
-    question: "¿Hay opciones de financiamiento para el reemplazo de HVAC?",
-    answer:
-      "Sí — pueden estar disponibles varias opciones de financiamiento para reemplazo de HVAC, incluyendo financiamiento del fabricante, préstamos para mejoras del hogar y algunos programas de reembolso de servicios públicos. Nuestra página de financiamiento provee más información.",
-  },
-  {
-    question: "¿Los daños por tormenta pueden causar problemas de HVAC?",
-    answer:
-      "Sí. El granizo puede abollar y dañar las aletas y bobinas del condensador. Las inundaciones pueden dañar componentes eléctricos y la base de la unidad. Si tiene daños por tormenta y problemas de HVAC juntos, documente ambos al presentar su reclamación de seguro.",
-  },
+  { question: "¿El seguro de hogar cubre fallas de HVAC?", answer: "Las pólizas estándar generalmente no cubren fallas de HVAC por desgaste normal. Sin embargo, los daños por tormenta a una unidad de HVAC — como granizo golpeando el condensador — pueden estar cubiertos. Revise su póliza." },
+  { question: "¿Qué hago si mi AC deja de funcionar en verano?", answer: "Para alivio inmediato: cierre persianas y cortinas, use ventiladores, minimice el uso de aparatos que generan calor, y considere alojamiento temporal si tiene miembros vulnerables del hogar (mayores, bebés, mascotas). Luego solicite asistencia de emergencia." },
+  { question: "¿Cuánto dura un sistema HVAC en Texas?", answer: "Los sistemas HVAC en Texas trabajan más duro por el calor extremo. Los aires acondicionados en Texas pueden durar 10-15 años, a veces menos, dependiendo del mantenimiento y uso." },
+  { question: "¿Hay opciones de financiamiento para reemplazo de HVAC?", answer: "Sí — varias opciones pueden estar disponibles, incluyendo financiamiento del fabricante, préstamos para mejoras del hogar y algunos programas de reembolso de empresas de servicios públicos." },
 ];
 
 export default function HVACESPage() {
   return (
     <>
-      <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <p style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "12px" }}>
-            HVAC
-          </p>
-          <h1 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: "16px" }}>
-            Ayuda con Reparación y Reemplazo de HVAC en Texas
+      <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
+        <Image src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&q=80" alt="HVAC Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,10,30,0.92) 0%, rgba(0,20,40,0.75) 100%)" }} />
+        <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "inline-flex", gap: "8px", alignItems: "center", backgroundColor: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.4)", color: "#38bdf8", fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: "100px", textTransform: "uppercase", marginBottom: "20px" }}>
+            🌡️ Servicios de Emergencia de Calor en Texas
+          </div>
+          <h1 style={{ color: "white", fontSize: "clamp(1.75rem, 4vw, 2.9rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "16px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+            Ayuda con HVAC y Aire Acondicionado<br /><span style={{ color: "#76b900" }}>en Texas</span>
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1rem", maxWidth: "580px", lineHeight: 1.7, marginBottom: "28px" }}>
-            En el calor de Texas, un sistema de HVAC que falla es más que una incomodidad — puede ser un riesgo para la salud. Ya sea que necesite reparación de emergencia o esté evaluando opciones de reemplazo, podemos conectarle con los recursos adecuados.
+          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", maxWidth: "560px", lineHeight: 1.75, marginBottom: "28px" }}>
+            En el calor de Texas, un HVAC fallido es más que incómodo — puede ser un riesgo para la salud. Lo conectamos con los recursos correctos para reparación o reemplazo.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "var(--accent)", color: "white", fontWeight: 700, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px" }} className="hover:opacity-90">
-              Solicitar Ayuda con HVAC →
+          <div style={{ backgroundColor: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.35)", borderRadius: "8px", padding: "12px 18px", marginBottom: "24px", maxWidth: "480px" }}>
+            <p style={{ color: "#fca5a5", fontSize: "0.85rem", fontWeight: 600, margin: 0 }}>
+              ⚠️ Seguridad por Calor: Si el AC falla durante una alerta de calor, priorice la seguridad — considere centros de enfriamiento o alojamiento temporal para familiares vulnerables.
+            </p>
+          </div>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "#76b900", color: "#000", fontWeight: 800, fontSize: "1rem", padding: "14px 28px", borderRadius: "6px", textDecoration: "none", boxShadow: "0 4px 16px rgba(118,185,0,0.4)" }}>
+              Obtener Ayuda con HVAC →
             </Link>
-            <Link href="/es/financing" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px", border: "2px solid rgba(255,255,255,0.4)" }} className="hover:bg-white/10">
-              Explorar Opciones de Financiamiento
+            <Link href="/es/financing" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 24px", borderRadius: "6px", border: "2px solid rgba(255,255,255,0.3)", textDecoration: "none" }}>
+              Explorar Financiamiento
             </Link>
           </div>
         </div>
       </section>
 
-      <section style={{ backgroundColor: "white" }} className="py-14 px-4">
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 style={{ color: "var(--navy)", fontFamily: "Georgia, serif", fontSize: "1.6rem", fontWeight: 700, marginBottom: "32px" }}>
-            Cómo Ayudamos con Problemas de HVAC
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: "🚨", title: "Reparación de Emergencia", body: "Para situaciones urgentes — especialmente durante el calor extremo de Texas — podemos ayudarle a conectar con recursos de servicio de emergencia de HVAC." },
-              { icon: "🔧", title: "Referencias para Reparación", body: "Ayudamos a conectar a los propietarios con técnicos calificados de HVAC para diagnóstico y reparación de sistemas de enfriamiento, calefacción y ventilación." },
-              { icon: "🏗️", title: "Ayuda para Reemplazo de Sistema", body: "Cuando la reparación no es rentable, le ayudamos a entender el proceso de reemplazo, qué preguntas hacer y cómo evaluar presupuestos." },
-              { icon: "⛈️", title: "Daños de HVAC por Tormenta", body: "El granizo y las tormentas pueden dañar unidades exteriores de HVAC. Le ayudamos a entender cómo los daños por tormenta al HVAC pueden relacionarse con su reclamación de seguro." },
-              { icon: "💳", title: "Financiamiento de HVAC", body: "El reemplazo de HVAC es un costo significativo. Podemos ayudarle a explorar opciones de financiamiento que pueden reducir la carga financiera inmediata." },
-              { icon: "📋", title: "Documentación para Seguro", body: "Si hay daños por tormenta involucrados, la documentación correcta de los daños al HVAC es importante para una reclamación de seguro completa y precisa." },
-            ].map((item) => (
-              <div key={item.title} style={{ backgroundColor: "var(--off-white)", borderRadius: "10px", padding: "24px" }}>
-                <div style={{ fontSize: "1.75rem", marginBottom: "10px" }}>{item.icon}</div>
-                <h3 style={{ color: "var(--navy)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{item.title}</h3>
-                <p style={{ color: "#374151", fontSize: "0.875rem", lineHeight: "1.6" }}>{item.body}</p>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Cómo Ayudamos</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", fontWeight: 800 }}>Servicios de HVAC con los que lo Conectamos</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {services.map((item) => (
+              <div key={item.title} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "24px", borderLeft: `4px solid ${item.color}`, boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{item.icon}</div>
+                <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "1rem", marginBottom: "8px" }}>{item.title}</h3>
+                <p style={{ color: "#6b7280", fontSize: "0.875rem", lineHeight: "1.65", margin: 0 }}>{item.body}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div style={{ backgroundColor: "#fff8f0", border: "1px solid #e8c898", borderLeft: "4px solid #e05c00", borderRadius: "6px", padding: "16px 20px", marginTop: "32px" }}>
-            <p style={{ fontSize: "0.875rem", color: "var(--charcoal)", fontWeight: 600, marginBottom: "6px" }}>
-              ⚠️ Aviso de Seguridad por Calor
-            </p>
-            <p style={{ fontSize: "0.8rem", color: "#374151", lineHeight: "1.6", margin: 0 }}>
-              El calor extremo puede ser peligroso, especialmente para personas mayores, niños pequeños y personas con condiciones médicas. Si su HVAC falla durante una advertencia de calor, considere centros de enfriamiento, amigos o familiares, o alojamiento temporal mientras organiza las reparaciones.
-            </p>
+      <section style={{ backgroundColor: "#f3f4f6" }} className="py-14 px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.7rem)", fontWeight: 800, marginBottom: "32px", textAlign: "center" }}>Por Qué el HVAC Importa Más en Texas</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+            {[
+              { stat: "100°F+", label: "Temperaturas de verano en muchas ciudades de Texas", icon: "🌡️" },
+              { stat: "10-15 años", label: "Vida útil promedio del AC bajo el calor de Texas", icon: "⏱️" },
+              { stat: "$8K-14K", label: "Costo típico de reemplazo de HVAC en Texas", icon: "💰" },
+            ].map((item) => (
+              <div key={item.stat} style={{ backgroundColor: "#ffffff", borderRadius: "10px", padding: "24px", textAlign: "center", boxShadow: "0 1px 8px rgba(0,0,0,0.07)" }}>
+                <div style={{ fontSize: "2rem", marginBottom: "8px" }}>{item.icon}</div>
+                <div style={{ fontSize: "1.8rem", fontWeight: 900, color: "#0ea5e9", marginBottom: "6px" }}>{item.stat}</div>
+                <div style={{ fontSize: "0.8rem", color: "#6b7280", lineHeight: 1.4 }}>{item.label}</div>
+              </div>
+            ))}
           </div>
-
-          <DisclaimerBoxES type="general" />
+          <DisclaimerBoxES />
         </div>
       </section>
 
       <FAQES items={faqs} heading="Preguntas Frecuentes sobre HVAC" />
 
-      <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, marginBottom: "16px" }}>
-            ¿Problemas con su HVAC en Texas?
-          </h2>
-          <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1rem", marginBottom: "28px", maxWidth: "500px", margin: "0 auto 28px" }}>
-            Envíe una solicitud y lo conectaremos con recursos de reparación, reemplazo y financiamiento de HVAC en su área.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "var(--accent)", color: "white", fontWeight: 700, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px" }} className="hover:opacity-90">
-              Solicitar Ayuda Ahora
-            </Link>
-            <Link href="/es/financing" style={{ display: "inline-block", backgroundColor: "transparent", color: "white", fontWeight: 600, fontSize: "1rem", padding: "14px 28px", borderRadius: "8px", border: "2px solid rgba(255,255,255,0.4)" }} className="hover:bg-white/10">
-              Ver Opciones de Financiamiento
-            </Link>
-          </div>
+      <section style={{ backgroundColor: "#111827" }} className="py-12 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 style={{ color: "white", fontSize: "1.6rem", fontWeight: 800, marginBottom: "12px" }}>¿Problema de HVAC en Texas?</h2>
+          <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "24px" }}>Envíe una solicitud y lo conectamos con recursos de reparación, reemplazo y financiamiento de HVAC en su área.</p>
+          <Link href="/es/request-help" style={{ display: "inline-block", backgroundColor: "#76b900", color: "#000", fontWeight: 800, fontSize: "1rem", padding: "14px 32px", borderRadius: "6px", textDecoration: "none" }}>
+            Solicitar Ayuda con HVAC →
+          </Link>
         </div>
       </section>
     </>
