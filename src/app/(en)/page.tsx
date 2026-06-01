@@ -25,7 +25,7 @@ const services = [
     description: "Hail, wind, and water damage — get help documenting, assessing, and addressing property damage after Texas storms.",
     href: "/storm-damage",
     icon: "⛈️",
-    image: "https://images.unsplash.com/photo-1504608524841-42785f1c8f8?w=600&q=75",
+    image: "/images/storm-damage-hero.jpg",
     accentColor: "#ef4444",
   },
   {
@@ -41,7 +41,7 @@ const services = [
     description: "Emergency HVAC repair, system replacement guidance, and financing options for heating and cooling issues.",
     href: "/hvac",
     icon: "🌡️",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=75",
+    image: "/images/hvac-hero.jpg",
     accentColor: "#0ea5e9",
   },
   {
@@ -49,7 +49,7 @@ const services = [
     description: "Understand the homeowner insurance claim process — documentation, communication, and what to expect.",
     href: "/insurance-claims",
     icon: "📄",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75",
+    image: "/images/insurance-hero.jpg",
     accentColor: "#8b5cf6",
   },
   {
@@ -57,7 +57,7 @@ const services = [
     description: "Explore financing options for emergency and planned home repairs when out-of-pocket costs are a barrier.",
     href: "/financing",
     icon: "💳",
-    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=600&q=75",
+    image: "/images/financing-hero.jpg",
     accentColor: "#f59e0b",
   },
   {
@@ -65,7 +65,7 @@ const services = [
     description: "Step-by-step homeowner guides for storm response, insurance claims, and repair planning.",
     href: "/guides",
     icon: "📚",
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=75",
+    image: "/images/guides-hero.jpg",
     accentColor: "#10b981",
   },
 ];
@@ -109,7 +109,7 @@ export default function HomePage() {
       <section style={{ position: "relative", minHeight: "560px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         {/* Background image */}
         <Image
-          src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=80"
+          src="/images/home-hero.jpg"
           alt="Texas home"
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}

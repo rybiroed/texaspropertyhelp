@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 };
 
 const services = [
-  { title: "Daños por Tormenta", description: "Granizo, viento y daños por agua — obtenga ayuda para documentar y resolver daños a su propiedad después de tormentas en Texas.", href: "/es/storm-damage", icon: "⛈️", image: "https://images.unsplash.com/photo-1504608524841-42785f1c8f8?w=600&q=75", accentColor: "#ef4444" },
+  { title: "Daños por Tormenta", description: "Granizo, viento y daños por agua — obtenga ayuda para documentar y resolver daños a su propiedad después de tormentas en Texas.", href: "/es/storm-damage", icon: "⛈️", image: "/images/storm-damage-hero.jpg", accentColor: "#ef4444" },
   { title: "Ayuda con Techado", description: "Desde inspección hasta reemplazo de techo — conéctese con profesionales certificados de techado en Texas.", href: "/es/roofing", icon: "🏠", image: "/images/roofing-hero.png", accentColor: "#76b900" },
-  { title: "Ayuda con HVAC", description: "Reparación de emergencia de AC, reemplazo de sistema y opciones de financiamiento para problemas de calefacción y enfriamiento.", href: "/es/hvac", icon: "🌡️", image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=75", accentColor: "#0ea5e9" },
-  { title: "Reclamaciones de Seguro", description: "Entienda el proceso de reclamaciones de seguro — documentación, comunicación y qué esperar en cada paso.", href: "/es/insurance-claims", icon: "📄", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=75", accentColor: "#8b5cf6" },
-  { title: "Financiamiento de Reparaciones", description: "Explore opciones de financiamiento para reparaciones de emergencia y planificadas cuando los costos son un obstáculo.", href: "/es/financing", icon: "💳", image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=600&q=75", accentColor: "#f59e0b" },
-  { title: "Guías para Propietarios", description: "Guías paso a paso para respuesta a tormentas, reclamaciones de seguro y planificación de reparaciones.", href: "/es/guides", icon: "📚", image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=75", accentColor: "#10b981" },
+  { title: "Ayuda con HVAC", description: "Reparación de emergencia de AC, reemplazo de sistema y opciones de financiamiento para problemas de calefacción y enfriamiento.", href: "/es/hvac", icon: "🌡️", image: "/images/hvac-hero.jpg", accentColor: "#0ea5e9" },
+  { title: "Reclamaciones de Seguro", description: "Entienda el proceso de reclamaciones de seguro — documentación, comunicación y qué esperar en cada paso.", href: "/es/insurance-claims", icon: "📄", image: "/images/insurance-hero.jpg", accentColor: "#8b5cf6" },
+  { title: "Financiamiento de Reparaciones", description: "Explore opciones de financiamiento para reparaciones de emergencia y planificadas cuando los costos son un obstáculo.", href: "/es/financing", icon: "💳", image: "/images/financing-hero.jpg", accentColor: "#f59e0b" },
+  { title: "Guías para Propietarios", description: "Guías paso a paso para respuesta a tormentas, reclamaciones de seguro y planificación de reparaciones.", href: "/es/guides", icon: "📚", image: "/images/guides-hero.jpg", accentColor: "#10b981" },
 ];
 
 const stats = [
@@ -33,7 +33,7 @@ export default function EsHomePage() {
     <>
       {/* Hero con foto */}
       <section style={{ position: "relative", minHeight: "560px", display: "flex", alignItems: "center" }} className="px-4 py-20">
-        <Image src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=80" alt="Casa en Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <Image src="/images/home-hero.jpg" alt="Casa en Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.70) 50%, rgba(0,20,0,0.82) 100%)" }} />
         <div className="max-w-4xl mx-auto text-center" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-block", backgroundColor: "rgba(118,185,0,0.15)", color: "#76b900", border: "1px solid rgba(118,185,0,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>
