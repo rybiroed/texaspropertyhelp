@@ -34,7 +34,7 @@ export default function EsHomePage() {
       {/* Hero con foto */}
       <section style={{ position: "relative", minHeight: "560px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/home-hero.jpg" alt="Casa en Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.70) 50%, rgba(0,20,0,0.82) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.45) 50%, rgba(0,20,0,0.55) 100%)" }} />
         <div className="max-w-4xl mx-auto text-center" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-block", backgroundColor: "rgba(118,185,0,0.15)", color: "#76b900", border: "1px solid rgba(118,185,0,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>
             ⛈️ Temporada de Tormentas 2026 — Obtenga Ayuda Ahora

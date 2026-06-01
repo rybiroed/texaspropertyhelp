@@ -42,7 +42,7 @@ export default function StormDamageESPage() {
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/storm-damage-hero.jpg" alt="Daños por tormenta en Texas" fill style={{ objectFit: "cover", objectPosition: "center top" }} priority sizes="100vw" />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(20,0,0,0.75) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.62) 0%, rgba(20,0,0,0.50) 100%)" }} />
         <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-flex", gap: "8px", alignItems: "center", backgroundColor: "rgba(239,68,68,0.15)", border: "1px solid rgba(239,68,68,0.4)", color: "#f87171", fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
             ⛈️ Temporada de Tormentas Activa en Texas

@@ -117,7 +117,7 @@ export default function HomePage() {
           sizes="100vw"
         />
         {/* Dark overlay */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 50%, rgba(0,20,0,0.82) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.45) 50%, rgba(0,20,0,0.55) 100%)" }} />
 
         {/* Content */}
         <div className="max-w-4xl mx-auto text-center" style={{ position: "relative", zIndex: 1 }}>
