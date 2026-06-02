@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     siteName: SITE_CONFIG.name,
   },
   robots: { index: true, follow: true },
+  other: {
+    "impact-site-verification": "5202b2f1-5ab5-429f-bf73-2cb1bcf3f214",
+  },
 };
 
 const orgSchema = {
@@ -74,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <meta name="impact-site-verification" value="5202b2f1-5ab5-429f-bf73-2cb1bcf3f214" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
