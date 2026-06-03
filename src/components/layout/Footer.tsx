@@ -28,7 +28,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ fontSize: "0.85rem", lineHeight: "1.6", color: "rgba(255,255,255,0.6)" }}>
-              Helping Texas homeowners navigate storm damage, roofing issues, HVAC problems, insurance claims, and repair financing.
+              Helping Texas homeowners navigate hail damage, storm damage claims, roofing repairs, HVAC issues, and property insurance — free guidance and vetted contractor referrals statewide.
             </p>
             <p style={{ fontSize: "0.8rem", marginTop: "12px", color: "rgba(255,255,255,0.65)" }}>
               Texas Property Help is a homeowner assistance and referral platform — not an insurance company, contractor, or law firm.

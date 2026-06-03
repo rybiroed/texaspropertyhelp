@@ -227,7 +227,13 @@ export default function HomePage() {
       </section>
 
       {/* Live News Strip */}
-      <NewsStrip guides={recentGuides} />
+      <NewsStrip
+        guides={recentGuides}
+        stormAlert={{
+          level: "slight",
+          text: "⚠️ Active Flood Warning — Corpus Christi area through June 5. Flash Flood Warning in Midland/Odessa (winding down). No severe threats to Dallas, Houston, San Antonio, or Austin today.",
+        }}
+      />
 
       <TrustSection />
 
