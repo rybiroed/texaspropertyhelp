@@ -98,27 +98,52 @@ const homeFaqs: FAQItem[] = [
   {
     question: "What is Texas Property Help?",
     answer:
-      "Texas Property Help is a homeowner assistance and referral platform. We help Texas homeowners understand their options after property damage, navigate insurance claims, and connect with relevant service providers. We are not a contractor, insurance company, or law firm.",
+      "Texas Property Help is a free homeowner assistance and referral platform. We help Texas homeowners understand their options after property damage, navigate insurance claims, and connect with vetted, TDLR-licensed contractors and service providers. We are not a contractor, insurance company, or law firm.",
   },
   {
     question: "Is Texas Property Help free for homeowners?",
     answer:
-      "Submitting a request and receiving information through our platform is free. If you are connected with a service provider, their individual fees and terms apply and vary.",
+      "Submitting a request and receiving information through our platform is free for homeowners. If you are connected with a service provider, their individual fees and terms apply and vary.",
   },
   {
-    question: "Which Texas cities and areas do you cover for storm damage help?",
+    question: "What is the difference between ACV and RCV homeowners insurance?",
     answer:
-      `We currently assist homeowners across Texas, including ${SITE_CONFIG.serviceAreas.slice(0, 6).join(", ")}, and surrounding areas. Coverage is expanding.`,
+      "ACV (Actual Cash Value) pays you the current depreciated value of damaged materials — a 10-year-old roof is worth a fraction of a new one, so your payout is significantly reduced. RCV (Replacement Cost Value) pays what it actually costs to replace the damaged materials with new ones of like kind, minus only your deductible. RCV policies pay out more but typically have higher premiums. Check your declarations page — this difference can mean thousands of dollars on a hail damage claim.",
   },
   {
-    question: "Do you guarantee insurance claim approval?",
+    question: "What is a wind and hail deductible in Texas?",
     answer:
-      "No. We do not guarantee insurance claim outcomes. All claim decisions are made by your insurance company based on your specific policy and the documented damage.",
+      "Most Texas homeowners policies have a separate wind and hail deductible — typically 1%–3% of your home's insured replacement value — rather than a flat dollar amount. On a $300,000 home, that's $3,000–$9,000 out of pocket before your insurer pays anything. This deductible applies specifically to wind and hail claims and is separate from your all-other-perils deductible. Review your declarations page to find your exact deductible type and amount.",
+  },
+  {
+    question: "How do I verify a Texas roofing contractor's license?",
+    answer:
+      "Texas requires roofing contractors to hold an active TDLR (Texas Department of Licensing and Regulation) license. You can verify any contractor at license.tdlr.texas.gov — search by company name or license number. Always verify before signing any contract. After major storms, unlicensed out-of-state contractors flood Texas neighborhoods — verifying TDLR licensure is the most important step you can take before hiring anyone.",
+  },
+  {
+    question: "Does homeowners insurance cover flood damage in Texas?",
+    answer:
+      "No. Standard Texas homeowners insurance does NOT cover flood damage from rising water — including hurricane storm surge and flash flooding. Flood damage requires a separate policy through the National Flood Insurance Program (NFIP) at FloodSmart.gov or a private flood insurer. The one exception: rainwater entering your home through a storm-damaged roof or broken window is typically covered under your homeowners policy because the wind or hail damage came first.",
+  },
+  {
+    question: "What is TWIA and do I need it?",
+    answer:
+      "TWIA (Texas Windstorm Insurance Association) provides windstorm and hail coverage for homeowners in 14 Gulf Coast counties and parts of Harris County who cannot get windstorm coverage through the private market. If you live near the Texas coast — Galveston, Corpus Christi, South Padre Island, or coastal areas of Houston — your standard homeowners policy may exclude wind coverage entirely. Check your policy's covered perils section. If wind is excluded, you likely need a TWIA policy.",
+  },
+  {
+    question: "My insurance adjuster's estimate is too low. What can I do?",
+    answer:
+      "Get a written estimate from a licensed independent contractor and compare it line-by-line with the adjuster's scope of loss. If there's a significant gap, you have three options: (1) request a re-inspection with your contractor present, (2) invoke the appraisal clause in your policy — a neutral umpire resolves the dispute without litigation, (3) hire a licensed public adjuster to negotiate on your behalf. You can also file a complaint with the Texas Department of Insurance at tdi.texas.gov or 800-252-3439.",
+  },
+  {
+    question: "Which Texas cities and areas do you cover?",
+    answer:
+      `We assist homeowners across all of Texas, including ${SITE_CONFIG.serviceAreas.slice(0, 6).join(", ")}, and 40+ additional cities statewide. Whether you have hail damage in Houston, storm damage in Dallas, or need HVAC help after a storm in San Antonio — we can connect you with licensed local contractors and free guidance.`,
   },
   {
     question: "Can I get help in Spanish?",
     answer:
-      "Yes. When you submit your request, select Spanish as your preferred language and we will make every effort to connect you with a Spanish-speaking resource.",
+      "Yes. We offer full bilingual service in English and Spanish. Visit texaspropertyhelp.com/es or select Spanish as your preferred language when submitting your request, and we will connect you with Spanish-speaking contractors and resources.",
   },
 ];
 
