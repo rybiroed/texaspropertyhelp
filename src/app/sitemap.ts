@@ -42,6 +42,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/laredo`,                      lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/waco`,                        lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/mcallen`,                     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
+    // Standalone guide pages (also appear in enGuides via getPublishedGuides)
+    { url: `${BASE}/guides/acv-vs-rcv-texas`,             lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    { url: `${BASE}/guides/storm-chaser-contractors-texas`, lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    { url: `${BASE}/guides/twia-guide-coastal-texas`,     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
   ];
 
   const staticES: MetadataRoute.Sitemap = [

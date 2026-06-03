@@ -101,6 +101,36 @@ export const GUIDES: GuideCard[] = [
     lastUpdated: "2026-05-31",
     standalonePageExists: true,
   },
+  {
+    title: "ACV vs. RCV: What Texas Homeowners Need to Know Before Filing a Claim",
+    slug: "acv-vs-rcv-texas",
+    description:
+      "ACV vs RCV is the most important policy detail in Texas roof claims. Learn the difference, how depreciation works, how recoverable depreciation is paid, and how to maximize your storm damage payout.",
+    category: "insurance-claims",
+    readTime: "10 min read",
+    lastUpdated: "2026-06-03",
+    standalonePageExists: true,
+  },
+  {
+    title: "Storm Chaser Contractors in Texas: How to Spot and Avoid Them",
+    slug: "storm-chaser-contractors-texas",
+    description:
+      "After every major Texas hailstorm, unlicensed storm chasers flood neighborhoods. Learn the 7 red flags, illegal practices under Texas Insurance Code §707.002, and how to verify any contractor in 5 minutes before signing anything.",
+    category: "storm-damage",
+    readTime: "8 min read",
+    lastUpdated: "2026-06-03",
+    standalonePageExists: true,
+  },
+  {
+    title: "TWIA Windstorm Insurance: The Complete Guide for Coastal Texas Homeowners",
+    slug: "twia-guide-coastal-texas",
+    description:
+      "If you own a home in coastal Texas, TWIA windstorm insurance is essential — and separate from your homeowners policy. Learn which 14 counties require it, what it covers, how to file a claim, and how to navigate the wind-vs-flood dispute after a hurricane.",
+    category: "insurance-claims",
+    readTime: "12 min read",
+    lastUpdated: "2026-06-03",
+    standalonePageExists: true,
+  },
 ];
 
 /**
