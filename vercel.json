@@ -1,3 +1,11 @@
 {
-  "name": "texaspropertyhelp"
+  "name": "texaspropertyhelp",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.texaspropertyhelp.com" }],
+      "destination": "https://texaspropertyhelp.com/$1",
+      "permanent": true
+    }
+  ]
 }

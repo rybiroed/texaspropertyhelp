@@ -226,10 +226,108 @@ export default function HomePage() {
         </div>
       </section>
 
-      <TrustSection />
-
       {/* Live News Strip */}
       <NewsStrip guides={recentGuides} />
+
+      <TrustSection />
+
+      {/* Service Areas */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-14 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>
+              Where We Serve
+            </p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800, marginBottom: "10px" }}>
+              Serving Texas Homeowners Statewide
+            </h2>
+            <p style={{ color: "#6b7280", fontSize: "0.9rem", maxWidth: "500px", margin: "0 auto" }}>
+              From major metros to small towns — we help homeowners across Texas navigate storm damage, roofing, insurance, and repair financing.
+            </p>
+          </div>
+
+          {/* Major Cities */}
+          <div style={{ marginBottom: "28px" }}>
+            <p style={{ color: "#9ca3af", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "12px" }}>Major Cities</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              {[
+                { name: "Houston", href: "/houston" },
+                { name: "Dallas", href: "/dallas" },
+                { name: "Fort Worth", href: "/fort-worth" },
+                { name: "San Antonio", href: "/san-antonio" },
+                { name: "Austin", href: "/austin" },
+                { name: "El Paso", href: "/el-paso" },
+                { name: "Corpus Christi", href: "/corpus-christi" },
+                { name: "Lubbock", href: "/lubbock" },
+                { name: "Amarillo", href: "/amarillo" },
+                { name: "Laredo", href: "/laredo" },
+              ].map((city) => (
+                <Link key={city.href} href={city.href} style={{
+                  backgroundColor: "#f0fdf4",
+                  color: "#166534",
+                  border: "1px solid #bbf7d0",
+                  fontSize: "0.85rem",
+                  fontWeight: 600,
+                  padding: "7px 16px",
+                  borderRadius: "100px",
+                  textDecoration: "none",
+                }}>
+                  📍 {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Mid-size Cities */}
+          <div style={{ marginBottom: "28px" }}>
+            <p style={{ color: "#9ca3af", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "12px" }}>Mid-Size Cities</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {[
+                "Killeen", "Waco", "Temple", "Abilene", "Midland", "Odessa",
+                "Tyler", "Beaumont", "McAllen", "Wichita Falls", "Round Rock",
+                "Georgetown", "Cedar Park", "Leander", "New Braunfels", "Kyle",
+                "Conroe", "League City", "Pearland", "Sugar Land", "Katy",
+              ].map((city) => (
+                <span key={city} style={{
+                  backgroundColor: "#f9fafb",
+                  color: "#374151",
+                  border: "1px solid #e5e7eb",
+                  fontSize: "0.82rem",
+                  padding: "5px 13px",
+                  borderRadius: "100px",
+                }}>
+                  {city}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Small Towns & Military */}
+          <div>
+            <p style={{ color: "#9ca3af", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "12px" }}>Small Towns & Military Communities</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {[
+                "Waxahachie", "Weatherford", "Granbury", "Stephenville", "Kerrville",
+                "Seguin", "Pflugerville", "Baytown", "Pasadena", "Harlingen",
+                "Edinburg", "Mission", "Copperas Cove", "Harker Heights", "Belton",
+                "Buda", "Pflugerville", "Hutto", "Bastrop", "Lockhart",
+                "Fort Cavazos", "Fort Sam Houston", "Fort Bliss",
+              ].map((city) => (
+                <span key={city} style={{
+                  backgroundColor: "#f9fafb",
+                  color: "#6b7280",
+                  border: "1px solid #e5e7eb",
+                  fontSize: "0.78rem",
+                  padding: "4px 11px",
+                  borderRadius: "100px",
+                }}>
+                  {city}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Recent Guides */}
       <section style={{ backgroundColor: "#111827" }} className="py-16 px-4">
@@ -251,6 +349,105 @@ export default function HomePage() {
             {recentGuides.map((guide) => (
               <GuideCard key={guide.slug} {...guide} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community Q&A */}
+      <section style={{ backgroundColor: "#f9fafb" }} className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "36px", flexWrap: "wrap", gap: "12px" }}>
+            <div>
+              <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
+                From Our Community
+              </p>
+              <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800, margin: 0 }}>
+                Real Questions. Real Answers.
+              </h2>
+              <p style={{ color: "#6b7280", fontSize: "0.9rem", marginTop: "8px" }}>
+                Texas homeowners ask — we answer. Here are recent questions from our community.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                topic: "Insurance Claim",
+                location: "Texas Homeowner",
+                source: "r/Insurance",
+                question: "My Allstate claim has been going 14 rounds — adjuster showed up in khakis with no gear, claim got closed below deductible, now I have open plywood on my roof. What do I do?",
+                answer: "File a complaint with the Texas Department of Insurance (TDI) — free, takes 15 minutes, and insurers are required to respond. Document every call with date, time, and rep name. Get your contractor to write a damage assessment on letterhead showing original vs. deteriorated damage. This is textbook bad faith handling.",
+                color: "#ef4444",
+              },
+              {
+                topic: "Storm Damage",
+                location: "Houston Area",
+                source: "r/homeowners",
+                question: "After hail — should I call my insurance company or the roofer first?",
+                answer: "Call a roofer first. Have a local contractor inspect and document the damage before you file a claim. If the adjuster visits without your documentation, they'll write the minimum estimate. Also: every claim goes into your CLUE report and can raise your premium 20–40% for 3–5 years.",
+                color: "#76b900",
+              },
+              {
+                topic: "Hail Damage",
+                location: "DFW Homeowner",
+                source: "r/homeowners",
+                question: "Insurance says my roof damage is wear and tear, not hail. My roofer says otherwise. What now?",
+                answer: "Request a re-inspection and have your contractor present. Ask the adjuster specifically about 'mechanical damage' vs 'cosmetic damage' — that distinction is key for hail claims. If they still disagree, check your policy for an appraisal clause — it lets both sides hire independent appraisers without going to court.",
+                color: "#f59e0b",
+              },
+              {
+                topic: "Insurance Claim",
+                location: "San Antonio Homeowner",
+                source: "r/Insurance",
+                question: "My insurer is demanding an engineering report before paying my storm claim — quoted $900+. Is this normal?",
+                answer: "This is a known delay tactic. Ask them in writing: what exactly qualifies as the report, who can write it, and will they reimburse the cost. File a TDI complaint if they've been stalling over 30 days — Texas law requires claims to be resolved within specific timeframes.",
+                color: "#3b82f6",
+              },
+            ].map((item, i) => (
+              <div key={i} style={{
+                backgroundColor: "white",
+                border: "1px solid #e5e7eb",
+                borderTop: `4px solid ${item.color}`,
+                borderRadius: "8px",
+                padding: "24px",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+              }}>
+                <div style={{ display: "flex", gap: "10px", marginBottom: "16px", flexWrap: "wrap" }}>
+                  <span style={{ backgroundColor: `${item.color}15`, color: item.color, border: `1px solid ${item.color}40`, fontSize: "0.75rem", fontWeight: 700, padding: "3px 10px", borderRadius: "100px" }}>
+                    {item.topic}
+                  </span>
+                  <span style={{ backgroundColor: "#f3f4f6", color: "#6b7280", fontSize: "0.75rem", fontWeight: 600, padding: "3px 10px", borderRadius: "100px" }}>
+                    📍 {item.location}
+                  </span>
+                  <span style={{ backgroundColor: "#fff7ed", color: "#c2410c", fontSize: "0.75rem", fontWeight: 600, padding: "3px 10px", borderRadius: "100px" }}>
+                    {item.source}
+                  </span>
+                </div>
+                <p style={{ color: "#111827", fontWeight: 700, fontSize: "0.9rem", lineHeight: 1.5, marginBottom: "14px" }}>
+                  ❓ {item.question}
+                </p>
+                <div style={{ borderLeft: `3px solid ${item.color}`, paddingLeft: "14px" }}>
+                  <p style={{ color: "#4b5563", fontSize: "0.85rem", lineHeight: 1.75, margin: 0 }}>
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", marginTop: "32px" }}>
+            <Link href="/faq" style={{
+              display: "inline-block",
+              backgroundColor: "white",
+              color: "#111827",
+              border: "1px solid #e5e7eb",
+              fontWeight: 600,
+              fontSize: "0.875rem",
+              padding: "12px 28px",
+              borderRadius: "6px",
+              textDecoration: "none",
+            }}>
+              See All FAQs →
+            </Link>
           </div>
         </div>
       </section>

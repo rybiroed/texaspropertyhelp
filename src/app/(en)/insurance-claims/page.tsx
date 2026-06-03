@@ -61,7 +61,7 @@ export default function InsuranceClaimsPage() {
     <>
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/insurance-hero.jpg" alt="Insurance claim help Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(30,0,60,0.65) 0%, rgba(10,0,30,0.50) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.30) 100%)" }} />
         <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", backgroundColor: "rgba(118,185,0,0.15)", color: "#76b900", border: "1px solid rgba(118,185,0,0.4)", fontSize: "0.8rem", fontWeight: 700, padding: "6px 16px", borderRadius: "100px", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "20px" }}>
             📄 Insurance Claim Help
