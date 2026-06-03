@@ -13,16 +13,16 @@ import { getPublishedGuides } from "@/lib/guides";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Texas Property Help | Storm Damage, Roofing, HVAC & Insurance Help",
+  title: "Storm Damage Help for Texas Homeowners | Texas Property Help",
   description:
-    "Texas Property Help connects homeowners with local service professionals for storm damage, roofing, HVAC, insurance claim guidance, and repair financing across Texas.",
+    "Get connected with vetted, TDLR-licensed Texas contractors and free insurance claim guidance after storm damage. Serving Houston, Dallas, San Antonio, Austin & Fort Worth.",
   alternates: pageAlternates("/", "/es"),
 };
 
 const services = [
   {
     title: "Storm Damage",
-    description: "Hail, wind, and water damage — get help documenting, assessing, and addressing property damage after Texas storms.",
+    description: "Hail, wind, and water damage hit fast. We help Texas homeowners document storm damage, get a licensed contractor inspection, and navigate the insurance claim process — before your claim deadline.",
     href: "/storm-damage",
     icon: "⛈️",
     image: "/images/storm-damage-hero.jpg",
@@ -30,7 +30,7 @@ const services = [
   },
   {
     title: "Roofing Help",
-    description: "From roof inspection to repair and replacement, get connected with qualified roofing professionals across Texas.",
+    description: "From free roof inspections to full replacement, get connected with TDLR-licensed roofing professionals across Texas. Know your rights before signing any contract.",
     href: "/roofing",
     icon: "🏠",
     image: "/images/roofing-hero.png",
@@ -46,7 +46,7 @@ const services = [
   },
   {
     title: "Insurance Claim Help",
-    description: "Understand the homeowner insurance claim process — documentation, communication, and what to expect.",
+    description: "Understand your homeowner insurance claim from start to finish — documentation, adjuster visits, ACV vs. RCV, and what to do if your claim is denied or underpaid.",
     href: "/insurance-claims",
     icon: "📄",
     image: "/images/insurance-hero.jpg",
@@ -77,12 +77,12 @@ const homeFaqs: FAQItem[] = [
       "Texas Property Help is a homeowner assistance and referral platform. We help Texas homeowners understand their options after property damage, navigate insurance claims, and connect with relevant service providers. We are not a contractor, insurance company, or law firm.",
   },
   {
-    question: "Is this service free for homeowners?",
+    question: "Is Texas Property Help free for homeowners?",
     answer:
       "Submitting a request and receiving information through our platform is free. If you are connected with a service provider, their individual fees and terms apply and vary.",
   },
   {
-    question: "What areas of Texas do you serve?",
+    question: "Which Texas cities and areas do you cover for storm damage help?",
     answer:
       `We currently assist homeowners across Texas, including ${SITE_CONFIG.serviceAreas.slice(0, 6).join(", ")}, and surrounding areas. Coverage is expanding.`,
   },
@@ -144,7 +144,7 @@ export default function HomePage() {
             marginBottom: "20px",
             textShadow: "0 2px 20px rgba(0,0,0,0.5)",
           }}>
-            Get the Right Help for Your<br />
+            Get Storm Damage Help for Your<br />
             <span style={{ color: "#76b900" }}>Texas Property</span>
           </h1>
           <p style={{
@@ -154,7 +154,7 @@ export default function HomePage() {
             margin: "0 auto 36px",
             lineHeight: 1.75,
           }}>
-            Storm damage, roofing issues, HVAC failures, insurance claims, and repair financing — Texas Property Help connects homeowners with the right resources at the right time.
+            After hail, wind, or water damage, Texas homeowners need fast, reliable help — not another runaround. Texas Property Help connects you with vetted, licensed contractors, insurance claim guidance, and repair financing across Texas. Free to use. No pressure.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/request-help" style={{
@@ -212,7 +212,7 @@ export default function HomePage() {
               What We Cover
             </p>
             <h2 style={{ color: "#111827", fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, marginBottom: "12px" }}>
-              How We Help Texas Homeowners
+              How We Help Texas Homeowners After Storm Damage
             </h2>
             <p style={{ color: "#6b7280", maxWidth: "520px", margin: "0 auto", fontSize: "0.95rem" }}>
               From emergency storm response to long-term repair planning — explore the areas where we can connect you with guidance and resources.
@@ -241,8 +241,8 @@ export default function HomePage() {
             <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800, marginBottom: "10px" }}>
               Serving Texas Homeowners Statewide
             </h2>
-            <p style={{ color: "#6b7280", fontSize: "0.9rem", maxWidth: "500px", margin: "0 auto" }}>
-              From major metros to small towns — we help homeowners across Texas navigate storm damage, roofing, insurance, and repair financing.
+            <p style={{ color: "#6b7280", fontSize: "0.9rem", maxWidth: "560px", margin: "0 auto" }}>
+              Whether you&apos;ve had hail damage in Houston, wind damage in Dallas, or need HVAC repair after a storm in San Antonio — Texas Property Help connects you with licensed, vetted contractors and free guidance, no matter where in Texas you live.
             </p>
           </div>
 
@@ -359,13 +359,13 @@ export default function HomePage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "36px", flexWrap: "wrap", gap: "12px" }}>
             <div>
               <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
-                From Our Community
+                Texas Homeowners Ask
               </p>
               <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800, margin: 0 }}>
-                Real Questions. Real Answers.
+                Real Storm Damage &amp; Insurance Questions
               </h2>
               <p style={{ color: "#6b7280", fontSize: "0.9rem", marginTop: "8px" }}>
-                Texas homeowners ask — we answer. Here are recent questions from our community.
+                Real questions from Texas homeowners navigating hail damage, adjuster disputes, and contractor decisions — answered by our team.
               </p>
             </div>
           </div>
@@ -456,8 +456,8 @@ export default function HomePage() {
       <FAQ items={homeFaqs} heading="Common Questions About Texas Property Help" />
 
       <CTASection
-        heading="Have a Property Issue You Need Help With?"
-        subheading="Submit a quick request and we'll help identify the right resources for your situation — storm damage, roofing, HVAC, insurance, or financing."
+        heading="Have Storm Damage? Get Texas-Specific Help Now."
+        subheading="Submit a quick request and we'll match you with vetted, TDLR-licensed Texas contractors and free guidance — storm damage, roofing, HVAC, insurance claims, or repair financing. Takes 2 minutes. Always free."
         primaryLabel="Request Help Now"
         secondaryLabel="Browse Homeowner Guides"
         secondaryHref="/guides"
