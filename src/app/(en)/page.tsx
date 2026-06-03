@@ -13,10 +13,34 @@ import { getPublishedGuides } from "@/lib/guides";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Storm Damage Help for Texas Homeowners | Texas Property Help",
+  title: "Texas Storm Damage Help — Free Contractors & Claims Guidance",
   description:
-    "Get connected with vetted, TDLR-licensed Texas contractors and free insurance claim guidance after storm damage. Serving Houston, Dallas, San Antonio, Austin & Fort Worth.",
+    "Connect with vetted Texas contractors, navigate your insurance claim, and find repair financing — free, fast, and pressure-free. Serving all of Texas.",
   alternates: pageAlternates("/", "/es"),
+  openGraph: {
+    title: "Texas Storm Damage Help — Free Contractors & Claims Guidance",
+    description:
+      "Connect with vetted Texas contractors, navigate your insurance claim, and find repair financing — free, fast, and pressure-free. Serving all of Texas.",
+    url: "https://texaspropertyhelp.com",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://texaspropertyhelp.com/images/home-hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Texas Property Help — Storm Damage Assistance for Texas Homeowners",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Texas Storm Damage Help — Free Contractors & Claims Guidance",
+    description:
+      "Connect with vetted Texas contractors, navigate your insurance claim, and find repair financing — free and pressure-free.",
+    images: ["https://texaspropertyhelp.com/images/home-hero.jpg"],
+  },
 };
 
 const services = [
@@ -103,8 +127,55 @@ export default function HomePage() {
     .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
     .slice(0, 3);
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://texaspropertyhelp.com/#organization",
+    "name": "Texas Property Help",
+    "url": "https://texaspropertyhelp.com",
+    "logo": "https://texaspropertyhelp.com/images/logo.png",
+    "description": "Free homeowner assistance platform connecting Texas homeowners with vetted contractors, insurance claim guidance, and repair financing after storm damage.",
+    "areaServed": {
+      "@type": "State",
+      "name": "Texas"
+    },
+    "serviceType": [
+      "Storm Damage Help",
+      "Roofing Contractor Referral",
+      "HVAC Repair Referral",
+      "Insurance Claim Guidance",
+      "Home Repair Financing"
+    ],
+    "priceRange": "Free",
+    "sameAs": [
+      "https://texaspropertyhelp.com"
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": homeFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero with background photo */}
       <section style={{ position: "relative", minHeight: "560px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         {/* Background image */}
@@ -144,8 +215,8 @@ export default function HomePage() {
             marginBottom: "20px",
             textShadow: "0 2px 20px rgba(0,0,0,0.5)",
           }}>
-            Get Storm Damage Help for Your<br />
-            <span style={{ color: "#76b900" }}>Texas Property</span>
+            Storm Damage Help for Texas Homeowners —<br />
+            <span style={{ color: "#76b900" }}>Fast, Free, and Pressure-Free</span>
           </h1>
           <p style={{
             color: "rgba(255,255,255,0.82)",
