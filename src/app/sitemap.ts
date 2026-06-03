@@ -35,6 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/dallas`,                      lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/austin`,                      lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE}/fort-worth`,                  lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    { url: `${BASE}/corpus-christi`,              lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    { url: `${BASE}/el-paso`,                     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    { url: `${BASE}/lubbock`,                     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/amarillo`,                    lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/laredo`,                      lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/waco`,                        lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
+    { url: `${BASE}/mcallen`,                     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
   ];
 
   const staticES: MetadataRoute.Sitemap = [
