@@ -541,7 +541,7 @@ export default function HomePage() {
                           )}
                           {/* Category badge over image */}
                           <div style={{ position: "absolute", top: "10px", left: "10px" }}>
-                            <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.04em", backdropFilter: "blur(4px)", backgroundColor: "rgba(0,0,0,0.45)", color: "#fff" }}>
+                            <span style={{ backgroundColor: "rgba(0,0,0,0.55)", color: "#fff", fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.04em", backdropFilter: "blur(4px)" }}>
                               {cat.label}
                             </span>
                           </div>
