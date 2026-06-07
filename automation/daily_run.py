@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
 """
-daily_run.py — Master automation script for Texas Property Help.
+daily_run.py — Master automation pipeline for Texas Property Help.
 
-Runs automatically via WSL cron every morning at 8:00 AM CT.
-Pipeline:
+Pipeline (article-first):
   1. Fetch live NWS weather alerts for Texas
   2. Fetch latest Texas storm/property news from RSS
-  3. Determine today's scheduled topic
-  4. Generate EN + ES Facebook post with weather/news context (via Ollama)
-  5. Save to automation/output/YYYY-MM-DD_topic.json
-  6. Optionally auto-post to Facebook Page (if FB credentials are set)
-  7. Log everything to automation/logs/YYYY-MM-DD.log
+  3. Determine today's scheduled topic + city rotation
+  4. Generate full article (EN + ES) via Ollama → save to posts.json
+  5. Git commit + push posts.json → Vercel auto-deploys
+  6. Generate Facebook post text referencing the article URL
+  7. Save daily output JSON
+  8. Optionally post to Facebook (link post, not raw text)
 
 Cron setup (run once in WSL):
   crontab -e
-  Add: 0 8 * * * cd /home/rybiroed/projects/texaspropertyhelp && python3 automation/daily_run.py >> automation/logs/cron.log 2>&1
+  Add: 0 13 * * * cd /home/rybiroed/projects/texaspropertyhelp && python3 automation/daily_run.py >> automation/logs/cron.log 2>&1
+  (13:00 UTC = 8:00 AM CDT)
 
 Manual run:
   python3 automation/daily_run.py
-  python3 automation/daily_run.py --no-post        # generate only, don't post to FB
-  python3 automation/daily_run.py --lang both      # post both EN and ES
-  python3 automation/daily_run.py --dry-run        # full pipeline but don't post
+  python3 automation/daily_run.py --no-post        # generate + publish, skip FB
+  python3 automation/daily_run.py --dry-run        # full pipeline, don't save or push
+  python3 automation/daily_run.py --lang both      # post EN and ES to FB
+  python3 automation/daily_run.py --topic roofing  # override today's topic
+  python3 automation/daily_run.py --city Houston   # override city
 """
 
 import json
@@ -31,36 +34,44 @@ import sys
 import io
 import subprocess
 
-# Fix encoding
+# Fix encoding for Windows/WSL
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR  = os.path.join(SCRIPT_DIR, "output")
-LOGS_DIR    = os.path.join(SCRIPT_DIR, "logs")
-SCHEDULE    = os.path.join(SCRIPT_DIR, "schedule.json")
-OLLAMA_URL  = "http://localhost:11434/api/generate"
-MODEL       = "llama3.1:8b"
+SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+OUTPUT_DIR   = os.path.join(SCRIPT_DIR, "output")
+LOGS_DIR     = os.path.join(SCRIPT_DIR, "logs")
+SCHEDULE     = os.path.join(SCRIPT_DIR, "schedule.json")
+POSTS_JSON   = os.path.join(PROJECT_ROOT, "src", "data", "posts.json")
+SITE_URL     = "https://texaspropertyhelp.com"
+OLLAMA_URL   = "http://localhost:11434/api/generate"
+MODEL        = "llama3.1:8b"
 
-# Add automation dir to path for local imports
 sys.path.insert(0, SCRIPT_DIR)
-from fetch_weather import get_texas_alerts, summarize_alerts
-from fetch_news    import get_texas_storm_news
+from fetch_weather      import get_texas_alerts
+from fetch_news         import get_texas_storm_news
+from generate_article   import (
+    call_ollama, build_article_prompt, build_es_translate_prompt,
+    build_title_prompt, build_es_title_prompt, build_summary_prompt,
+    build_es_summary_prompt, build_fb_post_prompt,
+    slugify, estimate_read_time, TOPIC_CATEGORY, CITY_ROTATION,
+    load_posts, save_posts
+)
 
 import urllib.request
 import urllib.error
 
 
-# ── Logging ──────────────────────────────────────────────────────────────────
-
-def setup_log() -> io.TextIOWrapper:
+# ── Logging ───────────────────────────────────────────────────────────────────
+def setup_log():
     os.makedirs(LOGS_DIR, exist_ok=True)
     date_str = datetime.datetime.now().strftime("%Y-%m-%d")
     log_path = os.path.join(LOGS_DIR, f"{date_str}.log")
     return open(log_path, "a", encoding="utf-8")
 
 def log(msg: str, logfile=None):
-    ts = datetime.datetime.now().strftime("%H:%M:%S")
+    ts   = datetime.datetime.now().strftime("%H:%M:%S")
     line = f"[{ts}] {msg}"
     print(line)
     if logfile:
@@ -68,160 +79,125 @@ def log(msg: str, logfile=None):
         logfile.flush()
 
 
-# ── Schedule ─────────────────────────────────────────────────────────────────
-
-def load_schedule() -> dict:
+# ── Schedule ──────────────────────────────────────────────────────────────────
+def load_schedule():
     with open(SCHEDULE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def get_today_topic(schedule: dict) -> dict:
+def get_today_topic(schedule):
     day_index = str(datetime.datetime.now().weekday())
     return schedule["weekly_schedule"][day_index]
 
+def get_city_for_today():
+    day_of_year = datetime.datetime.now().timetuple().tm_yday
+    return CITY_ROTATION[day_of_year % len(CITY_ROTATION)]
 
-# ── Ollama ───────────────────────────────────────────────────────────────────
 
-def call_ollama(prompt: str) -> str:
-    import json as _json
-    payload = _json.dumps({
-        "model":  MODEL,
-        "prompt": prompt,
-        "stream": False,
-        "options": {"temperature": 0.75, "top_p": 0.9, "num_predict": 600}
-    }).encode("utf-8")
-    req = urllib.request.Request(
-        OLLAMA_URL, data=payload,
-        headers={"Content-Type": "application/json"}, method="POST"
-    )
+# ── Git publish ───────────────────────────────────────────────────────────────
+def git_push(today: str, logfile=None) -> bool:
+    """Commit posts.json and push to GitHub. Returns True on success."""
     try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            result = _json.loads(resp.read().decode("utf-8"))
-            return result.get("response", "").strip()
-    except urllib.error.URLError as e:
-        raise RuntimeError(f"Ollama connection error: {e}\nMake sure Ollama is running: ollama serve")
+        os.chdir(PROJECT_ROOT)
+        # Check if there are changes
+        result = subprocess.run(
+            ["git", "diff", "--quiet", "src/data/posts.json"],
+            capture_output=True
+        )
+        if result.returncode == 0:
+            log("   ℹ️  No changes in posts.json — skipping git push", logfile)
+            return True  # not an error
+
+        subprocess.run(["git", "add", "src/data/posts.json"], check=True)
+        subprocess.run(
+            ["git", "commit", "-m", f"content: auto-publish article {today}\n\nGenerated by daily_run.py via Ollama llama3.1:8b\nTopics: roofing, HVAC, storm damage, insurance, financing, weather\nCity rotation: 20 Texas cities"],
+            check=True
+        )
+        subprocess.run(["git", "push", "origin", "HEAD"], check=True, timeout=60)
+        return True
+    except subprocess.CalledProcessError as e:
+        log(f"   ❌ Git error: {e}", logfile)
+        return False
 
 
-def build_en_prompt(topic: dict, weather_ctx: str, news_ctx: str) -> str:
-    ctx_lines = []
-    if weather_ctx:
-        ctx_lines.append(f"Active Texas weather alerts: {weather_ctx[:300]}")
-    if news_ctx:
-        ctx_lines.append(f"Recent Texas storm/property news: {news_ctx[:300]}")
-    ctx_block = ("\n\nLive context to reference naturally:\n" + "\n".join(ctx_lines)) if ctx_lines else ""
+# ── Facebook link post ────────────────────────────────────────────────────────
+def post_link_to_facebook(message: str, article_url: str) -> str | bool:
+    """Post a link post to Facebook. Returns post ID or False."""
+    page_id = os.environ.get("FB_PAGE_ID", "")
+    token   = os.environ.get("FB_ACCESS_TOKEN", "")
+    if not page_id or not token:
+        return False
 
-    return f"""You are a social media writer for Texas Property Help — a free homeowner assistance platform.
-
-Write a Facebook post about: {topic['angle']}
-Section: {topic['section']}
-Keywords to naturally include: {', '.join(topic['keywords'])}{ctx_block}
-
-Rules:
-- 150-250 words maximum
-- Start with a hook (question or surprising fact)
-- Simple, friendly language — not legal jargon
-- Include 2-3 practical tips homeowners can act on TODAY
-- End with: "Get free guidance → texaspropertyhelp.com"
-- Use 2-3 relevant emojis naturally placed (not at start of every line)
-- Do NOT use hashtags
-- Tone: helpful neighbor, not salesperson
-- Must be specific to TEXAS (mention Texas law, TDI, TDLR where relevant)
-- If live weather or news context is provided, weave it in naturally (1-2 sentences)
-
-Write ONLY the post text. No title, no explanation."""
+    import urllib.parse
+    url  = f"https://graph.facebook.com/v19.0/{page_id}/feed"
+    data = urllib.parse.urlencode({
+        "message":      message,
+        "link":         article_url,
+        "access_token": token,
+    }).encode("utf-8")
+    req = urllib.request.Request(url, data=data, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+            return result.get("id", False)
+    except Exception as e:
+        return False
 
 
-def build_es_prompt(en_post: str) -> str:
-    return f"""Translate the following Facebook post from English to Spanish (Latin American Spanish, for Texas Mexican-American community).
-
-Keep the same tone — friendly, helpful, practical.
-Keep "texaspropertyhelp.com" as-is.
-Keep technical terms (TDI, TDLR, ACV, RCV, TWIA, NFIP) as-is.
-Keep numbers and dollar amounts as-is.
-
-English post:
-{en_post}
-
-Write ONLY the Spanish translation. No explanation."""
-
-
-# ── Output ───────────────────────────────────────────────────────────────────
-
+# ── Output save ───────────────────────────────────────────────────────────────
 def save_output(data: dict) -> str:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+    date_str   = data["date"]
     topic_slug = data["topic"].replace(" ", "_").replace("/", "-")
-    filepath = os.path.join(OUTPUT_DIR, f"{date_str}_{topic_slug}.json")
+    filepath   = os.path.join(OUTPUT_DIR, f"{date_str}_{topic_slug}.json")
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     return filepath
 
 
-# ── Facebook posting ─────────────────────────────────────────────────────────
-
-def post_to_facebook(text: str, lang: str) -> bool:
-    """Try to post to Facebook. Returns True on success."""
-    page_id = os.environ.get("FB_PAGE_ID", "")
-    token   = os.environ.get("FB_ACCESS_TOKEN", "")
-
-    if not page_id or not token:
-        return False  # credentials not set, skip silently
-
-    import urllib.parse
-    url  = f"https://graph.facebook.com/v19.0/{page_id}/feed"
-    data = urllib.parse.urlencode({"message": text, "access_token": token}).encode("utf-8")
-    req  = urllib.request.Request(url, data=data, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-            post_id = result.get("id", "unknown")
-            return post_id
-    except Exception as e:
-        return False
-
-
-# ── Main ─────────────────────────────────────────────────────────────────────
-
+# ── Main ──────────────────────────────────────────────────────────────────────
 def main():
-    parser = argparse.ArgumentParser(description="Daily automation run for Texas Property Help")
-    parser.add_argument("--no-post",  action="store_true", help="Generate posts but don't publish to Facebook")
-    parser.add_argument("--dry-run",  action="store_true", help="Full pipeline, print results, don't save or post")
-    parser.add_argument("--lang",     default="en", choices=["en", "es", "both"], help="Language to post to Facebook (default: en)")
+    parser = argparse.ArgumentParser(description="Daily automation pipeline for Texas Property Help")
+    parser.add_argument("--no-post",  action="store_true", help="Generate + publish to site, skip Facebook")
+    parser.add_argument("--dry-run",  action="store_true", help="Full pipeline, print results, don't save or push")
+    parser.add_argument("--lang",     default="en", choices=["en", "es", "both"])
     parser.add_argument("--topic",    help="Override today's scheduled topic")
+    parser.add_argument("--city",     help="Override city for today's article")
+    parser.add_argument("--no-city",  action="store_true", help="Generate statewide article")
     args = parser.parse_args()
 
     logfile = None if args.dry_run else setup_log()
     now     = datetime.datetime.now()
+    today   = now.strftime("%Y-%m-%d")
 
-    log("=" * 60, logfile)
-    log(f"🚀 Texas Property Help — Daily Automation Run", logfile)
-    log(f"   {now.strftime('%A, %B %d, %Y at %H:%M CT')}", logfile)
-    log("=" * 60, logfile)
+    log("=" * 62, logfile)
+    log("🚀  Texas Property Help — Daily Automation Pipeline", logfile)
+    log(f"    {now.strftime('%A, %B %d, %Y at %H:%M CT')}", logfile)
+    log("=" * 62, logfile)
 
     # ── Step 1: Weather ──────────────────────────────────────────────────────
     log("\n📡 Step 1: Fetching NWS weather alerts...", logfile)
     try:
         alerts, weather_ctx = get_texas_alerts()
         log(f"   Found {len(alerts)} relevant alert(s)", logfile)
-        if alerts:
-            for a in alerts[:3]:
-                log(f"   🔴 {a['event']} — {a['area'][:80]}", logfile)
+        for a in alerts[:3]:
+            log(f"   🔴 {a['event']} — {a['area'][:70]}", logfile)
     except Exception as e:
-        log(f"   ⚠️ Weather fetch failed: {e}", logfile)
+        log(f"   ⚠️  Weather fetch failed: {e}", logfile)
         alerts, weather_ctx = [], ""
 
     # ── Step 2: News ─────────────────────────────────────────────────────────
-    log("\n📰 Step 2: Fetching Texas storm news from RSS...", logfile)
+    log("\n📰 Step 2: Fetching Texas storm/property news...", logfile)
     try:
         stories, news_ctx = get_texas_storm_news(max_results=3)
         log(f"   Found {len(stories)} relevant story/stories", logfile)
         for s in stories[:2]:
-            log(f"   📍 {s['source']}: {s['title'][:80]}", logfile)
+            log(f"   📍 {s['source']}: {s['title'][:70]}", logfile)
     except Exception as e:
-        log(f"   ⚠️ News fetch failed: {e}", logfile)
+        log(f"   ⚠️  News fetch failed: {e}", logfile)
         stories, news_ctx = [], ""
 
-    # ── Step 3: Topic ────────────────────────────────────────────────────────
-    log("\n📅 Step 3: Determining today's topic...", logfile)
+    # ── Step 3: Topic + City ─────────────────────────────────────────────────
+    log("\n📅 Step 3: Selecting topic and city...", logfile)
     schedule = load_schedule()
     if args.topic:
         topic = next(
@@ -229,110 +205,179 @@ def main():
             None
         )
         if not topic:
-            log(f"   ❌ Topic '{args.topic}' not found", logfile)
+            log(f"   ❌ Unknown topic: {args.topic}", logfile)
             sys.exit(1)
     else:
-        # If there are active alerts, override to weather_alert topic (highest urgency)
         if alerts and not args.topic:
             topic = next(
                 (d for d in schedule["weekly_schedule"].values() if d["topic"] == "weather_alert"),
                 get_today_topic(schedule)
             )
-            log(f"   ⚡ Active weather alerts → switching to weather_alert topic", logfile)
+            log("   ⚡ Active NWS alerts → switching to weather_alert topic", logfile)
         else:
             topic = get_today_topic(schedule)
 
-    log(f"   Topic: {topic['section']} — {topic['angle'][:60]}...", logfile)
+    if args.no_city:
+        city = None
+    elif args.city:
+        city = args.city
+    else:
+        city = get_city_for_today()
 
-    # ── Step 4: Generate posts ───────────────────────────────────────────────
-    log("\n🤖 Step 4: Generating posts with Ollama...", logfile)
+    log(f"   Topic: {topic['section']} — {topic['angle'][:55]}...", logfile)
+    log(f"   City:  {city or 'statewide'}", logfile)
+
+    # ── Step 4: Generate article ──────────────────────────────────────────────
+    log("\n🤖 Step 4: Generating article with Ollama...", logfile)
     try:
-        log("   ⏳ English post...", logfile)
-        en_prompt = build_en_prompt(topic, weather_ctx, news_ctx)
-        post_en   = call_ollama(en_prompt)
-        log(f"   ✓ EN post: {len(post_en)} chars", logfile)
+        log("   ⏳ Title (EN)...", logfile)
+        title_en = call_ollama(build_title_prompt(topic, city), max_tokens=80).strip('"').strip("'").strip()
 
-        log("   ⏳ Spanish translation...", logfile)
-        post_es = call_ollama(build_es_prompt(post_en))
-        log(f"   ✓ ES post: {len(post_es)} chars", logfile)
+        log("   ⏳ Title (ES)...", logfile)
+        title_es = call_ollama(build_es_title_prompt(title_en), max_tokens=80).strip('"').strip("'").strip()
+
+        log(f"   ✓ Title: {title_en}", logfile)
+
+        log("   ⏳ Article body (EN)...", logfile)
+        content_html = call_ollama(build_article_prompt(topic, city, weather_ctx, news_ctx))
+        if not content_html.startswith("<"):
+            content_html = "<p>" + content_html
+        log(f"   ✓ EN: {len(content_html)} chars", logfile)
+
+        log("   ⏳ Article body (ES)...", logfile)
+        content_html_es = call_ollama(build_es_translate_prompt(content_html), max_tokens=1400)
+        log(f"   ✓ ES: {len(content_html_es)} chars", logfile)
+
+        log("   ⏳ Summaries...", logfile)
+        summary_en = call_ollama(build_summary_prompt(content_html, title_en), max_tokens=100).strip('"').strip().strip("'")
+        summary_es = call_ollama(build_es_summary_prompt(summary_en), max_tokens=100).strip('"').strip().strip("'")
+
+        log("   ⏳ Facebook post text...", logfile)
+        post_en = call_ollama(build_fb_post_prompt(title_en, content_html, city), max_tokens=350)
+        post_es = call_ollama(build_es_translate_prompt(post_en), max_tokens=400)
+
     except RuntimeError as e:
-        log(f"   ❌ Generation failed: {e}", logfile)
+        log(f"   ❌ Ollama generation failed: {e}", logfile)
         sys.exit(1)
 
-    # ── Step 5: Save ─────────────────────────────────────────────────────────
-    data = {
-        "date":         now.strftime("%Y-%m-%d"),
-        "time":         now.strftime("%H:%M"),
-        "day":          topic["day"],
-        "topic":        topic["topic"],
-        "section":      topic["section"],
-        "angle":        topic["angle"],
-        "model":        MODEL,
-        "weather_ctx":  weather_ctx,
-        "news_ctx":     news_ctx,
-        "alerts_count": len(alerts),
+    # ── Build slug + post entry ───────────────────────────────────────────────
+    slug_base = slugify(f"{city} {title_en}" if city else title_en)
+    slug      = f"{today}-{slug_base}"[:100]
+    category  = TOPIC_CATEGORY.get(topic["topic"], "storm-damage")
+    read_time = estimate_read_time(content_html)
+    article_url = f"{SITE_URL}/updates/{slug}"
+
+    post_entry = {
+        "slug":          slug,
+        "title":         title_en,
+        "titleEs":       title_es,
+        "category":      category,
+        "city":          city,
+        "publishedAt":   today,
+        "summary":       summary_en[:160],
+        "summaryEs":     summary_es[:160],
+        "readTime":      read_time,
+        "contentHtml":   content_html,
+        "contentHtmlEs": content_html_es,
+        "postEn":        post_en,
+        "postEs":        post_es,
+        "weatherCtx":    weather_ctx[:400],
+        "newsCtx":       news_ctx[:400],
+    }
+
+    log(f"   📎 Slug: {slug}", logfile)
+    log(f"   🔗 URL: {article_url}", logfile)
+
+    # ── Step 5: Save to posts.json ────────────────────────────────────────────
+    if args.dry_run:
+        log("\n💾 Step 5: DRY RUN — not saved to posts.json", logfile)
+    else:
+        posts = load_posts()
+        posts = [p for p in posts if p.get("slug") != slug]  # dedup
+        posts.insert(0, post_entry)
+        save_posts(posts)
+        log(f"\n💾 Step 5: Saved to posts.json ({len(posts)} total)", logfile)
+
+    # ── Step 6: Git push → Vercel deploy ──────────────────────────────────────
+    if args.dry_run:
+        log("\n🚀 Step 6: DRY RUN — skipping git push", logfile)
+    else:
+        log("\n🚀 Step 6: Publishing to website (git push → Vercel)...", logfile)
+        ok = git_push(today, logfile)
+        if ok:
+            log(f"   ✅ Pushed — Vercel deploying...", logfile)
+            log(f"   🔗 Will be live at: {article_url}", logfile)
+        else:
+            log("   ⚠️  Git push failed — article saved locally but not deployed", logfile)
+
+    # ── Print posts ───────────────────────────────────────────────────────────
+    print("\n" + "═" * 62)
+    print(f"📄  ARTICLE: {title_en}")
+    print(f"🔗  URL: {article_url}")
+    print("─" * 62)
+    print("🇺🇸  FACEBOOK POST (EN)")
+    print(post_en)
+    print("\n🇲🇽  FACEBOOK POST (ES)")
+    print(post_es)
+    print("═" * 62)
+
+    # ── Step 7: Save daily output JSON ────────────────────────────────────────
+    daily_data = {
+        "date":          today,
+        "time":          now.strftime("%H:%M"),
+        "topic":         topic["topic"],
+        "section":       topic["section"],
+        "city":          city,
+        "slug":          slug,
+        "article_url":   article_url,
+        "title_en":      title_en,
+        "model":         MODEL,
+        "weather_ctx":   weather_ctx,
+        "news_ctx":      news_ctx,
+        "alerts_count":  len(alerts),
         "stories_count": len(stories),
-        "post_en":      post_en,
-        "post_es":      post_es,
-        "char_en":      len(post_en),
-        "char_es":      len(post_es),
-        "posted_en":    False,
-        "posted_es":    False,
-        "ready_to_post": True,
+        "post_en":       post_en,
+        "post_es":       post_es,
+        "posted_en":     False,
+        "posted_es":     False,
     }
 
     if not args.dry_run:
-        filepath = save_output(data)
-        log(f"\n💾 Step 5: Saved → {filepath}", logfile)
-    else:
-        filepath = "(dry run — not saved)"
-        log(f"\n💾 Step 5: DRY RUN — output not saved", logfile)
+        filepath = save_output(daily_data)
+        log(f"\n📁 Step 7: Daily output → {filepath}", logfile)
 
-    # ── Print posts ──────────────────────────────────────────────────────────
-    print("\n" + "═" * 60)
-    print("🇺🇸  ENGLISH POST")
-    print("─" * 60)
-    print(post_en)
-    print("\n🇲🇽  SPANISH POST")
-    print("─" * 60)
-    print(post_es)
-    print("═" * 60)
-
-    # ── Step 6: Facebook posting ──────────────────────────────────────────────
+    # ── Step 8: Facebook posting ──────────────────────────────────────────────
     if args.dry_run or args.no_post:
-        log(f"\n📤 Step 6: Facebook posting {'skipped (dry run)' if args.dry_run else 'skipped (--no-post)'}", logfile)
+        log(f"\n📤 Step 8: Facebook posting {'skipped (dry run)' if args.dry_run else 'skipped (--no-post)'}", logfile)
     else:
-        log(f"\n📤 Step 6: Posting to Facebook...", logfile)
+        log("\n📤 Step 8: Posting to Facebook...", logfile)
         fb_page_id = os.environ.get("FB_PAGE_ID", "")
         fb_token   = os.environ.get("FB_ACCESS_TOKEN", "")
 
         if not fb_page_id or not fb_token:
-            log("   ⚠️  FB credentials not set — skipping auto-post", logfile)
-            log("   To enable: export FB_PAGE_ID=xxx FB_ACCESS_TOKEN=yyy", logfile)
+            log("   ⚠️  FB credentials not set — skipping", logfile)
+            log("   Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable", logfile)
         else:
-            # Post EN
             if args.lang in ("en", "both"):
-                result = post_to_facebook(post_en, "en")
+                result = post_link_to_facebook(post_en, article_url)
                 if result:
-                    data["posted_en"] = True
+                    daily_data["posted_en"] = True
                     log(f"   ✅ EN post published (ID: {result})", logfile)
                 else:
                     log("   ❌ EN post failed", logfile)
 
-            # Post ES (separately, 10 min later in a real setup)
             if args.lang in ("es", "both"):
-                result = post_to_facebook(post_es, "es")
+                result = post_link_to_facebook(post_es, article_url)
                 if result:
-                    data["posted_es"] = True
+                    daily_data["posted_es"] = True
                     log(f"   ✅ ES post published (ID: {result})", logfile)
                 else:
                     log("   ❌ ES post failed", logfile)
 
-            # Update saved file with post status
             if not args.dry_run:
-                save_output(data)
+                save_output(daily_data)
 
-    log("\n✅ Daily run complete.", logfile)
+    log("\n✅ Daily pipeline complete.", logfile)
     if logfile:
         logfile.close()
 

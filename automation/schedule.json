@@ -1,0 +1,121 @@
+{
+  "weekly_schedule": {
+    "0": {
+      "day": "Monday",
+      "topic": "storm_damage",
+      "section": "Storm Damage",
+      "angle": "What to do in the first 48 hours after a Texas storm",
+      "keywords": ["hail damage", "storm damage", "Texas homeowners", "document damage", "insurance claim"]
+    },
+    "1": {
+      "day": "Tuesday",
+      "topic": "roofing",
+      "section": "Roofing",
+      "angle": "5 red flags that a roofer is trying to scam you after a storm",
+      "keywords": ["TDLR license", "storm chasers", "roofing contractor", "Texas", "roof replacement"]
+    },
+    "2": {
+      "day": "Wednesday",
+      "topic": "insurance",
+      "section": "Insurance Claims",
+      "angle": "ACV vs RCV — what every Texas homeowner needs to know before filing a claim",
+      "keywords": ["ACV", "RCV", "actual cash value", "replacement cost", "hail claim Texas"]
+    },
+    "3": {
+      "day": "Thursday",
+      "topic": "hvac",
+      "section": "HVAC",
+      "angle": "What to do if your AC goes out after a Texas storm or extreme heat",
+      "keywords": ["HVAC damage", "AC repair Texas", "storm damage HVAC", "emergency repair", "heat wave"]
+    },
+    "4": {
+      "day": "Friday",
+      "topic": "financing",
+      "section": "Repair Financing",
+      "angle": "How to finance storm repairs when you can't afford the deductible",
+      "keywords": ["home improvement loan", "repair financing", "Texas homeowner", "deductible", "storm repair"]
+    },
+    "5": {
+      "day": "Saturday",
+      "topic": "weather_alert",
+      "section": "Weather Update",
+      "angle": "Texas storm season update — what homeowners need to know this week",
+      "keywords": ["Texas storm", "hail season", "storm alert", "homeowner tips", "severe weather"]
+    },
+    "6": {
+      "day": "Sunday",
+      "topic": "storm_damage",
+      "section": "Storm Damage",
+      "angle": "Common insurance claim mistakes Texas homeowners make after hail",
+      "keywords": ["insurance claim mistakes", "hail damage Texas", "claim denial", "documentation", "adjuster"]
+    }
+  },
+
+  "topic_angles": {
+    "storm_damage": [
+      "What to do in the first 48 hours after a Texas storm",
+      "Common insurance claim mistakes Texas homeowners make after hail",
+      "How to document storm damage before the adjuster arrives",
+      "When your insurance company sends its own adjuster — what to know",
+      "Hail damage vs wind damage — why it matters for your Texas claim"
+    ],
+    "roofing": [
+      "5 red flags that a roofer is trying to scam you after a storm",
+      "How to verify a roofing contractor's TDLR license in 5 minutes",
+      "How long does a roof replacement really take in Texas?",
+      "Metal vs asphalt shingles for Texas storm country — which is better?",
+      "Why your roof may pass inspection but still get denied by insurance"
+    ],
+    "insurance": [
+      "ACV vs RCV — what every Texas homeowner needs to know before filing",
+      "What TWIA actually covers — and what it doesn't — on the Texas coast",
+      "How to dispute an insurance adjuster's low estimate in Texas",
+      "The 1-year deadline most Texas homeowners don't know about",
+      "What happens if you miss the storm damage filing window in Texas"
+    ],
+    "hvac": [
+      "What to do if your AC goes out after a Texas storm or extreme heat",
+      "Does homeowners insurance cover HVAC damage from a storm in Texas?",
+      "Emergency HVAC tips when it's 105°F and your AC is broken",
+      "How hail damages AC condenser units and what it costs to fix",
+      "HVAC financing options for Texas homeowners who can't wait"
+    ],
+    "financing": [
+      "How to finance storm repairs when you can't afford the deductible",
+      "PACE loans in Texas — pros, cons, and what to watch out for",
+      "FHA Title I home improvement loans — does your Texas home qualify?",
+      "Credit card vs personal loan vs contractor financing for storm repairs",
+      "Texas CDBG-DR disaster grants — who qualifies and how to apply"
+    ],
+    "weather_alert": [
+      "Texas storm season update — what homeowners need to know this week",
+      "Active hail warnings in Texas — prepare your home and document now",
+      "Hurricane season prep for Texas homeowners — coastal and inland",
+      "Tornado watch vs warning — what Texas homeowners should do right now",
+      "Flash flood risk for Texas homeowners — what your policy covers"
+    ]
+  },
+
+  "city_rotation": [
+    "Houston", "Dallas", "San Antonio", "Austin", "Fort Worth",
+    "Corpus Christi", "El Paso", "Lubbock", "Amarillo", "Laredo",
+    "Waco", "McAllen", "Beaumont", "Galveston", "Midland",
+    "Abilene", "Tyler", "Brownsville", "Odessa", "Killeen"
+  ],
+
+  "facebook_config": {
+    "max_chars": 2000,
+    "include_emoji": true,
+    "include_cta": true,
+    "cta_text_en": "Read the full guide → texaspropertyhelp.com/updates/",
+    "cta_text_es": "Lee la guía completa → texaspropertyhelp.com/updates/"
+  },
+
+  "site_info": {
+    "name": "Texas Property Help",
+    "url": "https://texaspropertyhelp.com",
+    "description": "Free homeowner guidance for storm damage, roofing, insurance claims, and HVAC across Texas",
+    "tagline_en": "Free to use. No pressure. No commitment.",
+    "tagline_es": "Gratis. Sin presión. Sin compromiso."
+  }
+}

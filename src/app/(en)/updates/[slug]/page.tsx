@@ -1,0 +1,122 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getAllPosts, getPostBySlug, CATEGORY_META } from "@/lib/posts";
+
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateStaticParams() {
+  return getAllPosts().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) return {};
+  const cat = CATEGORY_META[post.category];
+  return {
+    title: post.title,
+    description: post.summary,
+    alternates: { canonical: `https://texaspropertyhelp.com/updates/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: `https://texaspropertyhelp.com/updates/${post.slug}`,
+      siteName: "Texas Property Help",
+      type: "article",
+      publishedTime: post.publishedAt,
+    },
+  };
+}
+
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) notFound();
+
+  const cat = CATEGORY_META[post.category];
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: { "@type": "Organization", name: "Texas Property Help" },
+    publisher: { "@type": "Organization", name: "Texas Property Help", url: "https://texaspropertyhelp.com" },
+    mainEntityOfPage: `https://texaspropertyhelp.com/updates/${post.slug}`,
+    ...(post.city ? { about: { "@type": "Place", name: `${post.city}, Texas` } } : {}),
+  };
+
+  const date = new Date(post.publishedAt).toLocaleDateString("en-US", {
+    month: "long", day: "numeric", year: "numeric",
+  });
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+
+      {/* Hero */}
+      <section style={{ backgroundColor: "var(--navy)" }} className="py-14 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              {cat.label}
+            </span>
+            {post.city && (
+              <span style={{ backgroundColor: "rgba(118,185,0,0.15)", color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px" }}>
+                📍 {post.city}, TX
+              </span>
+            )}
+            <span style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.6)", fontSize: "0.75rem", padding: "4px 10px", borderRadius: "4px" }}>
+              {post.readTime}
+            </span>
+          </div>
+          <h1 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 4vw, 2.3rem)", fontWeight: 700, lineHeight: 1.25, marginBottom: "16px" }}>
+            {post.title}
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
+            Published {date} · Texas Property Help
+          </p>
+        </div>
+      </section>
+
+      {/* Article */}
+      <article style={{ backgroundColor: "white" }} className="py-12 px-4">
+        <div
+          className="max-w-2xl mx-auto prose-article"
+          style={{ fontSize: "1rem", lineHeight: 1.8, color: "var(--content-primary)" }}
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
+
+        {/* CTA */}
+        <div className="max-w-2xl mx-auto" style={{ marginTop: "48px" }}>
+          <div style={{ backgroundColor: "var(--navy)", borderRadius: "12px", padding: "32px", textAlign: "center" }}>
+            <h3 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "1.2rem", fontWeight: 700, marginBottom: "12px" }}>
+              {post.city ? `${post.city} Homeowner? Get Free Help.` : "Need Help With Storm Damage or a Claim?"}
+            </h3>
+            <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.9375rem", lineHeight: 1.6, marginBottom: "24px" }}>
+              Texas Property Help connects homeowners with vetted, TDLR-licensed contractors and free insurance claim guidance — no pressure, no obligation.
+            </p>
+            <Link
+              href="/request-help"
+              style={{ display: "inline-block", backgroundColor: "var(--accent)", color: "#000", fontWeight: 700, fontSize: "1rem", padding: "14px 28px", borderRadius: "4px", textDecoration: "none" }}
+            >
+              Request Help Now →
+            </Link>
+          </div>
+        </div>
+      </article>
+
+      {/* Back */}
+      <section style={{ backgroundColor: "var(--off-white)" }} className="py-8 px-4">
+        <div className="max-w-2xl mx-auto">
+          <Link href="/updates" style={{ color: "var(--accent)", fontWeight: 600, fontSize: "0.9375rem", textDecoration: "none" }}>
+            ← Back to all updates
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
