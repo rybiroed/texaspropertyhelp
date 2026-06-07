@@ -22,6 +22,13 @@ import urllib.request
 import urllib.error
 import unicodedata
 
+# Optional image generation (requires ComfyUI running)
+try:
+    from generate_image import generate_article_image
+    IMAGE_GEN_AVAILABLE = True
+except ImportError:
+    IMAGE_GEN_AVAILABLE = False
+
 # Fix encoding for Windows/WSL
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
@@ -251,6 +258,7 @@ def main():
     parser.add_argument("--city",     help="City override (e.g. Houston, Dallas)")
     parser.add_argument("--no-city",  action="store_true", help="Generate statewide article (no city)")
     parser.add_argument("--dry-run",  action="store_true", help="Generate and print but don't save to posts.json")
+    parser.add_argument("--no-image", action="store_true", help="Skip ComfyUI image generation")
     args = parser.parse_args()
 
     today = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -349,6 +357,16 @@ def main():
     category = TOPIC_CATEGORY.get(topic["topic"], "storm-damage")
     read_time = estimate_read_time(content_html)
 
+    # ── Generate image with ComfyUI (optional)
+    image_url = None
+    if not args.no_image and not args.dry_run and IMAGE_GEN_AVAILABLE:
+        print("\n🎨 Generating hero image with ComfyUI...")
+        image_url = generate_article_image(slug=slug, topic=category, city=city)
+    elif args.no_image:
+        print("\n⏭️  Image generation skipped (--no-image)")
+    elif not IMAGE_GEN_AVAILABLE:
+        print("\n⚠️  generate_image.py not importable — no image")
+
     post_entry = {
         "slug":          slug,
         "title":         title_en,
@@ -359,6 +377,7 @@ def main():
         "summary":       summary_en[:160],
         "summaryEs":     summary_es[:160],
         "readTime":      read_time,
+        "imageUrl":      image_url or "",
         "contentHtml":   content_html,
         "contentHtmlEs": content_html_es,
         "postEn":        post_en,

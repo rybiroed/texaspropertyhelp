@@ -10,6 +10,7 @@ import NewsStrip from "@/components/sections/NewsStrip";
 import { SITE_CONFIG } from "@/lib/config";
 import { pageAlternates } from "@/lib/metadata";
 import { getPublishedGuides } from "@/lib/guides";
+import { getRecentPosts, CATEGORY_META } from "@/lib/posts";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
@@ -151,6 +152,8 @@ export default function HomePage() {
   const recentGuides = getPublishedGuides()
     .sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime())
     .slice(0, 3);
+
+  const recentPosts = getRecentPosts(6);
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -430,6 +433,141 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Latest Articles — auto-generated daily */}
+      {recentPosts.length > 0 && (
+        <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "36px", flexWrap: "wrap", gap: "12px" }}>
+              <div>
+                <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
+                  Updated Daily
+                </p>
+                <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800, margin: 0 }}>
+                  Latest Texas Property News &amp; Tips
+                </h2>
+                <p style={{ color: "#6b7280", fontSize: "0.875rem", marginTop: "8px", margin: "8px 0 0" }}>
+                  Daily articles on storm damage, roofing, insurance, HVAC &amp; financing — for Texas homeowners across 20+ cities.
+                </p>
+              </div>
+              <Link href="/updates" style={{ color: "#76b900", fontWeight: 600, fontSize: "0.9375rem", textDecoration: "none", whiteSpace: "nowrap" }}>
+                All articles →
+              </Link>
+            </div>
+
+            {/* Featured article (first, large) */}
+            {recentPosts[0] && (() => {
+              const p = recentPosts[0];
+              const cat = CATEGORY_META[p.category];
+              const date = new Date(p.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+              return (
+                <Link
+                  href={`/updates/${p.slug}`}
+                  style={{ display: "block", textDecoration: "none", marginBottom: "24px" }}
+                >
+                  <div style={{ borderRadius: "12px", overflow: "hidden", border: "1px solid #e5e7eb", display: "flex", flexDirection: "row", minHeight: "220px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+                    {/* Image or color block */}
+                    <div style={{ width: "340px", flexShrink: 0, position: "relative", backgroundColor: cat.bg, display: "flex", alignItems: "center", justifyContent: "center", minHeight: "220px" }}>
+                      {p.imageUrl ? (
+                        <Image
+                          src={p.imageUrl}
+                          alt={p.title}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="340px"
+                        />
+                      ) : (
+                        <span style={{ fontSize: "4rem", opacity: 0.4 }}>
+                          {p.category === "roofing" ? "🏠" : p.category === "weather" ? "⛈️" : p.category === "hvac" ? "🌡️" : p.category === "financing" ? "💳" : p.category === "insurance-claims" ? "📄" : "🔧"}
+                        </span>
+                      )}
+                    </div>
+                    {/* Content */}
+                    <div style={{ padding: "28px 32px", display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
+                      <div style={{ display: "flex", gap: "8px", marginBottom: "12px", flexWrap: "wrap", alignItems: "center" }}>
+                        <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.7rem", fontWeight: 700, padding: "3px 10px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                          {cat.label}
+                        </span>
+                        {p.city && (
+                          <span style={{ color: "#76b900", fontSize: "0.8rem", fontWeight: 600 }}>
+                            📍 {p.city}, TX
+                          </span>
+                        )}
+                        <span style={{ color: "#9ca3af", fontSize: "0.78rem" }}>{date} · {p.readTime}</span>
+                      </div>
+                      <h3 style={{ color: "#111827", fontSize: "1.15rem", fontWeight: 800, lineHeight: 1.35, margin: "0 0 10px" }}>
+                        {p.title}
+                      </h3>
+                      <p style={{ color: "#4b5563", fontSize: "0.875rem", lineHeight: 1.6, margin: "0 0 16px" }}>
+                        {p.summary.slice(0, 150)}{p.summary.length > 150 ? "…" : ""}
+                      </p>
+                      <span style={{ color: "#76b900", fontWeight: 700, fontSize: "0.875rem" }}>
+                        Read article →
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })()}
+
+            {/* Grid: remaining 5 articles */}
+            {recentPosts.length > 1 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {recentPosts.slice(1, 6).map((p) => {
+                  const cat  = CATEGORY_META[p.category];
+                  const date = new Date(p.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                  return (
+                    <Link
+                      key={p.slug}
+                      href={`/updates/${p.slug}`}
+                      style={{ textDecoration: "none", display: "block" }}
+                    >
+                      <div style={{ borderRadius: "10px", border: "1px solid #e5e7eb", overflow: "hidden", height: "100%", display: "flex", flexDirection: "column", boxShadow: "0 1px 4px rgba(0,0,0,0.05)", transition: "box-shadow .15s" }}>
+                        {/* Image / color banner */}
+                        <div style={{ height: "140px", backgroundColor: cat.bg, position: "relative", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                          {p.imageUrl ? (
+                            <Image
+                              src={p.imageUrl}
+                              alt={p.title}
+                              fill
+                              style={{ objectFit: "cover" }}
+                              sizes="(max-width: 640px) 100vw, 33vw"
+                            />
+                          ) : (
+                            <span style={{ fontSize: "2.5rem", opacity: 0.35 }}>
+                              {p.category === "roofing" ? "🏠" : p.category === "weather" ? "⛈️" : p.category === "hvac" ? "🌡️" : p.category === "financing" ? "💳" : p.category === "insurance-claims" ? "📄" : "🔧"}
+                            </span>
+                          )}
+                          {/* Category badge over image */}
+                          <div style={{ position: "absolute", top: "10px", left: "10px" }}>
+                            <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.04em", backdropFilter: "blur(4px)", backgroundColor: "rgba(0,0,0,0.45)", color: "#fff" }}>
+                              {cat.label}
+                            </span>
+                          </div>
+                        </div>
+                        {/* Text */}
+                        <div style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column" }}>
+                          <div style={{ display: "flex", gap: "6px", marginBottom: "8px", alignItems: "center", flexWrap: "wrap" }}>
+                            {p.city && <span style={{ color: "#76b900", fontSize: "0.72rem", fontWeight: 700 }}>📍 {p.city}</span>}
+                            <span style={{ color: "#9ca3af", fontSize: "0.72rem" }}>{date} · {p.readTime}</span>
+                          </div>
+                          <h3 style={{ color: "#111827", fontSize: "0.9rem", fontWeight: 700, lineHeight: 1.4, margin: "0 0 8px", flex: 1 }}>
+                            {p.title}
+                          </h3>
+                          <span style={{ color: "#76b900", fontSize: "0.8rem", fontWeight: 600, marginTop: "auto" }}>
+                            Read →
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Recent Guides */}
       <section style={{ backgroundColor: "#111827" }} className="py-16 px-4">

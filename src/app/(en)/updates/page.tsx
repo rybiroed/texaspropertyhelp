@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getPublishedGuides } from "@/lib/guides";
 import { getAllPosts, CATEGORY_META } from "@/lib/posts";
 import { pageAlternates } from "@/lib/metadata";
@@ -20,6 +21,7 @@ type FeedItem = {
   readTime?: string;
   summary: string;
   city?: string | null;
+  imageUrl?: string;
   type: "post" | "guide";
 };
 
@@ -35,6 +37,7 @@ export default function UpdatesPage() {
     readTime: p.readTime,
     summary:  p.summary,
     city:     p.city,
+    imageUrl: p.imageUrl || "",
     type:     "post",
   }));
 
@@ -139,7 +142,14 @@ export default function UpdatesPage() {
                       </div>
 
                       {/* Content */}
-                      <div style={{ flex: 1, borderLeft: "2px solid var(--content-border)", paddingLeft: "16px", paddingBottom: "4px" }}>
+                      <div style={{ flex: 1, borderLeft: "2px solid var(--content-border)", paddingLeft: "16px", paddingBottom: "4px", display: "flex", gap: "12px", alignItems: "flex-start" }}>
+                      {/* Thumbnail if available */}
+                      {item.imageUrl && (
+                        <div style={{ width: "90px", height: "64px", borderRadius: "6px", overflow: "hidden", flexShrink: 0, position: "relative" }}>
+                          <Image src={item.imageUrl} alt={item.title} fill style={{ objectFit: "cover" }} sizes="90px" />
+                        </div>
+                      )}
+                      <div style={{ flex: 1 }}>
                         {/* Badges */}
                         <div style={{ display: "flex", gap: "6px", alignItems: "center", marginBottom: "6px", flexWrap: "wrap" }}>
                           <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
@@ -168,6 +178,7 @@ export default function UpdatesPage() {
                         <p style={{ color: "var(--content-secondary)", fontSize: "0.8125rem", lineHeight: 1.5, margin: 0 }}>
                           {item.summary.slice(0, 130)}{item.summary.length > 130 ? "…" : ""}
                         </p>
+                      </div>
                       </div>
                     </Link>
                   );

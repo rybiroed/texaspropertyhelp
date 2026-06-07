@@ -11,6 +11,7 @@ export type Post = {
   summary: string;
   summaryEs: string;
   readTime: string;
+  imageUrl: string;           // "/images/posts/slug.png" or ""
   contentHtml: string;        // full article HTML body
   contentHtmlEs: string;
   postEn: string;             // FB post text
