@@ -7,6 +7,16 @@ export const metadata: Metadata = {
   description:
     "ACV (Actual Cash Value) vs RCV (Replacement Cost Value) is the most important policy detail in Texas roof claims. Learn the difference, how depreciation works, and how to get the most from your claim.",
   alternates: pageAlternates("/guides/acv-vs-rcv-texas", null),
+  openGraph: {
+    title: "ACV vs RCV: What Texas Homeowners Need to Know Before Filing a Claim",
+    description: "The difference between ACV and RCV can mean $5,000–$15,000 on a Texas roof claim. Learn how depreciation works, which policy you have, and how to maximize your insurance payout.",
+    url: "https://texaspropertyhelp.com/guides/acv-vs-rcv-texas",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "article",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630, alt: "ACV vs RCV guide for Texas homeowners" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const articleSchema = {

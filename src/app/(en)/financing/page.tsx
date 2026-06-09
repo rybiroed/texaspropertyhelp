@@ -85,9 +85,20 @@ const faqs: FAQItem[] = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function FinancingPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/financing-hero.jpg" alt="Home repair financing Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(20,15,0,0.65) 0%, rgba(30,20,0,0.50) 100%)" }} />
