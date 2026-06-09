@@ -9,6 +9,16 @@ export const metadata: Metadata = {
     canonical: "https://texaspropertyhelp.com/guides/how-to-check-roof-after-storm-texas",
     languages: { "es-US": "https://texaspropertyhelp.com/es/guides/como-revisar-techo-despues-tormenta" },
   },
+  openGraph: {
+    title: "How to Check Your Roof After a Storm in Texas",
+    description: "Step-by-step guide for Texas homeowners: inspect your roof after hail or a storm, document damage, file an insurance claim, and find a licensed roofer.",
+    url: "https://texaspropertyhelp.com/guides/how-to-check-roof-after-storm-texas",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "article",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const jsonLd = {

@@ -6,10 +6,20 @@ import { getPublishedGuides } from "@/lib/guides";
 import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Homeowner Guides for Texas Property Owners",
+  title: "Homeowner Guides for Texas Property Owners | Texas Property Help",
   description:
     "Step-by-step guides for Texas homeowners covering storm damage response, roof insurance claims, emergency repairs, and HVAC financing.",
   alternates: pageAlternates("/guides", "/es/guides"),
+  openGraph: {
+    title: "Homeowner Guides for Texas Property Owners | Texas Property Help",
+    description: "Free step-by-step guides for Texas homeowners — storm damage response, roof insurance claims, ACV vs RCV, emergency repairs, and HVAC financing.",
+    url: "https://texaspropertyhelp.com/guides",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630, alt: "Homeowner guides for Texas property owners" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function GuidesPage() {

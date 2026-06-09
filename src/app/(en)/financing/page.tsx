@@ -8,10 +8,20 @@ import { pageAlternates } from "@/lib/metadata";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Home Repair Financing Help in Texas",
+  title: "Home Repair Financing Help in Texas | Texas Property Help",
   description:
     "Explore repair financing options for Texas homeowners facing storm damage, roofing, HVAC, and emergency repair costs. Texas Property Help does not guarantee approval or financing terms.",
   alternates: pageAlternates("/financing", "/es/financing"),
+  openGraph: {
+    title: "Home Repair Financing Help in Texas | Texas Property Help",
+    description: "Explore repair financing options for Texas homeowners. Get guidance on roofing loans, HVAC financing, and emergency repair funding when insurance doesn't cover everything.",
+    url: "https://texaspropertyhelp.com/financing",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630, alt: "Home repair financing help in Texas" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const optionTypes = [

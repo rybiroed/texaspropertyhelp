@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedGuides } from "@/lib/guides";
 import { ES } from "@/lib/translations-es";
+import { getAllPosts } from "@/lib/posts";
 
 const BASE = "https://texaspropertyhelp.com";
 
@@ -75,5 +76,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticEN, ...staticES, ...enGuides, ...esGuides];
+  const posts = getAllPosts();
+  const postUrls: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: `${BASE}/updates/${p.slug}`,
+    lastModified: new Date(p.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
+
+  return [...staticEN, ...staticES, ...enGuides, ...esGuides, ...postUrls];
 }

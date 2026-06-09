@@ -11,6 +11,16 @@ export const metadata: Metadata = {
   title: "HVAC Help in Texas | Emergency AC Repair & Replacement",
   description: "Texas Property Help connects homeowners with HVAC repair and replacement resources. Get guidance on emergency AC repair, system replacement, and financing options across Texas.",
   alternates: pageAlternates("/hvac", "/es/hvac"),
+  openGraph: {
+    title: "HVAC Help in Texas | Emergency AC Repair & Replacement",
+    description: "Free HVAC guidance for Texas homeowners. Get help with emergency AC repair, system replacement, and financing options. Texas heat can't wait.",
+    url: "https://texaspropertyhelp.com/hvac",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630, alt: "HVAC repair help for Texas homeowners" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const hvacServices = [

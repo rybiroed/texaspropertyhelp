@@ -6,10 +6,20 @@ import { getAllPosts, CATEGORY_META } from "@/lib/posts";
 import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Texas Property Updates — Storm Alerts & Homeowner Guides",
+  title: "Texas Property Updates — Storm Alerts & Homeowner Guides | Texas Property Help",
   description:
-    "Latest updates from Texas Property Help — storm alerts, new homeowner guides, and property help resources for Texas homeowners.",
+    "Latest updates from Texas Property Help — storm alerts, new homeowner guides, and property help resources for Texas homeowners across 20+ Texas cities.",
   alternates: pageAlternates("/updates", null),
+  openGraph: {
+    title: "Texas Property Updates — Storm Alerts & Homeowner Guides",
+    description: "Stay up to date with storm alerts, homeowner guides, and property help resources for Texas homeowners. New articles published daily.",
+    url: "https://texaspropertyhelp.com/updates",
+    siteName: "Texas Property Help",
+    locale: "en_US",
+    type: "website",
+    images: [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630, alt: "Texas property updates and homeowner guides" }],
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 type FeedItem = {
