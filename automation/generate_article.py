@@ -15,12 +15,18 @@ import json
 import os
 import sys
 import re
-import io
 import argparse
 import datetime
 import urllib.request
 import urllib.error
 import unicodedata
+
+# Fix encoding without re-wrapping (reconfigure avoids double-close crash)
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 # Optional image generation (requires ComfyUI running)
 try:
@@ -28,10 +34,6 @@ try:
     IMAGE_GEN_AVAILABLE = True
 except ImportError:
     IMAGE_GEN_AVAILABLE = False
-
-# Fix encoding for Windows/WSL
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 SCRIPT_DIR   = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)

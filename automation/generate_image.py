@@ -14,16 +14,18 @@ Usage:
 import json
 import os
 import sys
-import io
 import time
 import shutil
 import argparse
 import urllib.request
 import urllib.error
 
-# Fix encoding
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+# Fix encoding without re-wrapping
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 COMFYUI_HOST  = "127.0.0.1"
 COMFYUI_PORT  = 8188
