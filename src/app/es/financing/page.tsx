@@ -135,6 +135,91 @@ export default function FinancingESPage() {
         </div>
       </section>
 
+      {/* Tabla Comparativa */}
+      <section style={{ backgroundColor: "#f3f4f6" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "36px" }}>
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Comparación</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Comparación de Opciones de Financiamiento</h2>
+          </div>
+          <div style={{ border: "1px solid #e5e7eb", borderRadius: "10px", overflow: "hidden", backgroundColor: "white" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", backgroundColor: "#111827", padding: "12px 16px" }}>
+              {["Opción", "Velocidad", "Crédito Requerido", "Usa Garantía"].map(h => (
+                <span key={h} style={{ color: "white", fontWeight: 700, fontSize: "0.8rem" }}>{h}</span>
+              ))}
+            </div>
+            {[
+              { option: "Préstamo Personal", speed: "1-3 días", credit: "Moderado-Alto", collateral: "No" },
+              { option: "HELOC", speed: "2-4 semanas", credit: "Bueno+", collateral: "Sí (casa)" },
+              { option: "Préstamo sobre Valor Neto", speed: "2-4 semanas", credit: "Bueno+", collateral: "Sí (casa)" },
+              { option: "Financiamiento del Contratista", speed: "Inmediato", credit: "Varía", collateral: "Varía" },
+              { option: "Tarjeta de Crédito (0% APR intro)", speed: "Inmediato", credit: "Bueno+", collateral: "No" },
+              { option: "PACE / Préstamo de Eficiencia", speed: "1-3 semanas", credit: "Flexible", collateral: "Impuesto Propiedad" },
+              { option: "FEMA / Asistencia por Desastre", speed: "Semanas+", credit: "No aplica", collateral: "No" },
+            ].map((row, i) => (
+              <div key={row.option} style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", padding: "12px 16px", backgroundColor: i % 2 === 0 ? "#f9fafb" : "#ffffff", borderTop: "1px solid #e5e7eb" }}>
+                <span style={{ color: "#111827", fontWeight: 600, fontSize: "0.875rem" }}>{row.option}</span>
+                <span style={{ color: "#4b5563", fontSize: "0.825rem" }}>{row.speed}</span>
+                <span style={{ color: "#4b5563", fontSize: "0.825rem" }}>{row.credit}</span>
+                <span style={{ color: row.collateral === "No" ? "#16a34a" : "#dc2626", fontSize: "0.825rem", fontWeight: 600 }}>{row.collateral}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Programas Específicos de Texas */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Solo en Texas</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Programas de Asistencia Específicos de Texas</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+            {[
+              { icon: "⚡", title: "PACE de Texas", body: "Financiamiento de Evaluación de Propiedad para Energía Limpia. Repaga a través de su factura de impuestos de propiedad — ideal para actualizaciones de HVAC. Disponible en condados participantes." },
+              { icon: "🏛️", title: "FEMA — Asistencia por Desastre", body: "Disponible después de declaraciones de desastre federal. Cubre reparaciones esenciales. Aplique en DisasterAssistance.gov dentro de los plazos del desastre." },
+              { icon: "🏢", title: "Préstamos SBA para Propietarios", body: "Préstamos de bajo interés de la Administración de Pequeñas Empresas para propietarios en zonas de desastre declaradas — hasta $200,000 para reparaciones del hogar." },
+              { icon: "📞", title: "211 Texas", body: "Llame al 211 para referencias a organizaciones locales sin fines de lucro, agencias de acción comunitaria y fondos de asistencia para reparaciones en su condado." },
+              { icon: "💡", title: "Reembolsos de Empresas de Servicios Públicos", body: "CPS Energy, Oncor, AEP y otras empresas de servicios de Texas ofrecen reembolsos por actualizaciones de eficiencia de HVAC. Montos y elegibilidad varían." },
+              { icon: "🌊", title: "Texas GLO — Recuperación de Desastres", body: "La Oficina de Tierras de Texas administra fondos HUD para recuperación de desastres. Disponible para propietarios de bajos a moderados ingresos en condados elegibles." },
+            ].map(prog => (
+              <div key={prog.title} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "22px", border: "1px solid #e5e7eb" }}>
+                <div style={{ fontSize: "1.75rem", marginBottom: "12px" }}>{prog.icon}</div>
+                <h3 style={{ color: "#111827", fontWeight: 700, fontSize: "0.95rem", marginBottom: "8px" }}>{prog.title}</h3>
+                <p style={{ color: "#6b7280", fontSize: "0.85rem", lineHeight: "1.65", margin: 0 }}>{prog.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Proceso en 5 Pasos */}
+      <section style={{ backgroundColor: "#0f172a" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <h2 style={{ color: "white", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Cómo Explorar el Financiamiento de Reparaciones</h2>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {[
+              { num: "1", title: "Obtenga Estimados de Contratistas", body: "Antes de explorar el financiamiento, obtenga 2-3 estimados escritos de contratistas locales con licencia. Necesita saber el monto total." },
+              { num: "2", title: "Verifique la Cobertura de Seguro Primero", body: "Si los daños fueron por tormenta, verifique qué cubre su seguro antes de comprometerse con financiamiento. Puede ser que la mayor parte esté cubierta." },
+              { num: "3", title: "Revise su Crédito y Capital", body: "Conozca su puntaje crediticio y el valor acumulado de su hogar — estos determinan qué opciones están disponibles para usted." },
+              { num: "4", title: "Compare al Menos 2-3 Opciones", body: "Compare tasas de interés, plazos del préstamo, costos de cierre y pagos mensuales. No acepte la primera oferta." },
+              { num: "5", title: "Lea Todo Antes de Firmar", body: "Comprenda la tasa de interés, el plazo, las penalidades por pago anticipado y el costo total. Nunca firme bajo presión." },
+            ].map(step => (
+              <div key={step.num} style={{ display: "flex", gap: "16px", backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "10px", padding: "18px 20px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: "#76b900", color: "#000", fontWeight: 900, fontSize: "0.85rem", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{step.num}</div>
+                <div>
+                  <h3 style={{ color: "white", fontWeight: 700, fontSize: "0.95rem", marginBottom: "4px" }}>{step.title}</h3>
+                  <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem", lineHeight: "1.6", margin: 0 }}>{step.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <FAQES items={faqs} heading="Preguntas sobre Financiamiento de Reparaciones" />
 
       <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">

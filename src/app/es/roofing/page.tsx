@@ -85,6 +85,121 @@ export default function RoofingESPage() {
         </div>
       </section>
 
+      {/* Materiales de Techado */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Guía de Materiales</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Materiales de Techado Más Usados en Texas</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
+            {[
+              { name: "Asfalto (3 Capas)", life: "20–25 años", cost: "$", pros: "Económico y fácil de instalar", cons: "Menor durabilidad contra granizo severo", color: "#6b7280" },
+              { name: "Metal (Panel/Teja)", life: "40–70 años", cost: "$$$", pros: "Excelente contra granizo y viento fuerte", cons: "Costo inicial alto", color: "#3b82f6" },
+              { name: "TPO / Techo Plano", life: "20–30 años", cost: "$$", pros: "Ideal para techos planos o de poca pendiente", cons: "Requiere instalación especializada", color: "#f59e0b" },
+              { name: "Teja de Arcilla/Concreto", life: "50+ años", cost: "$$$", pros: "Muy durable; popular en sur de Texas", cons: "Pesado — requiere estructura reforzada", color: "#ef4444" },
+            ].map(mat => (
+              <div key={mat.name} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "22px", border: `2px solid ${mat.color}30` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
+                  <h3 style={{ color: "#111827", fontWeight: 800, fontSize: "1rem" }}>{mat.name}</h3>
+                  <span style={{ color: mat.color, fontWeight: 900, fontSize: "0.9rem" }}>{mat.cost}</span>
+                </div>
+                <div style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", marginBottom: "10px" }}>Vida útil: {mat.life}</div>
+                <p style={{ color: "#16a34a", fontSize: "0.825rem", marginBottom: "6px" }}>✓ {mat.pros}</p>
+                <p style={{ color: "#dc2626", fontSize: "0.825rem" }}>✗ {mat.cons}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Licencia y Señales de Alerta */}
+      <section style={{ backgroundColor: "#f3f4f6" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
+            <div>
+              <h2 style={{ color: "#111827", fontSize: "clamp(1.2rem, 2.5vw, 1.5rem)", fontWeight: 800, marginBottom: "16px" }}>Contratistas con Licencia en Texas</h2>
+              <p style={{ color: "#4b5563", fontSize: "0.875rem", lineHeight: "1.7", marginBottom: "16px" }}>Texas no requiere licencia estatal de techador, pero la mayoría de las aseguradoras exigen contratistas registrados y asegurados.</p>
+              <div style={{ backgroundColor: "#ffffff", borderRadius: "8px", padding: "16px", border: "1px solid #e5e7eb" }}>
+                <p style={{ color: "#374151", fontWeight: 700, fontSize: "0.85rem", marginBottom: "10px" }}>Siempre verifique:</p>
+                {["Registro de la empresa en el estado", "Seguro de responsabilidad y compensación al trabajador", "Reseñas verificadas (Google, BBB)", "Dirección física — no solo teléfono", "Referencias de trabajos en Texas"].map(item => (
+                  <div key={item} style={{ display: "flex", gap: "8px", fontSize: "0.825rem", color: "#4b5563", marginBottom: "6px" }}>
+                    <span style={{ color: "#76b900", fontWeight: 700 }}>✓</span> {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2 style={{ color: "#dc2626", fontSize: "clamp(1.2rem, 2.5vw, 1.5rem)", fontWeight: 800, marginBottom: "16px" }}>⚠️ Señales de Alerta</h2>
+              <p style={{ color: "#4b5563", fontSize: "0.875rem", lineHeight: "1.7", marginBottom: "16px" }}>Tras una tormenta, contratistas inescrupulosos van de puerta en puerta en Texas. Conozca las señales:</p>
+              {[
+                "Presión para firmar de inmediato (\"oferta de un solo día\")",
+                "Promesas de cubrir su deducible — es ilegal en Texas",
+                "Pago total por adelantado antes de iniciar el trabajo",
+                "Sin dirección física o seguro verificable",
+                "Estimados muy por debajo de los demás",
+                "Presión para firmar una Asignación de Beneficios (AOB)",
+                "No ofrecen contrato escrito detallado",
+                "No están disponibles después de cobrar",
+              ].map(flag => (
+                <div key={flag} style={{ display: "flex", gap: "8px", fontSize: "0.825rem", color: "#4b5563", marginBottom: "7px" }}>
+                  <span style={{ color: "#dc2626", fontWeight: 700, flexShrink: 0 }}>✗</span> {flag}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Proceso de Reclamación */}
+      <section style={{ backgroundColor: "#0f172a" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <span style={{ display: "inline-block", backgroundColor: "rgba(59,130,246,0.15)", color: "#93c5fd", fontSize: "0.75rem", fontWeight: 700, padding: "4px 12px", borderRadius: "100px", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Reclamación de Seguro</span>
+            <h2 style={{ color: "white", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Proceso de Reclamación para Techo en Texas</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
+            {[
+              { num: "1", title: "Inspecciónelo con Seguridad", body: "Desde el suelo o con escalera — no suba al techo húmedo o dañado." },
+              { num: "2", title: "Documente Todo", body: "Fotos y videos antes de cualquier limpieza o reparación temporal." },
+              { num: "3", title: "Reparaciones Temporales", body: "Lonas sobre filtraciones activas. Guarde todos los recibos." },
+              { num: "4", title: "Presente la Reclamación", body: "Llame a su aseguradora — no espere. Anote el número de reclamación." },
+              { num: "5", title: "Obtenga Estimados", body: "2-3 estimados escritos de techadores locales con licencia." },
+              { num: "6", title: "Revise el Ajuste", body: "Compare el estimado de la aseguradora con los suyos — dispute si hay diferencias." },
+            ].map(step => (
+              <div key={step.num} style={{ backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "10px", padding: "18px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ width: "28px", height: "28px", borderRadius: "50%", backgroundColor: "#76b900", color: "#000", fontWeight: 900, fontSize: "0.8rem", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>{step.num}</div>
+                <h3 style={{ color: "white", fontWeight: 700, fontSize: "0.9rem", marginBottom: "6px" }}>{step.title}</h3>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.825rem", lineHeight: "1.55", margin: 0 }}>{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Costos Aproximados */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-14 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 style={{ color: "#111827", fontSize: "clamp(1.2rem, 3vw, 1.6rem)", fontWeight: 800, marginBottom: "24px", textAlign: "center" }}>Costos Aproximados de Techado en Texas (2024)</h2>
+          <div style={{ border: "1px solid #e5e7eb", borderRadius: "10px", overflow: "hidden" }}>
+            {[
+              { service: "Reparación menor (parche de tejas)", cost: "$150 – $500" },
+              { service: "Reemplazo de flashing o botas de ventilación", cost: "$200 – $600" },
+              { service: "Reparación de filtración activa (emergencia)", cost: "$300 – $800" },
+              { service: "Reemplazo parcial (daño aislado)", cost: "$1,500 – $4,000" },
+              { service: "Reemplazo completo — casa promedio Texas", cost: "$8,000 – $18,000" },
+              { service: "Techo de metal — instalación completa", cost: "$15,000 – $35,000+" },
+            ].map((row, i) => (
+              <div key={row.service} style={{ display: "flex", justifyContent: "space-between", padding: "14px 20px", backgroundColor: i % 2 === 0 ? "#f9fafb" : "#ffffff", borderBottom: "1px solid #e5e7eb" }}>
+                <span style={{ color: "#374151", fontSize: "0.875rem" }}>{row.service}</span>
+                <span style={{ color: "#76b900", fontWeight: 700, fontSize: "0.875rem", whiteSpace: "nowrap" }}>{row.cost}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: "#9ca3af", fontSize: "0.78rem", marginTop: "12px", textAlign: "center" }}>Los costos varían según tamaño, material, ciudad y condiciones. Siempre obtenga estimados escritos de contratistas locales.</p>
+        </div>
+      </section>
+
       <FAQES items={faqs} heading="Preguntas Frecuentes sobre Techado" />
 
       <section style={{ backgroundColor: "#111827" }} className="py-12 px-4">

@@ -106,6 +106,87 @@ export default function StormDamageESPage() {
         </div>
       </section>
 
+      {/* Estadísticas de Tormentas en Texas */}
+      <section style={{ backgroundColor: "#0f172a" }} className="py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <span style={{ display: "inline-block", backgroundColor: "rgba(239,68,68,0.15)", color: "#fca5a5", fontSize: "0.75rem", fontWeight: 700, padding: "4px 12px", borderRadius: "100px", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Por Qué Texas es Diferente</span>
+            <h2 style={{ color: "white", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Texas Lidera en Daños por Tormenta</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "16px", marginBottom: "40px" }}>
+            {[
+              { stat: "#1", label: "Estado con más pérdidas aseguradas por tormenta en EE.UU.", color: "#ef4444" },
+              { stat: "$50B+", label: "Pérdidas aseguradas en Texas en los últimos 5 años", color: "#f59e0b" },
+              { stat: "170+", label: "Tornados anuales en promedio — más que cualquier otro estado", color: "#3b82f6" },
+              { stat: "Mar–Jun", label: "Temporada pico de granizo severo en Texas", color: "#76b900" },
+            ].map(s => (
+              <div key={s.stat} style={{ backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "10px", padding: "20px", textAlign: "center", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ color: s.color, fontWeight: 900, fontSize: "1.6rem", marginBottom: "8px" }}>{s.stat}</div>
+                <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.8rem", lineHeight: "1.5", margin: 0 }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <h3 style={{ color: "white", fontWeight: 800, fontSize: "1.1rem", marginBottom: "16px", textAlign: "center" }}>Riesgo por Ciudad Principal</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px" }}>
+            {[
+              { city: "Houston", risk: "Granizo + Inundaciones", detail: "\"Corredor del Granizo\" — uno de los mercados con más reclamaciones de techo en EE.UU.", badge: "RIESGO ALTO", badgeColor: "#ef4444" },
+              { city: "Dallas / Fort Worth", risk: "Granizo Severo + Viento", detail: "Amenaza severa frecuente — temporadas de granizo registradas con granizo del tamaño de una pelota de golf.", badge: "RIESGO ALTO", badgeColor: "#ef4444" },
+              { city: "San Antonio", risk: "Granizo + Tormentas Eléctricas", detail: "Exposición moderada-alta al granizo; los eventos de tormenta convectiva pueden ser intensos.", badge: "RIESGO MODERADO", badgeColor: "#f59e0b" },
+              { city: "Costa del Golfo", risk: "Huracanes + Inundaciones", detail: "Corpus Christi, Galveston y Rockport enfrentan riesgo de huracanes. Se aplican deducibles de viento especiales.", badge: "RIESGO HURACÁN", badgeColor: "#8b5cf6" },
+            ].map(c => (
+              <div key={c.city} style={{ backgroundColor: "rgba(255,255,255,0.04)", borderRadius: "10px", padding: "18px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+                  <h4 style={{ color: "white", fontWeight: 800, fontSize: "0.95rem" }}>{c.city}</h4>
+                  <span style={{ backgroundColor: `${c.badgeColor}20`, color: c.badgeColor, fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: "100px", whiteSpace: "nowrap" }}>{c.badge}</span>
+                </div>
+                <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", marginBottom: "6px" }}>{c.risk}</p>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.8rem", lineHeight: "1.5", margin: 0 }}>{c.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Derechos del TDI */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <p style={{ color: "#3b82f6", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Ley de Texas</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Sus Derechos como Asegurado en Texas</h2>
+            <p style={{ color: "#6b7280", maxWidth: "580px", margin: "12px auto 0", lineHeight: 1.8 }}>El Código de Seguros de Texas protege a los propietarios. Su aseguradora <strong>debe</strong> cumplir estos plazos — o enfrentar penalidades.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+            {[
+              { days: "15 días", action: "Para acusar recibo de su reclamación" },
+              { days: "15 días hábiles", action: "Para aceptar, denegar o solicitar más información" },
+              { days: "45 días máx.", action: "Plazo total para tomar una decisión (con aviso escrito)" },
+              { days: "5 días hábiles", action: "Para emitir el pago después de aceptar la reclamación" },
+              { days: "18% APR", action: "Interés de penalidad en pagos tardíos bajo §542 del Código de Seguros" },
+            ].map(d => (
+              <div key={d.days} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "20px", textAlign: "center", border: "1px solid #e5e7eb" }}>
+                <div style={{ color: "#3b82f6", fontWeight: 900, fontSize: "1.3rem", marginBottom: "8px" }}>{d.days}</div>
+                <p style={{ color: "#374151", fontSize: "0.85rem", lineHeight: "1.55", margin: 0 }}>{d.action}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: "#9ca3af", fontSize: "0.8rem", marginTop: "20px", textAlign: "center" }}>Fuente: Código de Seguros de Texas §542. Presente quejas en tdi.texas.gov si su aseguradora incumple estos plazos.</p>
+        </div>
+      </section>
+
+      {/* Ciudades con Servicio */}
+      <section style={{ backgroundColor: "#f3f4f6" }} className="py-14 px-4">
+        <div className="max-w-4xl mx-auto" style={{ textAlign: "center" }}>
+          <p style={{ color: "#76b900", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Cobertura Estatal</p>
+          <h2 style={{ color: "#111827", fontSize: "clamp(1.2rem, 3vw, 1.6rem)", fontWeight: 800, marginBottom: "24px" }}>Ayudamos a Propietarios en Todo Texas</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
+            {["Houston", "Dallas", "San Antonio", "Austin", "Fort Worth", "El Paso", "Arlington", "Corpus Christi", "Plano", "Laredo", "Lubbock", "Garland", "Irving", "Amarillo", "McKinney"].map(city => (
+              <span key={city} style={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "100px", padding: "6px 16px", fontSize: "0.85rem", color: "#374151", fontWeight: 500 }}>{city}</span>
+            ))}
+          </div>
+          <p style={{ color: "#9ca3af", fontSize: "0.8rem", marginTop: "20px" }}>¿No ve su ciudad? Envíe una solicitud — ayudamos a propietarios en todo Texas.</p>
+        </div>
+      </section>
+
       <FAQES items={faqs} heading="Preguntas Frecuentes sobre Daños por Tormenta" />
 
       <section style={{ backgroundColor: "#111827" }} className="py-12 px-4">

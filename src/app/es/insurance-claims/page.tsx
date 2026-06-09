@@ -115,6 +115,69 @@ export default function InsuranceClaimsESPage() {
         </div>
       </section>
 
+      {/* ACV vs RCV */}
+      <section style={{ backgroundColor: "#0f172a" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <span style={{ display: "inline-block", backgroundColor: "rgba(59,130,246,0.15)", color: "#93c5fd", fontSize: "0.75rem", fontWeight: 700, padding: "4px 12px", borderRadius: "100px", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "16px" }}>Cobertura de Póliza</span>
+            <h2 style={{ color: "white", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>ACV vs RCV: El Detalle Más Importante de su Póliza</h2>
+            <p style={{ color: "rgba(255,255,255,0.65)", maxWidth: "600px", margin: "12px auto 0", lineHeight: 1.8 }}>Este único detalle puede significar una diferencia de $5,000–$15,000 en una reclamación de techo. Sepa cuál tiene antes de presentar su reclamación.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "24px" }}>
+            <div style={{ backgroundColor: "rgba(239,68,68,0.08)", borderRadius: "12px", padding: "24px", border: "1px solid rgba(239,68,68,0.2)" }}>
+              <div style={{ color: "#f87171", fontWeight: 900, fontSize: "1.1rem", marginBottom: "12px" }}>ACV — Valor en Efectivo Real</div>
+              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.875rem", lineHeight: "1.75", marginBottom: "12px" }}>Paga el <strong style={{ color: "white" }}>valor depreciado</strong> de lo dañado. Un techo de 15 años puede valer solo el 30–40% del costo de reemplazo según el cálculo de su aseguradora.</p>
+              <p style={{ color: "#f87171", fontSize: "0.85rem" }}>⚠️ Usted paga la diferencia entre el pago ACV y el costo real de reparación.</p>
+            </div>
+            <div style={{ backgroundColor: "rgba(34,197,94,0.08)", borderRadius: "12px", padding: "24px", border: "1px solid rgba(34,197,94,0.2)" }}>
+              <div style={{ color: "#4ade80", fontWeight: 900, fontSize: "1.1rem", marginBottom: "12px" }}>RCV — Costo de Reemplazo</div>
+              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.875rem", lineHeight: "1.75", marginBottom: "12px" }}>Paga el <strong style={{ color: "white" }}>costo real de reemplazar</strong> el material dañado con material nuevo de igual tipo y calidad — sin importar la edad del techo viejo.</p>
+              <p style={{ color: "#4ade80", fontSize: "0.85rem" }}>✓ Generalmente vale la prima más alta — especialmente en techos viejos en Texas.</p>
+            </div>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <Link href="/guides/acv-vs-rcv-texas" style={{ display: "inline-block", backgroundColor: "#3b82f6", color: "white", fontWeight: 700, padding: "12px 24px", borderRadius: "6px", textDecoration: "none", fontSize: "0.9rem" }}>
+              Guía Completa ACV vs RCV →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Plazos TDI */}
+      <section style={{ backgroundColor: "#ffffff" }} className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <p style={{ color: "#3b82f6", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>Ley de Texas</p>
+            <h2 style={{ color: "#111827", fontSize: "clamp(1.3rem, 3vw, 1.8rem)", fontWeight: 800 }}>Plazos del TDI — Lo que su Aseguradora Debe Cumplir</h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+            {[
+              { days: "15 días", action: "Para acusar recibo de su reclamación" },
+              { days: "15 días hábiles", action: "Para aceptar, denegar o solicitar más información tras recibir la documentación" },
+              { days: "45 días máx.", action: "Plazo total para tomar una decisión (extendible solo con aviso escrito)" },
+              { days: "5 días hábiles", action: "Para emitir el pago tras aceptar la reclamación" },
+              { days: "18% APR", action: "Interés de penalidad en pagos tardíos bajo el Código de Seguros de Texas §542" },
+            ].map(d => (
+              <div key={d.days} style={{ backgroundColor: "#f9fafb", borderRadius: "10px", padding: "20px", textAlign: "center", border: "1px solid #e5e7eb" }}>
+                <div style={{ color: "#3b82f6", fontWeight: 900, fontSize: "1.3rem", marginBottom: "8px" }}>{d.days}</div>
+                <p style={{ color: "#374151", fontSize: "0.85rem", lineHeight: "1.55", margin: 0 }}>{d.action}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: "#9ca3af", fontSize: "0.8rem", marginTop: "20px", textAlign: "center" }}>Fuente: Código de Seguros de Texas §542. Presente quejas en tdi.texas.gov si su aseguradora incumple estos plazos.</p>
+        </div>
+      </section>
+
+      {/* Deducible de Huracán */}
+      <section style={{ backgroundColor: "#fef3c7" }} className="py-10 px-4">
+        <div className="max-w-3xl mx-auto" style={{ textAlign: "center" }}>
+          <h3 style={{ color: "#92400e", fontWeight: 800, fontSize: "1.1rem", marginBottom: "10px" }}>⚠️ Costa de Texas: Revise su Deducible de Huracán/Viento</h3>
+          <p style={{ color: "#78350f", fontSize: "0.9rem", lineHeight: 1.8 }}>
+            Los propietarios en la Costa del Golfo de Texas (área metropolitana de Houston, Corpus Christi, Galveston, Rockport, etc.) pueden tener un <strong>deducible separado de viento/huracán</strong> mucho más alto que su deducible estándar — frecuentemente del 1–5% del valor asegurado de su hogar. En una casa de $300,000, un deducible de viento del 2% significa que usted paga los primeros <strong>$6,000</strong> antes de que el seguro cubra. Revise su página de declaraciones antes de presentar una reclamación.
+          </p>
+        </div>
+      </section>
+
       <FAQES items={faqs} heading="Preguntas sobre Reclamaciones de Seguro" />
 
       <section style={{ backgroundColor: "var(--navy)" }} className="py-16 px-4">
