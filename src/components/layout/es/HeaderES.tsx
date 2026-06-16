@@ -12,6 +12,7 @@ const NAV_LINKS_ES = [
   { label: ES.nav.insuranceClaims, href: "/es/insurance-claims" },
   { label: ES.nav.financing, href: "/es/financing" },
   { label: ES.nav.guides, href: "/es/guides" },
+  { label: ES.nav.updates, href: "/es/updates" },
   { label: ES.nav.getHelp, href: "/es/request-help", cta: true },
 ];
 

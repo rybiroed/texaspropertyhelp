@@ -15,6 +15,7 @@ export const ES = {
     insuranceClaims: "Reclamaciones de Seguro",
     financing: "Financiamiento",
     guides: "Guías",
+    updates: "Actualizaciones",
     getHelp: "Obtener Ayuda",
   },
 
