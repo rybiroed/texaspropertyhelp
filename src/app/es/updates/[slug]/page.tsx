@@ -58,6 +58,16 @@ export default async function PostESPage({ params }: Props) {
     ...(post.city ? { about: { "@type": "Place", name: `${post.city}, Texas` } } : {}),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://texaspropertyhelp.com/es" },
+      { "@type": "ListItem", position: 2, name: "Actualizaciones", item: "https://texaspropertyhelp.com/es/updates" },
+      { "@type": "ListItem", position: 3, name: title, item: `https://texaspropertyhelp.com/es/updates/${post.slug}` },
+    ],
+  };
+
   const date = new Date(post.publishedAt).toLocaleDateString("es-US", {
     month: "long", day: "numeric", year: "numeric",
   });
@@ -67,6 +77,7 @@ export default async function PostESPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {post.imageUrl && (
         <div style={{ position: "relative", width: "100%", height: "420px", overflow: "hidden" }}>

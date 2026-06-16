@@ -52,6 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticES: MetadataRoute.Sitemap = [
     { url: `${BASE}/es`,                      lastModified: new Date("2026-06-03"), changeFrequency: "weekly",  priority: 0.9 },
     { url: `${BASE}/es/guides`,               lastModified: new Date("2026-06-03"), changeFrequency: "weekly",  priority: 0.7 },
+    { url: `${BASE}/es/updates`,              lastModified: new Date(),             changeFrequency: "daily",   priority: 0.75 },
     { url: `${BASE}/es/request-help`,         lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/es/para-profesionales`,   lastModified: new Date("2026-05-01"), changeFrequency: "monthly", priority: 0.8 },
     ...ES_SERVICE_PAGES.map((p) => ({
@@ -84,5 +85,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }));
 
-  return [...staticEN, ...staticES, ...enGuides, ...esGuides, ...postUrls];
+  const esPostUrls: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: `${BASE}/es/updates/${p.slug}`,
+    lastModified: new Date(p.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.60,
+  }));
+
+  return [...staticEN, ...staticES, ...enGuides, ...esGuides, ...postUrls, ...esPostUrls];
 }

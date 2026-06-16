@@ -1,0 +1,15 @@
+{
+  "date": "2026-06-03",
+  "time": "16:34",
+  "day": "Saturday",
+  "topic": "weather_alert",
+  "section": "Weather Update",
+  "angle": "Texas storm season update — what homeowners need to know this week",
+  "weather": "Active Flood Warning in Corpus Christi through June 5. No threats to Dallas, Houston, San Antonio, Austin.",
+  "model": "llama3.1:8b",
+  "post_en": "Are you prepared for Texas storm season? 🌪️ Did you know that Texas is one of the top states in the country for hail claims each year?\n\nWith active flood warnings in Corpus Christi through June 5 and potentially severe storms brewing across the state, homeowners need to be aware of their rights and responsibilities when it comes to storm damage. As a homeowner in Texas, you may be entitled to insurance coverage for repairs or replacement of damaged property.\n\nHere are three practical tips you can act on today:\n\n* Check your insurance policy to make sure you have adequate coverage for wind and hail damage.\n* Review the Texas Department of Insurance (TDI) guidelines for filing claims and dealing with insurance adjusters. ⚠️\n* Take photos of any existing damages, including roof and fence damage, so you can document them if a storm hits.\n\nRemember, the Texas Department of Licensing and Regulation (TDLR) requires contractors to be licensed and registered before performing work on your property. Don't hire an unlicensed contractor – it's not worth the risk! Get free guidance → texaspropertyhelp.com",
+  "post_es": "¿Está preparado para la temporada de tormentas en Texas? 🌪️ ¿Sabía que Texas es uno de los estados con más reclamos por granizo al año?\n\nCon advertencias de inundaciones activas en Corpus Christi hasta el 5 de junio y tormentas severas potenciales en todo el estado, a los dueños de casas les conviene estar al tanto de sus derechos y responsabilidades cuando se trata de daños causados por las tormentas. Como dueño de casa en Texas, puede tener derecho a cobertura de seguro para reparaciones o reemplazo de la propiedad dañada.\n\nAquí hay tres consejos prácticos que puede actuar hoy:\n\n* Verifique su política de seguros para asegurarse de que tiene cobertura adecuada para los daños causados por viento y granizo.\n* Revisa las directrices del Departamento de Seguro de Texas (TDI) para presentar reclamos y tratar con ajustadores de seguro. ⚠️\n* Tome fotos de cualquier daño existente, incluyendo daños en el techo y la cerca, para que pueda documentarlo si llega una tormenta.\n\nRecuerde que el Departamento de Licencias y Regulación del Estado de Texas (TDLR) requiere a los contratistas que estén licenciados y registrados antes de realizar trabajo en su propiedad. No contrate a un contratista no licenciado – ¡no vale la pena el riesgo! Obtenga orientación gratuita → texaspropertyhelp.com",
+  "char_en": 1109,
+  "char_es": 1296,
+  "ready_to_post": true
+}

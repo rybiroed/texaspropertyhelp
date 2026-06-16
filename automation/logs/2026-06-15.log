@@ -1,0 +1,47 @@
+[13:00:01] ==============================================================
+[13:00:01] 🚀  Texas Property Help — Daily Automation Pipeline
+[13:00:01]     Monday, June 15, 2026 at 13:00 CT
+[13:00:01] ==============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:01]    Found 5 relevant alert(s)
+[13:00:01]    🔴 Flash Flood Warning — Harris, TX; Montgomery, TX
+[13:00:01]    🔴 Flash Flood Warning — Harris, TX
+[13:00:01]    🔴 Flash Flood Warning — Bossier, LA; Caddo, LA; Gregg, TX; Harrison, TX; Marion, TX; Upshur, T
+[13:00:01] 
+📰 Step 2: Fetching Texas storm/property news...
+[13:00:05]    Found 3 relevant story/stories
+[13:00:05]    📍 KHOU Houston: Carolina Hurricanes beat Vegas Golden Knights to win their second Stan
+[13:00:05]    📍 KXAN Austin: Live updates: Flood threat across Central Texas Monday
+[13:00:05] 
+📅 Step 3: Selecting topic and city...
+[13:00:05]    ⚡ Active NWS alerts → switching to weather_alert topic
+[13:00:05]    Topic: Weather Update — Texas storm season update — what homeowners need to kno...
+[13:00:05]    City:  El Paso
+[13:00:05] 
+🤖 Step 4: Generating article with Ollama...
+[13:00:05]    ⏳ Title (EN)...
+[13:00:13]    ⏳ Title (ES)...
+[13:00:13]    ✓ Title: El Paso Storm Season Alert: Essential Precautions for Homeowners This Week
+[13:00:13]    ⏳ Article body (EN)...
+[13:00:18]    ✓ EN: 3004 chars
+[13:00:18]    ⏳ Article body (ES)...
+[13:00:24]    ✓ ES: 3362 chars
+[13:00:24]    ⏳ Summaries...
+[13:00:25]    ⏳ Facebook post text...
+[13:00:28]    📎 Slug: 2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+[13:00:28]    🔗 URL: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+[13:00:28] 
+💾 Step 5: Saved to posts.json (14 total)
+[13:00:28] 
+🚀 Step 6: Publishing to website (git push → Vercel)...
+[13:00:30]    ✅ Pushed — Vercel deploying...
+[13:00:30]    🔗 Will be live at: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+[13:00:30] 
+📁 Step 7: Daily output → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-15_weather_alert.json
+[13:00:30] 
+📤 Step 8: Posting to Facebook...
+[13:00:30]    ⚠️  FB credentials not set — skipping
+[13:00:30]    Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable
+[13:00:30] 
+✅ Daily pipeline complete.

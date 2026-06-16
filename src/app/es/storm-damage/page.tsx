@@ -36,9 +36,20 @@ const faqs: FAQItem[] = [
   { question: "¿Puedo obtener ayuda si la tormenta ocurrió hace semanas?", answer: "Sí — siempre que esté dentro del plazo de reclamación de su póliza y los daños estén documentados, aún puede tener opciones. Recomendamos actuar rápido para no perder los plazos." },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function StormDamageESPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/storm-damage-hero.jpg" alt="Daños por tormenta en Texas" fill style={{ objectFit: "cover", objectPosition: "center top" }} priority sizes="100vw" />

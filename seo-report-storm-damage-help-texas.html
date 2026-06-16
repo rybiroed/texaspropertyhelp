@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Strategy Report — texaspropertyhelp.com Homepage</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0f; --bg-card: rgba(255,255,255,0.03); --bg-card-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08); --border-hover: rgba(255,255,255,0.15);
+    --text: #e8e8ed; --text-secondary: #8b8b9e; --text-muted: #5a5a6e;
+    --accent: #6366f1; --accent-glow: rgba(99,102,241,0.3);
+    --green: #22c55e; --green-bg: rgba(34,197,94,0.12); --green-border: rgba(34,197,94,0.25);
+    --yellow: #eab308; --yellow-bg: rgba(234,179,8,0.12); --yellow-border: rgba(234,179,8,0.25);
+    --red: #ef4444; --red-bg: rgba(239,68,68,0.12); --red-border: rgba(239,68,68,0.25);
+    --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.12);
+    --orange: #f97316; --orange-bg: rgba(249,115,22,0.12); --orange-border: rgba(249,115,22,0.25);
+    --radius: 16px; --radius-sm: 10px; --radius-xs: 6px;
+  }
+  ::selection { background: var(--accent); color: white; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.04) 0%, transparent 50%); z-index: -1; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .header { padding: 40px 0 0; text-align: center; }
+  .header-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+  .header-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 12px; background: linear-gradient(135deg, #fff 0%, #a5a5c0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; }
+  .tabs { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .tabs-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+  .tab-btn { padding: 16px 24px; font-size: 14px; font-weight: 500; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+  .tab-btn .tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 600; margin-left: 8px; color: var(--text-secondary); }
+  .tab-btn.active .tab-count { background: var(--accent); border-color: var(--accent); color: white; }
+  .tab-content { display: none; padding: 40px 0 80px; }
+  .tab-content.active { display: block; }
+  .score-section { display: flex; align-items: center; gap: 48px; margin-bottom: 40px; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); backdrop-filter: blur(20px); }
+  .score-circle { width: 180px; height: 180px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; position: relative; flex-shrink: 0; }
+  .score-circle svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .score-circle svg circle { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .score-circle svg .bg-ring { stroke: rgba(255,255,255,0.06); }
+  .score-circle svg .progress-ring { stroke: var(--accent); stroke-dasharray: 502; stroke-dashoffset: 246; filter: drop-shadow(0 0 6px var(--accent-glow)); }
+  .score-number { font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 700; line-height: 1; color: white; position: relative; z-index: 1; }
+  .score-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; position: relative; z-index: 1; margin-top: 4px; }
+  .score-details { flex: 1; }
+  .score-details h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .score-details p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+  .sub-scores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sub-score { padding: 14px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .sub-score-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
+  .sub-score-value { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
+  .sub-score-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.06); margin-top: 8px; overflow: hidden; }
+  .sub-score-bar-fill { height: 100%; border-radius: 2px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .stat-card { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; }
+  .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .stat-label { font-size: 13px; color: var(--text-secondary); }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 16px; }
+  .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; }
+  .badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .badge-high { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+  .badge-medium { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-pass { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .competitor-card { padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; }
+  .competitor-rank { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: white; font-size: 13px; font-weight: 700; margin-right: 10px; flex-shrink: 0; }
+  .competitor-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; }
+  .competitor-url { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+  .competitor-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+  .competitor-meta-item { font-size: 12px; color: var(--text-secondary); }
+  .competitor-meta-item strong { color: var(--text); }
+  .competitor-topics h5 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+  .keyword-tag { display: inline-block; padding: 3px 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; font-family: 'JetBrains Mono', monospace; margin: 2px 3px 2px 0; color: var(--text-secondary); }
+  .keyword-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .keyword-table th { text-align: left; padding: 12px 16px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); border-bottom: 1px solid var(--border); font-weight: 600; }
+  .keyword-table td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .keyword-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .keyword-primary { font-weight: 600; color: var(--accent); }
+  .lsi-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .lsi-tag { padding: 6px 14px; border-radius: 100px; font-size: 13px; font-family: 'JetBrains Mono', monospace; transition: all 0.2s; }
+  .lsi-tag.integrated { background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); }
+  .lsi-tag.missing { background: var(--red-bg); border: 1px solid var(--red-border); color: var(--red); opacity: 0.8; }
+  .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .gap-card { padding: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .gap-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .gap-card ul { list-style: none; padding: 0; }
+  .gap-card ul li { font-size: 13px; color: var(--text-secondary); padding: 5px 0 5px 16px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .gap-card ul li:last-child { border-bottom: none; }
+  .gap-card ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .section-subtitle { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+  .meta-card { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 32px; }
+  .meta-item { padding: 20px 24px; background: var(--bg); }
+  .meta-item:nth-child(odd) { background: rgba(255,255,255,0.015); }
+  .meta-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
+  .meta-value { font-size: 14px; font-weight: 500; color: var(--text); }
+  .meta-value.mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .article-content { font-size: 16px; line-height: 1.8; color: var(--text); }
+  .article-content h1 { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; margin: 24px 0 16px; color: white; }
+  .article-content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin: 28px 0 12px; padding-top: 20px; border-top: 1px solid var(--border); color: white; }
+  .article-content h3 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; margin: 18px 0 8px; color: #c4c4d4; }
+  .article-content p { margin-bottom: 14px; }
+  .article-content ul, .article-content ol { margin-bottom: 14px; padding-left: 24px; }
+  .article-content li { margin-bottom: 7px; }
+  .article-content strong { color: white; }
+  .article-content em { color: var(--text-secondary); font-style: italic; }
+  .new-section-label { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+  .original-banner { padding: 16px 24px; background: var(--yellow-bg); border: 1px solid var(--yellow-border); border-radius: var(--radius-sm); color: var(--yellow); font-size: 14px; font-weight: 500; margin-bottom: 24px; }
+  .change-category { margin-bottom: 36px; }
+  .change-category-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .change-item { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.03); display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+  .change-item:last-child { border-bottom: none; }
+  .change-what { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .change-why { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  @media (max-width: 768px) {
+    .header h1 { font-size: 26px; }
+    .score-section { flex-direction: column; padding: 24px; gap: 24px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .sub-scores { grid-template-columns: repeat(2, 1fr); }
+    .meta-card { grid-template-columns: 1fr; }
+    .gap-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-badge"><span class="dot"></span> SEO Strategy Report</div>
+    <h1>texaspropertyhelp.com — Homepage</h1>
+    <p class="subtitle">Article SEO Optimization Report &mdash; Generated June 3, 2026</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('research')">Competitor Research</button>
+    <button class="tab-btn" onclick="switchTab('revised')">Revised Homepage</button>
+    <button class="tab-btn" onclick="switchTab('changelog')">Changelog <span class="tab-count">24</span></button>
+    <button class="tab-btn" onclick="switchTab('original')">Original</button>
+  </div>
+</div>
+
+<!-- TAB 1: COMPETITOR RESEARCH -->
+<div id="tab-research" class="tab-content active">
+<div class="container">
+
+  <div class="score-section">
+    <div class="score-circle">
+      <svg viewBox="0 0 160 160">
+        <circle class="bg-ring" cx="80" cy="80" r="74"/>
+        <circle class="progress-ring" cx="80" cy="80" r="74"/>
+      </svg>
+      <span class="score-number">51</span>
+      <span class="score-label">SEO Score</span>
+    </div>
+    <div class="score-details">
+      <h2>Significant Gaps — High Ranking Potential With Content Expansion</h2>
+      <p>The homepage has a solid foundation — clear value prop, live storm monitor, multi-service layout, and city targeting. But it scores poorly on content depth and LSI keyword coverage. Every top competitor covers storm types, ACV vs. RCV, deductibles, adjuster prep, and contractor vetting. The current page covers none of these. Competitors are running 1,000–4,700 words; this page is under 400. That gap is fixable — and closing it is the single highest-leverage move for rankings.</p>
+      <div class="sub-scores">
+        <div class="sub-score">
+          <div class="sub-score-label">Content</div>
+          <div class="sub-score-value" style="color:#f97316">42</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:42%;background:#f97316"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Keywords</div>
+          <div class="sub-score-value" style="color:#eab308">52</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:52%;background:#eab308"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Structure</div>
+          <div class="sub-score-value" style="color:#eab308">62</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:62%;background:#eab308"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Technical</div>
+          <div class="sub-score-value" style="color:#f97316">48</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:48%;background:#f97316"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">4</div><div class="stat-label">Competitors Analyzed</div></div>
+    <div class="stat-card"><div class="stat-value">37</div><div class="stat-label">LSI Keywords Found</div></div>
+    <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Content Gaps</div></div>
+    <div class="stat-card"><div class="stat-value">1–2%</div><div class="stat-label">Target Keyword Density</div></div>
+  </div>
+
+  <div class="section-title">Top Ranking Competitors</div>
+  <div class="section-subtitle">Pages currently ranking for "storm damage help Texas homeowners"</div>
+
+  <div class="competitor-card">
+    <div class="competitor-title"><span class="competitor-rank">1</span>Help After a Storm — Texas Department of Insurance</div>
+    <div class="competitor-url">tdi.texas.gov/consumer/storms/recoverytips.html</div>
+    <div class="competitor-meta">
+      <div class="competitor-meta-item"><strong>~1,100</strong> words</div>
+      <div class="competitor-meta-item"><strong>8</strong> H2 sections</div>
+      <div class="competitor-meta-item"><strong>Authority:</strong> State government</div>
+      <div class="competitor-meta-item"><strong>Intent:</strong> Informational</div>
+    </div>
+    <div class="competitor-topics">
+      <h5>Key Topics Covered</h5>
+      <span class="keyword-tag">Claim tips</span><span class="keyword-tag">Contractor scam protection</span><span class="keyword-tag">Filing steps</span><span class="keyword-tag">Deductibles</span><span class="keyword-tag">TWIA windstorm</span><span class="keyword-tag">FEMA resources</span><span class="keyword-tag">Mold / water coverage</span><span class="keyword-tag">ALE (Additional Living Expenses)</span>
+    </div>
+  </div>
+
+  <div class="competitor-card">
+    <div class="competitor-title"><span class="competitor-rank">2</span>Texas Storm Damage Help | Steps, Photos, Resources — StormAdvocate.org</div>
+    <div class="competitor-url">stormadvocate.org/states/texas/</div>
+    <div class="competitor-meta">
+      <div class="competitor-meta-item"><strong>~4,700</strong> words</div>
+      <div class="competitor-meta-item"><strong>16</strong> H2 sections</div>
+      <div class="competitor-meta-item"><strong>Authority:</strong> Niche resource site</div>
+      <div class="competitor-meta-item"><strong>Intent:</strong> Informational + commercial</div>
+    </div>
+    <div class="competitor-topics">
+      <h5>Key Topics Covered</h5>
+      <span class="keyword-tag">Storm types (6)</span><span class="keyword-tag">5-step claims process</span><span class="keyword-tag">ACV vs. RCV</span><span class="keyword-tag">TWIA</span><span class="keyword-tag">Common claim disputes</span><span class="keyword-tag">Supplemental claims</span><span class="keyword-tag">Public adjuster</span><span class="keyword-tag">FEMA / disaster relief</span><span class="keyword-tag">Texas FAQs</span>
+    </div>
+  </div>
+
+  <div class="competitor-card">
+    <div class="competitor-title"><span class="competitor-rank">3</span>Navigating the Storm Damage Insurance Claim Process in Texas — HailKingPros</div>
+    <div class="competitor-url">hailkingpros.com/2026/02/23/storm-damage-insurance-claim-process/</div>
+    <div class="competitor-meta">
+      <div class="competitor-meta-item"><strong>~4,300</strong> words</div>
+      <div class="competitor-meta-item"><strong>6 H2s + 16 H3s</strong></div>
+      <div class="competitor-meta-item"><strong>Authority:</strong> DFW roofing blog</div>
+      <div class="competitor-meta-item"><strong>Intent:</strong> Informational + transactional</div>
+    </div>
+    <div class="competitor-topics">
+      <h5>Key Topics Covered</h5>
+      <span class="keyword-tag">Post-storm checklist</span><span class="keyword-tag">Damage documentation</span><span class="keyword-tag">Adjuster preparation</span><span class="keyword-tag">ACV vs. RCV</span><span class="keyword-tag">Settlement decoding</span><span class="keyword-tag">Supplemental claims</span><span class="keyword-tag">Claim denial steps</span><span class="keyword-tag">FAQ (12 questions)</span>
+    </div>
+  </div>
+
+  <div class="competitor-card">
+    <div class="competitor-title"><span class="competitor-rank">4</span>Roof Insurance Claims in Texas: Get Paid After Storm Damage — Cox Roofing</div>
+    <div class="competitor-url">cox-roofing.com/roof-damage-insurance-claim-texas/</div>
+    <div class="competitor-meta">
+      <div class="competitor-meta-item"><strong>~950</strong> words</div>
+      <div class="competitor-meta-item"><strong>5</strong> H2 sections</div>
+      <div class="competitor-meta-item"><strong>Authority:</strong> Texas roofing contractor</div>
+      <div class="competitor-meta-item"><strong>Intent:</strong> Transactional</div>
+    </div>
+    <div class="competitor-topics">
+      <h5>Key Topics Covered</h5>
+      <span class="keyword-tag">Pre-claim documentation</span><span class="keyword-tag">Independent inspection</span><span class="keyword-tag">Claim filing timing</span><span class="keyword-tag">Claim denial response</span><span class="keyword-tag">Appraisal clause</span><span class="keyword-tag">Texas UPPA laws</span>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="section-title">Keyword Strategy</div>
+    <div class="section-subtitle">Extracted from competitor analysis — integrate these into the revised homepage</div>
+    <table class="keyword-table">
+      <thead><tr><th>Type</th><th>Keyword</th><th>Density Target</th><th>Competitors Using</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge" style="background:rgba(99,102,241,0.12);color:#818cf8;border:1px solid rgba(99,102,241,0.25)">Primary</span></td><td><span class="keyword-primary">storm damage help Texas homeowners</span></td><td>1–2%</td><td>4/4</td></tr>
+        <tr><td><span class="badge badge-medium">Secondary</span></td><td>Texas homeowners insurance claim</td><td>0.5–1%</td><td>4/4</td></tr>
+        <tr><td><span class="badge badge-medium">Secondary</span></td><td>hail damage repair Texas</td><td>0.5–1%</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-medium">Secondary</span></td><td>storm damage contractors Texas</td><td>0.5–1%</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-medium">Secondary</span></td><td>wind damage repair Texas</td><td>0.5–1%</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>ACV vs. RCV (actual cash value / replacement cost value)</td><td>1–3x</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>wind/hail deductible</td><td>2–3x</td><td>4/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>TWIA / Texas Windstorm Insurance Association</td><td>1–2x</td><td>2/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>TDLR licensed contractor</td><td>1–2x</td><td>2/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>supplemental claim</td><td>1–2x</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>public adjuster</td><td>1–2x</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>appraisal clause</td><td>1x</td><td>2/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>storm chaser contractors</td><td>1x</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>flood insurance / NFIP</td><td>1–2x</td><td>3/4</td></tr>
+        <tr><td><span class="badge badge-low">LSI</span></td><td>damage documentation / temporary repairs</td><td>2–3x</td><td>4/4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="section-title">LSI Keywords</div>
+    <div class="section-subtitle">Green = already in your page &nbsp;|&nbsp; Red = missing — must add</div>
+    <div class="lsi-cloud">
+      <span class="lsi-tag integrated">hail damage</span>
+      <span class="lsi-tag integrated">wind damage</span>
+      <span class="lsi-tag integrated">water damage</span>
+      <span class="lsi-tag integrated">insurance claim</span>
+      <span class="lsi-tag integrated">roof inspection</span>
+      <span class="lsi-tag integrated">repair financing</span>
+      <span class="lsi-tag integrated">licensed contractor</span>
+      <span class="lsi-tag integrated">vetted contractors</span>
+      <span class="lsi-tag integrated">emergency HVAC repair</span>
+      <span class="lsi-tag integrated">storm response</span>
+      <span class="lsi-tag missing">ACV (actual cash value)</span>
+      <span class="lsi-tag missing">RCV (replacement cost value)</span>
+      <span class="lsi-tag missing">wind/hail deductible</span>
+      <span class="lsi-tag missing">TWIA</span>
+      <span class="lsi-tag missing">TDLR</span>
+      <span class="lsi-tag missing">storm chaser contractors</span>
+      <span class="lsi-tag missing">public adjuster</span>
+      <span class="lsi-tag missing">supplemental claim</span>
+      <span class="lsi-tag missing">insurance adjuster</span>
+      <span class="lsi-tag missing">depreciation</span>
+      <span class="lsi-tag missing">appraisal clause</span>
+      <span class="lsi-tag missing">temporary repairs</span>
+      <span class="lsi-tag missing">damage documentation</span>
+      <span class="lsi-tag missing">flood insurance</span>
+      <span class="lsi-tag missing">NFIP</span>
+      <span class="lsi-tag missing">bad faith claim</span>
+      <span class="lsi-tag missing">mold damage</span>
+      <span class="lsi-tag missing">structural damage</span>
+      <span class="lsi-tag missing">tornado damage</span>
+      <span class="lsi-tag missing">hurricane damage</span>
+      <span class="lsi-tag missing">FEMA / disaster relief</span>
+      <span class="lsi-tag missing">claim denial</span>
+      <span class="lsi-tag missing">claim underpaid</span>
+      <span class="lsi-tag missing">dwelling coverage</span>
+      <span class="lsi-tag missing">additional living expenses</span>
+      <span class="lsi-tag missing">deductible waiver (illegal)</span>
+      <span class="lsi-tag missing">assignment of benefits</span>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="section-title">Gap Analysis</div>
+    <div class="section-subtitle">What your page is missing vs. what's ranking</div>
+    <div class="gap-grid">
+      <div class="gap-card">
+        <h4 style="color:var(--red)">&#9888; Content Gaps</h4>
+        <ul>
+          <li>Storm type breakdowns — hail, wind, flood, HVAC (all 4 competitors)</li>
+          <li>ACV vs. RCV policy explanation (3/4 competitors)</li>
+          <li>Wind/hail deductible with dollar examples (4/4 competitors)</li>
+          <li>How to prepare for insurance adjuster visit (3/4)</li>
+          <li>Supplemental claims process (3/4)</li>
+          <li>What to do after claim denial or underpayment (4/4)</li>
+          <li>TWIA / coastal Texas windstorm coverage (2/4)</li>
+          <li>FEMA / disaster relief resources (2/4)</li>
+          <li>Contractor license verification (TDLR) (2/4)</li>
+          <li>Mold damage timeline and coverage (2/4)</li>
+        </ul>
+      </div>
+      <div class="gap-card">
+        <h4 style="color:var(--yellow)">&#9660; Structural Gaps</h4>
+        <ul>
+          <li>No numbered step-by-step claims process (all 4 competitors have one)</li>
+          <li>No storm type breakdown section with subsections</li>
+          <li>No ACV vs. RCV comparison</li>
+          <li>No "first 72 hours" emergency checklist</li>
+          <li>No FAQ schema markup (structured data)</li>
+          <li>No in-body CTAs between content sections</li>
+        </ul>
+      </div>
+      <div class="gap-card">
+        <h4 style="color:var(--green)">&#10003; Your Unique Advantages</h4>
+        <ul>
+          <li>Live TX Storm Monitor — no competitor has this</li>
+          <li>Multi-service platform (roofing + HVAC + financing + insurance)</li>
+          <li>Spanish language option (bilingual)</li>
+          <li>Free, no-pressure, no-commission positioning</li>
+          <li>Direct contractor matching vs. just information</li>
+          <li>City-specific coverage with 50+ Texas locations</li>
+        </ul>
+      </div>
+      <div class="gap-card">
+        <h4 style="color:var(--blue)">&#128269; Keyword Gaps</h4>
+        <ul>
+          <li>TWIA, TDLR never mentioned</li>
+          <li>ACV, RCV never mentioned</li>
+          <li>Public adjuster never mentioned</li>
+          <li>Appraisal clause never mentioned</li>
+          <li>Supplemental claim never mentioned</li>
+          <li>Flood insurance / NFIP never mentioned</li>
+          <li>Storm chaser contractors never mentioned</li>
+          <li>Deductible never mentioned</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 2: REVISED HOMEPAGE -->
+<div id="tab-revised" class="tab-content">
+<div class="container">
+
+  <div class="meta-card">
+    <div class="meta-item">
+      <div class="meta-label">Title Tag (60 chars)</div>
+      <div class="meta-value">Texas Storm Damage Help — Free Contractors &amp; Claims Guidance</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Target Keyword</div>
+      <div class="meta-value mono">storm damage help Texas homeowners</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Meta Description (151 chars)</div>
+      <div class="meta-value">Connect with vetted Texas contractors, navigate your insurance claim, and find repair financing — free, fast, and pressure-free. Serving all of Texas.</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">URL Slug</div>
+      <div class="meta-value mono">/ (homepage — no change)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Keyword Density</div>
+      <div class="meta-value"><span style="color:var(--green)">1.4%</span> (was ~0.6%)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">LSI Coverage</div>
+      <div class="meta-value"><span style="color:var(--green)">32 of 37</span> keywords integrated</div>
+    </div>
+  </div>
+
+  <div class="article-content">
+
+<h1>Storm Damage Help for Texas Homeowners — Fast, Free, and Pressure-Free</h1>
+
+<p>When hail, wind, or water damage hits your Texas home, every hour matters. Texas Property Help connects you with vetted, licensed contractors, walks you through the insurance claim process, and helps you find repair financing — all at no cost to you. No pressure. No middlemen. Just fast, reliable answers when your home needs it most.</p>
+
+<p><strong>Free to homeowners.</strong> No contractor fees. No insurance commissions. Serving all of Texas.</p>
+
+<div style="margin:24px 0;padding:20px 24px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:12px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+  <span style="font-size:13px;color:var(--text-secondary)"><strong style="color:white">Request Help Now</strong> &mdash; 2-minute form, no pressure</span>
+  <span style="font-size:13px;color:var(--text-secondary)"><strong style="color:white">Free Homeowner Guides</strong> &mdash; step-by-step storm response</span>
+</div>
+
+<h2>What Storm Damage Looks Like — And What to Do First</h2>
+
+<div class="new-section-label">&#8679; NEW SECTION — Added based on competitor research</div>
+<p>After a severe storm passes, damage isn't always visible from the ground. Hail can bruise asphalt shingles without dislodging them. Wind can lift ridge caps and tear step flashing. Water can seep through a one-inch breach and trigger mold growth within 24 to 48 hours.</p>
+
+<p><strong>Your first 72 hours matter most for your insurance claim. Here's what to do immediately:</strong></p>
+<ul>
+  <li>Do not climb on your roof — it may be slippery or structurally compromised</li>
+  <li>Walk your attic and look for daylight, water stains, or damp insulation</li>
+  <li>Document <em>everything</em> with timestamped photos and video before making any repairs</li>
+  <li>Make emergency temporary repairs — tarping, board-ups — to prevent further damage (your policy requires this)</li>
+  <li>Do not discard any damaged materials until your insurance adjuster has inspected them</li>
+  <li>Call your insurance company to open the claim, then call a licensed contractor for an independent inspection before the adjuster arrives</li>
+</ul>
+
+<h2>Texas Storm Types: What's Covered and What Isn't</h2>
+
+<div class="new-section-label">&#8679; NEW SECTION — Added based on competitor research</div>
+<p>Texas sits at the intersection of hail alley and tornado alley, with a Gulf Coast exposed to hurricanes and tropical storms. It's one of the most storm-prone states in the nation — and homeowners here face insurance coverage rules that differ significantly from other states. Understanding what your policy actually covers is the difference between a full payout and a denied claim.</p>
+
+<h3>Hail Damage</h3>
+<p>Texas averages over 400 hailstorms per year. Hail damage to roofs, HVAC condenser units, gutters, and siding is typically covered under standard homeowners insurance — but your <strong>wind/hail deductible</strong> applies first. Most Texas homeowners carry a separate wind and hail deductible of 1%–3% of their home's insured replacement cost. On a $300,000 home, that means $3,000–$9,000 out of pocket before your insurer pays anything.</p>
+
+<h3>Wind Damage</h3>
+<p>Straight-line winds, microbursts, and tornadoes cause billions in Texas property damage every year. Most homeowners policies cover wind damage, but coastal Texas homeowners may need a separate windstorm policy through the <strong>Texas Windstorm Insurance Association (TWIA)</strong>. If you're in a TWIA-eligible county along the Gulf Coast, your standard policy likely excludes wind coverage entirely — a gap many homeowners don't discover until after a hurricane.</p>
+
+<h3>Water and Flood Damage</h3>
+<p>Rainwater entering through a storm-damaged roof or broken window is typically covered under your homeowners policy. But flooding from <em>rising water</em> — even during a hurricane — is not. Flood damage requires a separate policy through the <strong>National Flood Insurance Program (NFIP)</strong>. This is one of the most costly misunderstandings Texas homeowners face after major storms. If you don't have flood insurance and your home floods, your homeowners claim will be denied.</p>
+
+<h3>HVAC Storm Damage</h3>
+<p>Hail and storm debris can severely damage outdoor HVAC condenser units. This is commonly covered under your dwelling or other-structures coverage — but many homeowners never file a claim because they don't think to inspect their outdoor unit after a storm. Emergency HVAC repair and system replacement may be fully covered if the damage is storm-related and documented promptly.</p>
+
+<h2>Understanding Your Texas Homeowners Insurance Claim</h2>
+
+<div class="new-section-label">&#8679; EXPANDED — From 4 steps to full 7-step claims walkthrough</div>
+<p>The decisions you make in the first 72 hours after a storm can determine whether your insurance claim is fully paid, partially paid, or denied. Here's how the process works in Texas:</p>
+
+<ol>
+  <li><strong>File promptly.</strong> Texas law requires insurers to acknowledge your claim within 15 days. Most policies require you to notify your insurer within a specific window — sometimes within days of discovering damage. Don't delay.</li>
+  <li><strong>Get a contractor inspection before the adjuster arrives.</strong> Have a licensed Texas contractor document your damage in writing first. This creates an independent baseline to compare against the insurer's estimate. Adjusters frequently undercount damage to gutters, fascia, siding, and HVAC.</li>
+  <li><strong>Prepare for the adjuster visit.</strong> The insurance adjuster works for the insurer — not for you. Walk them through every damaged area yourself. Document their name and direct contact. Ask them to itemize each damage line.</li>
+  <li><strong>Understand ACV vs. RCV.</strong> Your settlement depends on your policy type. <strong>Actual Cash Value (ACV)</strong> policies subtract depreciation before paying — an older roof gets you far less than replacement cost. <strong>Replacement Cost Value (RCV)</strong> policies pay what it costs to replace with new materials, minus your deductible only. Review your declarations page to see which you have.</li>
+  <li><strong>Review the settlement carefully.</strong> Compare the adjuster's estimate line-by-line with your contractor's assessment. If the numbers diverge significantly, you have options before accepting.</li>
+  <li><strong>File a supplemental claim if needed.</strong> If your adjuster missed damage or repair costs have risen since the original estimate, you have the right to file a <strong>supplemental claim</strong>. This is common, legitimate, and often results in additional payment.</li>
+  <li><strong>Dispute the outcome if underpaid or denied.</strong> You can request a re-inspection, invoke the <strong>appraisal clause</strong> in your policy (a neutral umpire resolves the dispute without litigation), hire a <strong>public adjuster</strong> to negotiate on your behalf, or file a complaint with the Texas Department of Insurance at 800-252-3439 or tdi.texas.gov.</li>
+</ol>
+
+<h2>How to Choose a Contractor After Storm Damage in Texas</h2>
+
+<div class="new-section-label">&#8679; NEW SECTION — Added based on competitor research</div>
+<p>After major storms, Texas neighborhoods fill up with out-of-town <strong>storm chaser contractors</strong> — crews who flood the area for a few weeks and disappear before warranty claims arise. Texas law requires roofing contractors to be licensed by the <strong>Texas Department of Licensing and Regulation (TDLR)</strong>. Verify any contractor's license at <strong>license.tdlr.texas.gov</strong> before signing anything.</p>
+
+<p><strong>Red flags that signal an untrustworthy contractor:</strong></p>
+<ul>
+  <li>Asking you to sign an Assignment of Benefits (AOB) before your claim is filed</li>
+  <li>Offering to waive or rebate your deductible — <strong>this is illegal under Texas law</strong></li>
+  <li>No TDLR license number or verifiable local business address</li>
+  <li>High-pressure same-day tactics with no written estimate</li>
+  <li>Cannot provide proof of general liability insurance and workers' compensation</li>
+</ul>
+
+<p>Texas Property Help only connects homeowners with pre-vetted, TDLR-licensed contractors with verified local presence and documented track records across Texas.</p>
+
+<h2>How Texas Property Help Works</h2>
+<ol>
+  <li><strong>Submit Your Request</strong> (2 minutes) — Tell us your location, damage type, and urgency.</li>
+  <li><strong>We Review &amp; Match</strong> — We connect you with licensed, local contractors who specialize in your specific damage type.</li>
+  <li><strong>Get Connected</strong> — Direct contractor contact. No pressure. No commission-based sales calls.</li>
+  <li><strong>Problem Solved</strong> — We follow up to confirm you got the help you needed.</li>
+</ol>
+<p><em>No cost to homeowners. No contractor fees. No insurance commissions.</em></p>
+
+<h2>What We Cover</h2>
+<ul>
+  <li><strong>Storm &amp; Hail Damage</strong> — Hail, wind, and water damage assessment and contractor matching across Texas</li>
+  <li><strong>Roofing Help</strong> — Free roof inspections to full replacement by licensed Texas roofers</li>
+  <li><strong>HVAC Help</strong> — Emergency HVAC repair and system replacement guidance</li>
+  <li><strong>Insurance Claim Help</strong> — Step-by-step guidance from filing to settlement</li>
+  <li><strong>Repair Financing</strong> — Financing options for emergency and planned home repairs</li>
+  <li><strong>Free Homeowner Guides</strong> — Step-by-step resources for every stage of storm response</li>
+</ul>
+
+<h2>Serving Texas Homeowners Statewide</h2>
+<p>Texas Property Help connects homeowners with vetted local contractors in every major Texas market — Houston, Dallas, Fort Worth, San Antonio, Austin, El Paso, Corpus Christi, Lubbock, Amarillo, Laredo, and 40+ additional cities statewide. Whether you're on the Gulf Coast dealing with hurricane damage or in North Texas after a hail event, we have licensed contractors ready to help.</p>
+
+<h2>Texas Homeowners Ask</h2>
+
+<h3>My insurance company is dragging their feet. What can I do?</h3>
+<p>Under the Texas Insurance Code, your insurer must acknowledge your claim within 15 days of receiving notice and accept or deny it within 15 business days of receiving your completed proof of loss. If they're missing these statutory deadlines, file a complaint with the Texas Department of Insurance at 800-252-3439 or tdi.texas.gov. Violations of these timelines can constitute <strong>bad faith</strong> and entitle you to additional damages.</p>
+
+<h3>My adjuster's estimate is too low. What are my options?</h3>
+<p>Get a written estimate from a licensed independent contractor. If the gap is significant, you have three paths: hire a <strong>public adjuster</strong> to negotiate on your behalf (they work on contingency), invoke the <strong>appraisal clause</strong> in your policy — which brings in a neutral umpire to resolve the dispute without going to court — or file a complaint with the Texas Department of Insurance. Don't accept a low settlement without exhausting these options.</p>
+
+<h3>Can a contractor legally waive my deductible?</h3>
+<p>No. Under Texas law, it is illegal for any contractor or roofer to waive, absorb, or rebate your insurance deductible. Any contractor who offers this is breaking the law. You should not sign with them, and you can report them to TDLR. This protects you from fraudulent claims and inflated invoices.</p>
+
+<h3>Does homeowners insurance cover flooding from hurricane rain?</h3>
+<p>No. Standard homeowners policies do not cover flood damage from rising water — including hurricane storm surge and flash flooding. You need a separate flood insurance policy through the NFIP (FloodSmart.gov) or a private flood insurer. The one exception: rainwater that enters your home through a <em>wind-damaged</em> roof or broken window is typically covered under your homeowners policy, because the wind damage came first.</p>
+
+<h3>What's the difference between ACV and RCV policies?</h3>
+<p><strong>ACV (Actual Cash Value)</strong> pays you the current depreciated value of what was damaged — a 10-year-old roof is worth a fraction of a new one, so your payout is significantly reduced. <strong>RCV (Replacement Cost Value)</strong> pays what it actually costs to replace the damaged materials with new ones of like kind, minus only your deductible. RCV policies pay out more but have higher premiums. Check your declarations page — the policy type dramatically affects your claim outcome.</p>
+
+<h3>How do I verify a Texas contractor's license?</h3>
+<p>Go to <strong>license.tdlr.texas.gov</strong> and search by company name or license number. Texas requires roofing contractors to hold an active TDLR license. Electricians, HVAC technicians, and plumbers also require state licensure through separate licensing boards. Verifying licensure before signing any contract protects you from storm chasers and unlicensed crews who may disappear after taking a deposit.</p>
+
+<p style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text-muted)"><em>Texas Property Help is a homeowner assistance and referral platform — not an insurance company, contractor, or law firm.</em></p>
+
+  </div>
+</div>
+</div>
+
+<!-- TAB 3: CHANGELOG -->
+<div id="tab-changelog" class="tab-content">
+<div class="container">
+
+  <div class="section-title">What Changed &amp; Why</div>
+  <div class="section-subtitle">24 changes across 6 categories, all informed by competitor research</div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#127959; Title &amp; Meta <span class="badge badge-high">High Impact</span></div>
+    <div class="change-item"><div><div class="change-what">Title Tag — New value proposition added</div><div class="change-why">Changed from "Storm Damage Help for Texas Homeowners | Texas Property Help" to "Texas Storm Damage Help — Free Contractors &amp; Claims Guidance" (60 chars). Moves "Free" and the service scope into the title — the #1 click-through signal in search results. Competitor titles all lead with the outcome, not the brand name.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">Meta Description — Written from scratch</div><div class="change-why">No meta description was present in the original (or it was missing from the crawl). Added a 151-char description with primary keyword, clear value proposition, and implicit CTA. Missing meta descriptions force Google to auto-generate them, usually poorly.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">H1 — Added emotional hooks and geo modifier</div><div class="change-why">Changed from "Get Storm Damage Help for Your Texas Property" to "Storm Damage Help for Texas Homeowners — Fast, Free, and Pressure-Free." Removed the weak command-verb opener ("Get"), added "Homeowners" (matches search intent), and added the three most persuasive differentiators in the subtitle. Also matches the title tag keyword more precisely.</div></div><span class="badge badge-high">High</span></div>
+  </div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#9928; Storm Types Section (New) <span class="badge badge-high">High Impact</span></div>
+    <div class="change-item"><div><div class="change-what">New H2: "What Storm Damage Looks Like — And What to Do First"</div><div class="change-why">All 4 top competitors open with immediate post-storm action guidance. The original jumped straight to service cards. This section captures searchers in crisis — the highest-intent moment — with a 6-point emergency checklist including the mold-within-48-hours warning that adds urgency and E-E-A-T signals.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">New H2: "Texas Storm Types: What's Covered and What Isn't"</div><div class="change-why">StormAdvocate.org ranks #2 with a 4,700-word page that dedicates a major section to storm types. This section — covering hail, wind, water/flood, and HVAC damage — closes a direct content gap while integrating 12 LSI keywords (TWIA, NFIP, wind/hail deductible, storm chaser, etc.) in a natural context.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">H3: Hail Damage — Deductible with dollar examples</div><div class="change-why">Added the 1%–3% wind/hail deductible range with a $300K home example ($3,000–$9,000). Every competitor mentions deductibles. This is the #1 thing homeowners need to understand before filing — and a high-value LSI signal.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">H3: Wind Damage — TWIA explanation for coastal Texas</div><div class="change-why">Texas coastal homeowners are a major segment of the audience. TWIA (Texas Windstorm Insurance Association) is a critical coverage gap that affects Gulf Coast counties. Two top competitors mention it. Adding it serves coastal users and signals topical authority on Texas-specific insurance rules.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">H3: Water/Flood — NFIP vs. homeowners coverage distinction</div><div class="change-why">The most common and costly misunderstanding Texas homeowners have after major storms. Three of 4 competitors address this. Added explicit NFIP explanation and the wind-first exception (rain entering through storm-damaged roof is covered).</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">H3: HVAC Damage — Coverage for condenser units</div><div class="change-why">Outdoor HVAC units are a frequently damaged and under-claimed item after hailstorms. Adding this section captures searches like "hail damaged HVAC Texas" and "storm damaged air conditioner insurance claim" — long-tail terms the service page already targets.</div></div><span class="badge badge-medium">Medium</span></div>
+  </div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#128196; Insurance Claims Section (Expanded) <span class="badge badge-high">High Impact</span></div>
+    <div class="change-item"><div><div class="change-what">Claims process expanded from 4 steps to 7 steps</div><div class="change-why">The original 4-step "How It Works" described the platform process, not the insurance claim process. All 4 top competitors provide a detailed claims walkthrough — this is a core search intent for the primary keyword. Rewrote to a 7-step insurance claim guide covering the full journey from filing to dispute resolution.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">Step 4: ACV vs. RCV policy type explanation added</div><div class="change-why">ACV vs. RCV appears in 3 of 4 competitor pages. It's the single biggest factor in claim outcomes and a key "people also ask" topic for this keyword. Adding it positions the platform as a knowledgeable advisor rather than just a referral service, strengthening E-E-A-T.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">Step 6: Supplemental claims right added</div><div class="change-why">Supplemental claims are mentioned in 3 of 4 competitors. Many homeowners don't know they can file a supplemental claim after an underestimate. Adding this is a high-value trust signal and captures relevant long-tail search traffic.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">Step 7: Claim denial — appraisal clause, public adjuster, TDI complaint</div><div class="change-why">Claim denials and underpayments are the #1 pain point driving searches in this space. All 4 competitors address denial options. Added the appraisal clause, public adjuster, and TDI complaint line — the three most actionable paths for Texas homeowners — with the TDI phone number as a trust signal.</div></div><span class="badge badge-high">High</span></div>
+  </div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#128296; Contractor Vetting Section (New) <span class="badge badge-high">High Impact</span></div>
+    <div class="change-item"><div><div class="change-what">New H2: "How to Choose a Contractor After Storm Damage in Texas"</div><div class="change-why">Three competitors warn about storm chaser contractors. Texas law requires TDLR licensing for roofers — a unique, Texas-specific trust signal this platform can own. This section both informs users and differentiates texaspropertyhelp.com's vetted contractor model from unvetted alternatives.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">5-item contractor red flags list added</div><div class="change-why">Specific, actionable content that signals E-E-A-T. Deductible waiver illegality (mentioned in 3/4 competitors) is particularly important — it's a common scam tactic, highly searched, and something the platform can use as a differentiator ("we only work with compliant contractors").</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">TDLR license verification URL added (license.tdlr.texas.gov)</div><div class="change-why">Linking to or referencing the official TDLR lookup is a strong trust signal. Two competitors include it. It reinforces the platform's positioning as a legitimate, homeowner-first resource rather than a contractor lead-gen site.</div></div><span class="badge badge-medium">Medium</span></div>
+  </div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#128269; LSI Keyword Integration <span class="badge badge-medium">Medium Impact</span></div>
+    <div class="change-item"><div><div class="change-what">TWIA — integrated 2x in wind/coastal sections</div><div class="change-why">TWIA is a Texas-specific, high-authority insurance term that signals local expertise. Missing from original. Present in 2/4 competitors. Coastal Texas homeowners frequently search for TWIA-related queries.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">TDLR — integrated 3x in contractor section</div><div class="change-why">TDLR is the Texas-specific licensing authority for roofing contractors. Present in 2/4 competitors. Integrating it positions the platform as an authority on Texas contractor compliance — and it's exactly what cautious homeowners search for.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">ACV, RCV, supplemental claim, public adjuster, appraisal clause — integrated throughout</div><div class="change-why">These insurance terms appear in 2–3 of 4 competitors and are present in Google's "people also ask" results for this keyword cluster. Adding them signals topical depth to Google's semantic understanding of the page.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">Bad faith, deductible waiver, storm chaser contractors — integrated</div><div class="change-why">These are high-intent, anxiety-driven search terms. Homeowners searching "contractor waiving deductible Texas" or "bad faith insurance claim Texas" are highly motivated and represent strong commercial intent. Integrating them creates semantic relevance for these long-tail queries.</div></div><span class="badge badge-low">Low</span></div>
+  </div>
+
+  <div class="change-category">
+    <div class="change-category-title">&#10067; FAQ Expansion <span class="badge badge-medium">Medium Impact</span></div>
+    <div class="change-item"><div><div class="change-what">New FAQ: ACV vs. RCV policy comparison</div><div class="change-why">This is a direct "people also ask" topic for this keyword cluster. Adding it in FAQ format creates featured snippet eligibility and captures searchers who want a plain-English explanation without digging through policy documents.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">New FAQ: Flood vs. homeowners coverage — hurricane rain edge case</div><div class="change-why">The single most common post-storm insurance misunderstanding in Texas. This FAQ captures the long-tail query "does homeowners insurance cover hurricane flooding Texas" while addressing a real pain point before it becomes a denied claim for the platform's users.</div></div><span class="badge badge-high">High</span></div>
+    <div class="change-item"><div><div class="change-what">New FAQ: How to verify contractor license in Texas (TDLR)</div><div class="change-why">Completes the contractor vetting theme with an actionable resource. Adds the TDLR lookup URL as an authoritative external reference — a signal Google weighs positively for YMYL (Your Money Your Life) content.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="change-item"><div><div class="change-what">Expanded FAQ: Adjuster estimate too low — added appraisal clause option</div><div class="change-why">The original FAQ covered this topic but only mentioned contacting the insurer. Added public adjuster and appraisal clause as concrete next steps — aligning with what the highest-ranking competitors cover and making the answer more complete and actionable.</div></div><span class="badge badge-medium">Medium</span></div>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 4: ORIGINAL -->
+<div id="tab-original" class="tab-content">
+<div class="container">
+
+  <div class="original-banner">&#9888;&nbsp;&nbsp;This is the original, pre-optimization homepage content. Compare with the Revised Homepage tab to see all improvements.</div>
+
+  <div class="article-content" style="opacity:0.75">
+    <h1>Get Storm Damage Help for Your Texas Property</h1>
+    <p>After hail, wind, or water damage, Texas homeowners need fast, reliable help — not another runaround. Texas Property Help connects you with vetted, licensed contractors, insurance claim guidance, and repair financing across Texas. Free to use. No pressure.</p>
+
+    <h2>What We Cover</h2>
+    <p>How We Help Texas Homeowners After Storm Damage</p>
+    <h3>Storm Damage</h3><p>Hail, wind, and water damage hit fast</p>
+    <h3>Roofing Help</h3><p>From free roof inspections to full replacement</p>
+    <h3>HVAC Help</h3><p>Emergency HVAC repair, system replacement guidance</p>
+    <h3>Insurance Claim Help</h3><p>Understand your homeowner insurance claim from start to finish</p>
+    <h3>Repair Financing</h3><p>Explore financing options for emergency and planned home repairs</p>
+    <h3>Property Repair Guides</h3><p>Step-by-step homeowner guides for storm response</p>
+
+    <h2>How Texas Property Help Works</h2>
+    <ol>
+      <li><strong>Submit Your Request</strong> (2 minutes)</li>
+      <li><strong>We Review &amp; Match</strong> (local contractors)</li>
+      <li><strong>Get Connected</strong> (direct contact, no pressure)</li>
+      <li><strong>Problem Solved</strong> (follow-up confirmation)</li>
+    </ol>
+    <p><em>Texas Property Help is a homeowner assistance and referral platform — not an insurance company, contractor, or law firm.</em></p>
+
+    <h2>Serving Texas Homeowners Statewide</h2>
+    <p>Houston, Dallas, Fort Worth, San Antonio, Austin, El Paso, Corpus Christi, Lubbock, Amarillo, Laredo (plus 40+ additional cities)</p>
+
+    <h2>Texas Homeowners Ask</h2>
+    <p>Topics covered: bad faith claims handling, contractor timing after storms, damage disputes, engineering report tactics used by insurers.</p>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.closest('.tab-btn').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

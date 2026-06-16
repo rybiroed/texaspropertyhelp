@@ -1,0 +1,20 @@
+{
+  "date": "2026-06-06",
+  "time": "17:41",
+  "day": "Saturday",
+  "topic": "weather_alert",
+  "section": "Weather Update",
+  "angle": "Texas storm season update — what homeowners need to know this week",
+  "model": "llama3.1:8b",
+  "weather_ctx": "Flash Flood Warning — Hardin, TX; Jefferson, TX; Orange, TX. Flash Flood Warning issued June 6 at 4:57PM CDT until June 6 at 9:00PM CDT by NWS Lake Charles LA",
+  "news_ctx": "[KXAN Austin / Austin] Isolated rain chances Sunday, warming next week. A few slow-moving tropical downpours will continue through the late evening hours. There is a low-end flood threat in effect through tonight. — Meteorologist Tommy House || [KXAN Austin / Austin] What happens if the city damages your property? Austin creating process to address that. If a city department causes damage to someone's property, who pays to fix it? That's a question the city of Austin is working to answer by developing a new framework for addressing property damage cla",
+  "alerts_count": 1,
+  "stories_count": 2,
+  "post_en": "\"Are you ready for Texas storm season? 🌩️ Did you know that hail damage alone can cost homeowners up to $10,000? With flash flood warnings issued for Hardin, Jefferson, and Orange counties, it's essential to take precautions.\n\nAccording to the National Weather Service, a low-end flood threat is in effect through tonight. This means that even if the storm passes quickly, water may still seep into your home, causing damage to walls, floors, and ceilings.\n\nAs a Texas homeowner, you have rights under state law. The Texas Department of Insurance (TDI) recommends taking photos and documenting any damage before filing a claim with your insurance company. And remember, the Texas Department of Licensing and Regulation (TDLR) requires contractors to register and carry liability insurance – be sure to verify this before hiring someone to repair storm damage.\n\nTo prepare for today's weather, take these simple steps: \n\n* Secure outdoor furniture, trash cans, and other items that could become projectiles in strong winds\n* Trim trees and shrubs to minimize branches breaking off during a storm\n* Check your home's insurance policy to ensure you have adequate coverage for hail damage\n\nGet free guidance → texaspropertyhelp.com\"",
+  "post_es": "¿Estás listo para la temporada de tormentas en Texas? 🌩️ ¿Sabías que el daño por granizo puede llegar a costar a los propietarios hasta $10,000? Con las alertas de lluvias intensas emitidas para los condados de Hardin, Jefferson y Orange, es fundamental tomar precauciones.\n\nSegún el Servicio Nacional de Meteorología, una amenaza leve de inundación está en efecto hasta esta noche. Esto significa que incluso si la tormenta pasa rápidamente, el agua puede filtrarse en tu hogar, causando daño a las paredes, pisos y techos.\n\nComo dueño de propiedad en Texas, tienes derechos bajo la ley estatal. El Departamento de Seguro de Texas (TDI) recomienda tomar fotos y documentar cualquier daño antes de presentar una reclamación con tu compañía de seguros. Y recuerda que el Departamento de Licensia y Regulación de Texas (TDLR) requiere que los contratistas se registren y tengan seguro de responsabilidad - asegúrate de verificar esto antes de contratar a alguien para reparar el daño por la tormenta.\n\nPara prepararte para hoy, sigue estos pasos sencillos:\n\n* Asegura muebles al aire libre, contenedores de basura y otros objetos que podrían convertirse en proyectiles en vientos fuertes\n* Corte las ramas de los árboles y arbustos para minimizar la posibilidad de que se rompan durante una tormenta\n* Verifica tu póliza de seguro para asegurarte de que tienes cobertura adecuada para daños por granizo\n\nObtén orientación gratuita → texaspropertyhelp.com",
+  "char_en": 1228,
+  "char_es": 1452,
+  "posted_en": false,
+  "posted_es": false,
+  "ready_to_post": true
+}

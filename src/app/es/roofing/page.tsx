@@ -28,11 +28,22 @@ const faqs: FAQItem[] = [
   { question: "¿Cuánto tiempo tarda un reemplazo de techo en Texas?", answer: "La mayoría de los reemplazos de techo residenciales en Texas toman 1-3 días dependiendo del tamaño del techo, complejidad y condiciones climáticas. Su contratista debe darle un cronograma por escrito." },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function RoofingESPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
-        <Image src="/images/roofing-hero.png" alt="Techado Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+        <Image src="/images/roofing-hero.webp" alt="Techado Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.60) 0%, rgba(0,15,0,0.45) 100%)" }} />
         <div className="max-w-4xl mx-auto" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ display: "inline-flex", gap: "8px", alignItems: "center", backgroundColor: "rgba(118,185,0,0.15)", border: "1px solid rgba(118,185,0,0.4)", color: "#a3e635", fontSize: "0.78rem", fontWeight: 700, padding: "5px 14px", borderRadius: "100px", textTransform: "uppercase", marginBottom: "20px" }}>

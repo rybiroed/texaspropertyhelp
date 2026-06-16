@@ -58,7 +58,7 @@ const services = [
     description: "From free roof inspections to full replacement, get connected with TDLR-licensed roofing professionals across Texas. Know your rights before signing any contract.",
     href: "/roofing",
     icon: "🏠",
-    image: "/images/roofing-hero.png",
+    image: "/images/roofing-hero.webp",
     accentColor: "#76b900",
   },
   {

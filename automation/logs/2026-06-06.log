@@ -1,0 +1,58 @@
+[13:00:01] ============================================================
+[13:00:01] 🚀 Texas Property Help — Daily Automation Run
+[13:00:01]    Saturday, June 06, 2026 at 13:00 CT
+[13:00:01] ============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:01]    Found 0 relevant alert(s)
+[13:00:01] 
+📰 Step 2: Fetching Texas storm news from RSS...
+[13:00:04]    Found 2 relevant story/stories
+[13:00:04]    📍 KXAN Austin: Scattered showers, storms Saturday bring a low flood risk
+[13:00:04]    📍 KXAN Austin: What happens if the city damages your property? Austin creating process to addre
+[13:00:04] 
+📅 Step 3: Determining today's topic...
+[13:00:04]    Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+[13:00:04] 
+🤖 Step 4: Generating posts with Ollama...
+[13:00:04]    ⏳ English post...
+[13:00:11]    ✓ EN post: 1017 chars
+[13:00:11]    ⏳ Spanish translation...
+[13:00:13]    ✓ ES post: 1227 chars
+[13:00:13] 
+💾 Step 5: Saved → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-06_weather_alert.json
+[13:00:13] 
+📤 Step 6: Posting to Facebook...
+[13:00:13]    ⚠️  FB credentials not set — skipping auto-post
+[13:00:13]    To enable: export FB_PAGE_ID=xxx FB_ACCESS_TOKEN=yyy
+[13:00:13] 
+✅ Daily run complete.
+[17:41:42] ============================================================
+[17:41:42] 🚀 Texas Property Help — Daily Automation Run
+[17:41:42]    Saturday, June 06, 2026 at 17:41 CT
+[17:41:42] ============================================================
+[17:41:42] 
+📡 Step 1: Fetching NWS weather alerts...
+[17:41:43]    Found 1 relevant alert(s)
+[17:41:43]    🔴 Flash Flood Warning — Hardin, TX; Jefferson, TX; Orange, TX
+[17:41:43] 
+📰 Step 2: Fetching Texas storm news from RSS...
+[17:41:45]    Found 2 relevant story/stories
+[17:41:45]    📍 KXAN Austin: Isolated rain chances Sunday, warming next week
+[17:41:45]    📍 KXAN Austin: What happens if the city damages your property? Austin creating process to addre
+[17:41:45] 
+📅 Step 3: Determining today's topic...
+[17:41:45]    ⚡ Active weather alerts → switching to weather_alert topic
+[17:41:45]    Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+[17:41:45] 
+🤖 Step 4: Generating posts with Ollama...
+[17:41:45]    ⏳ English post...
+[17:41:53]    ✓ EN post: 1228 chars
+[17:41:53]    ⏳ Spanish translation...
+[17:41:56]    ✓ ES post: 1452 chars
+[17:41:56] 
+💾 Step 5: Saved → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-06_weather_alert.json
+[17:41:56] 
+📤 Step 6: Facebook posting skipped (--no-post)
+[17:41:56] 
+✅ Daily run complete.

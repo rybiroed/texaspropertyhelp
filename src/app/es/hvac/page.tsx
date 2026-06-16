@@ -28,9 +28,20 @@ const faqs: FAQItem[] = [
   { question: "¿Hay opciones de financiamiento para reemplazo de HVAC?", answer: "Sí — varias opciones pueden estar disponibles, incluyendo financiamiento del fabricante, préstamos para mejoras del hogar y algunos programas de reembolso de empresas de servicios públicos." },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function HVACESPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <section style={{ position: "relative", minHeight: "460px", display: "flex", alignItems: "center" }} className="px-4 py-20">
         <Image src="/images/hvac-hero.jpg" alt="HVAC Texas" fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,10,30,0.60) 0%, rgba(0,20,40,0.45) 100%)" }} />

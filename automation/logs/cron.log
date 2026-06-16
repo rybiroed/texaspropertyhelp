@@ -1,0 +1,733 @@
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+[13:00:01] ============================================================
+[13:00:01] 🚀 Texas Property Help — Daily Automation Run
+[13:00:01]    Saturday, June 06, 2026 at 13:00 CT
+[13:00:01] ============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:01]    Found 0 relevant alert(s)
+[13:00:01] 
+📰 Step 2: Fetching Texas storm news from RSS...
+[13:00:04]    Found 2 relevant story/stories
+[13:00:04]    📍 KXAN Austin: Scattered showers, storms Saturday bring a low flood risk
+[13:00:04]    📍 KXAN Austin: What happens if the city damages your property? Austin creating process to addre
+[13:00:04] 
+📅 Step 3: Determining today's topic...
+[13:00:04]    Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+[13:00:04] 
+🤖 Step 4: Generating posts with Ollama...
+[13:00:04]    ⏳ English post...
+[13:00:11]    ✓ EN post: 1017 chars
+[13:00:11]    ⏳ Spanish translation...
+[13:00:13]    ✓ ES post: 1227 chars
+[13:00:13] 
+💾 Step 5: Saved → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-06_weather_alert.json
+
+════════════════════════════════════════════════════════════
+🇺🇸  ENGLISH POST
+────────────────────────────────────────────────────────────
+"Is your home ready for Texas storm season? ⛈️ Did you know that hail damage can occur even on a cloudy day? With warmer and drier weather taking over for the rest of the weekend and next week, it's essential to prepare now.
+
+As we've seen in recent news, scattered showers and storms can bring low flood risk - but also potential damage to your property. According to Texas law, homeowners have rights when it comes to insurance claims, especially if the city damages your home (check out this article from KXAN Austin for more info).
+
+To get ahead of storm season, here are a few homeowner tips:
+
+* Review your insurance policy and contact TDI (Texas Department of Insurance) with any questions about coverage.
+* Inspect your roof and gutters to ensure they're clear and in good condition. A small clog can lead to big problems!
+* Take photos of your home's exterior, including any potential damage or vulnerabilities - this will come in handy if you need to file a claim.
+
+Get free guidance → texaspropertyhelp.com
+
+🇲🇽  SPANISH POST
+────────────────────────────────────────────────────────────
+¿Está su hogar listo para la temporada de tormentas en Texas? ⛈️ ¿Sabía que el daño por granizo puede ocurrir incluso en un día nublado? Con el clima más caluroso y seco a lo largo del fin de semana y la próxima semana, es esencial prepararse ahora.
+
+Al igual que vimos en las noticias recientes, lluvias dispersas y tormentas pueden traer una baja probabilidad de inundaciones - pero también pueden causar daño a su propiedad. De acuerdo con la ley de Texas, los propietarios tienen derechos cuando se trata de reclamos de seguros, especialmente si la ciudad causa daños en su hogar (consulte este artículo de KXAN Austin para obtener más información).
+
+Para estar adelantados a la temporada de tormentas, aquí hay unos pocos consejos para propietarios:
+
+* Revisa tu póliza de seguro y contacta al TDI (Departamento de Seguros del Texas) con cualquier pregunta sobre cobertura.
+* Inspecciona el techo y los desagües para asegurarte de que estén claros y en buen estado. Un pequeño atasco puede llevar a problemas grandes!
+* Toma fotos del exterior de su hogar, incluyendo cualquier daño o vulnerabilidad potencial - esto le será útil si necesita presentar una reclamación.
+
+Obtenga orientación gratuita → texaspropertyhelp.com
+════════════════════════════════════════════════════════════
+[13:00:13] 
+📤 Step 6: Posting to Facebook...
+[13:00:13]    ⚠️  FB credentials not set — skipping auto-post
+[13:00:13]    To enable: export FB_PAGE_ID=xxx FB_ACCESS_TOKEN=yyy
+[13:00:13] 
+✅ Daily run complete.
+object address  : 0x7e4b9ca1b2e0
+object refcount : 4
+object type     : 0xa9c140
+object type name: ValueError
+object repr     : ValueError('I/O operation on closed file')
+lost sys.stderr
+object address  : 0x72e502a530a0
+object refcount : 4
+object type     : 0xa9c140
+object type name: ValueError
+object repr     : ValueError('I/O operation on closed file')
+lost sys.stderr
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-09
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: Roofing — 5 red flags that a roofer is trying to scam you after a stor...
+📍 City: Houston
+
+🤖 Generating title...
+   EN: Hurricane Season Alert: 5 Warning Signs a Roofer is Scamming Houston Homeowners Post-Storm
+   ES: Alerta de Temporada de Huracanes: 5 Señales de Advertencia para Identificar a los Cesteros que Están Defraudando a Los Propietarios de Hogares en Houston Después de la Tormenta
+
+🤖 Generating EN article...
+   2468 chars | ~3 min read
+🤖 Translating to Spanish...
+   2864 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Hurricane Season Alert: 5 Warning Signs a Roofer is Scamming Houston Homeowners Post-Storm
+SLUG:     2026-06-09-houston-hurricane-season-alert-5-warning-signs-a-roofer-is-scamming-houston-home
+CITY:     Houston
+CATEGORY: roofing
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+**Are you protected from roofing scams in Houston after a storm?**
+
+As we head into hurricane season, it's essential to know how to spot a roofer who might be trying to scam you. Unfortunately, some contractors prey on unsuspecting homeowners in need of repairs or replacements.
+
+Here are 3 key warni...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (5 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-09-houston-hurricane-season-alert-5-warning-signs-a-roofer-is-scamming-houston-home
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-09
+[main 87ba6e0] content: auto-publish article for 2026-06-09
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   41f8da3..87ba6e0  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+[main 1cbc212] content: auto-publish article 2026-06-09
+ 1 file changed, 17 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   87ba6e0..1cbc212  HEAD -> main
+[13:00:01] ==============================================================
+[13:00:01] 🚀  Texas Property Help — Daily Automation Pipeline
+[13:00:01]     Tuesday, June 09, 2026 at 13:00 CT
+[13:00:01] ==============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:01]    Found 0 relevant alert(s)
+[13:00:01] 
+📰 Step 2: Fetching Texas storm/property news...
+[13:00:04]    Found 0 relevant story/stories
+[13:00:04] 
+📅 Step 3: Selecting topic and city...
+[13:00:04]    Topic: Roofing — 5 red flags that a roofer is trying to scam you after a...
+[13:00:04]    City:  Houston
+[13:00:04] 
+🤖 Step 4: Generating article with Ollama...
+[13:00:04]    ⏳ Title (EN)...
+[13:00:12]    ⏳ Title (ES)...
+[13:00:12]    ✓ Title: Be Cautious in Storm-Damaged Houston: 5 Red Flags from Unreliable Roofers
+[13:00:12]    ⏳ Article body (EN)...
+[13:00:17]    ✓ EN: 2529 chars
+[13:00:17]    ⏳ Article body (ES)...
+[13:00:22]    ✓ ES: 2789 chars
+[13:00:22]    ⏳ Summaries...
+[13:00:23]    ⏳ Facebook post text...
+[13:00:27]    📎 Slug: 2026-06-09-houston-be-cautious-in-storm-damaged-houston-5-red-flags-from-unreliable-roofers
+[13:00:27]    🔗 URL: https://texaspropertyhelp.com/updates/2026-06-09-houston-be-cautious-in-storm-damaged-houston-5-red-flags-from-unreliable-roofers
+[13:00:27] 
+💾 Step 5: Saved to posts.json (6 total)
+[13:00:27] 
+🚀 Step 6: Publishing to website (git push → Vercel)...
+[13:00:28]    ✅ Pushed — Vercel deploying...
+[13:00:28]    🔗 Will be live at: https://texaspropertyhelp.com/updates/2026-06-09-houston-be-cautious-in-storm-damaged-houston-5-red-flags-from-unreliable-roofers
+
+══════════════════════════════════════════════════════════════
+📄  ARTICLE: Be Cautious in Storm-Damaged Houston: 5 Red Flags from Unreliable Roofers
+🔗  URL: https://texaspropertyhelp.com/updates/2026-06-09-houston-be-cautious-in-storm-damaged-houston-5-red-flags-from-unreliable-roofers
+──────────────────────────────────────────────────────────────
+🇺🇸  FACEBOOK POST (EN)
+**Don't Fall Prey to Storm Chasers!**
+
+As a Houston homeowner, you're no stranger to intense storms that can leave your roof battered and bruised 🌪️. But what happens when a roofer shows up at your door, claiming to be able to fix the damage for a low price? Unfortunately, some unscrupulous individuals take advantage of homeowners in need.
+
+Here are 5 red flags to watch out for:
+
+* They show up unsolicited and claim to have materials on hand
+* They quote you an unusually low price, especially if it's significantly lower than other quotes
+* They pressure you into making a decision immediately without giving you time to think about it or get multiple quotes
+* They don't provide a clear written estimate or contract
+* They claim to have insurance to cover their work and then disappear
+
+Read the full guide → texaspropertyhelp.com/updates/
+
+🇲🇽  FACEBOOK POST (ES)
+**No Caigas en las Trampas de los Cazadores de Tormentas!**
+
+Como dueño de una casa en Houston, no es extraño que estés acostumbrado a tormentas intensas que pueden dejar tu tejado destrozado y lastimado 🌪️. Pero ¿qué pasa cuando un albañil llega a tu puerta, afirmando poder reparar el daño a un precio bajo? Desafortunadamente, algunas personas sin escrúpulos aprovechan de los dueños de casas que necesitan ayuda.
+
+Aquí te presentamos 5 señales de alerta para tener en cuenta:
+
+* Llegan sin ser invitados y afirman tener materiales a mano
+* Te citan un precio inusualmente bajo, especialmente si es significativamente menor que otras cotizaciones
+* Te presionan para tomar una decisión de inmediato sin darte tiempo para pensar o obtener varias cotizaciones
+* No te proporcionan una estimación escrita clara o contrato
+* Afirman tener seguro para cubrir su trabajo y luego desaparecen
+
+Lee la guía completa → texaspropertyhelp.com/updates/
+══════════════════════════════════════════════════════════════
+[13:00:28] 
+📁 Step 7: Daily output → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-09_roofing.json
+[13:00:28] 
+📤 Step 8: Posting to Facebook...
+[13:00:28]    ⚠️  FB credentials not set — skipping
+[13:00:28]    Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable
+[13:00:28] 
+✅ Daily pipeline complete.
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-10
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: Insurance Claims — ACV vs RCV — what every Texas homeowner needs to know before...
+📍 City: Dallas
+
+🤖 Generating title...
+   EN: Dallas Homeowners: Understand ACV and RCV Insurance Claims to Protect Your Investment
+   ES: Propietarios de Dallas: Entiendan las Reclamaciones de Seguro ACV y RCV para Proteger Su Inversión
+
+🤖 Generating EN article...
+   3031 chars | ~3 min read
+🤖 Translating to Spanish...
+   3342 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Dallas Homeowners: Understand ACV and RCV Insurance Claims to Protect Your Investment
+SLUG:     2026-06-10-dallas-dallas-homeowners-understand-acv-and-rcv-insurance-claims-to-protect-your
+CITY:     Dallas
+CATEGORY: insurance-claims
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+**Are you prepared for the unexpected?** As a homeowner in Dallas, Texas, are you aware of the key differences between Actual Cash Value (ACV) and Replacement Cost Value (RCV) insurance claims?
+
+Understanding these two terms can make all the difference when it comes to filing an insurance claim afte...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (7 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-10-dallas-dallas-homeowners-understand-acv-and-rcv-insurance-claims-to-protect-your
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-10
+[main bf8d0ff] content: auto-publish article for 2026-06-10
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   805a589..bf8d0ff  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-11
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: HVAC — What to do if your AC goes out after a Texas storm or extrem...
+📍 City: San Antonio
+
+🤖 Generating title...
+   EN: San Antonio Homeowners: Navigating AC Repair After a Texas Heatwave
+   ES: Propietarios de San Antonio: Navegando el Reparo del Aire Acondicionado Después de un Calor Extremo en Texas
+
+🤖 Generating EN article...
+   3274 chars | ~3 min read
+🤖 Translating to Spanish...
+   3763 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    San Antonio Homeowners: Navigating AC Repair After a Texas Heatwave
+SLUG:     2026-06-11-san-antonio-san-antonio-homeowners-navigating-ac-repair-after-a-texas-heatwave
+CITY:     San Antonio
+CATEGORY: hvac
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+"Is your AC unit still not working after the latest Texas heatwave? 🌡️ Don't let a broken air conditioner leave you and your family sweltering in the heat! According to recent data, San Antonio homeowners are no strangers to AC repair emergencies, especially after severe storms roll through. But wha...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (8 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-11-san-antonio-san-antonio-homeowners-navigating-ac-repair-after-a-texas-heatwave
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-11
+[main 74c0414] content: auto-publish article for 2026-06-11
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   bf8d0ff..74c0414  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-12
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: Repair Financing — How to finance storm repairs when you can't afford the deduc...
+📍 City: Austin
+
+🤖 Generating title...
+   EN: Austin Homeowners: Navigating Storm Repairs on a Budget
+   ES: Propietarios de Austin: Navegando reparaciones por tormentas en un presupuesto
+
+🤖 Generating EN article...
+   2885 chars | ~3 min read
+🤖 Translating to Spanish...
+   3477 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Austin Homeowners: Navigating Storm Repairs on a Budget
+SLUG:     2026-06-12-austin-austin-homeowners-navigating-storm-repairs-on-a-budget
+CITY:     Austin
+CATEGORY: financing
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+**Got Storm Damage? You're Not Alone!**
+
+As a homeowner in Austin, Texas, you've likely faced your fair share of severe weather events. But did you know that help is available when storm repairs exceed your deductible?
+
+Here are 3 key takeaways from our latest guide:
+
+* In Texas, there are home impr...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (9 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-12-austin-austin-homeowners-navigating-storm-repairs-on-a-budget
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-12
+[main 56b2c4e] content: auto-publish article for 2026-06-12
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   74c0414..56b2c4e  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-13
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+📍 City: Fort Worth
+
+🤖 Generating title...
+   EN: Fort Worth Homeowners: Essential Storm Season Preparations to Protect Your Property This Week
+   ES: Dueños de hogares en Fort Worth: preparaciones esenciales para la temporada de tormentas para proteger su propiedad esta semana.
+
+🤖 Generating EN article...
+   2946 chars | ~3 min read
+🤖 Translating to Spanish...
+   3498 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Fort Worth Homeowners: Essential Storm Season Preparations to Protect Your Property This Week
+SLUG:     2026-06-13-fort-worth-fort-worth-homeowners-essential-storm-season-preparations-to-protect-
+CITY:     Fort Worth
+CATEGORY: weather
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+"Is your home ready for the storm season? With hail season in full swing and storms forecasted starting Sunday, it's crucial that Fort Worth homeowners take proactive steps to protect their property. Here are 3 essential preparations to make this week:
+
+* Make sure your roof is secure and free of de...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (10 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-13-fort-worth-fort-worth-homeowners-essential-storm-season-preparations-to-protect-
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-13
+[main 68feaa3] content: auto-publish article for 2026-06-13
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   56b2c4e..68feaa3  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-14
+
+📡 Fetching weather alerts...
+   0 alert(s)
+📰 Fetching news...
+📌 Topic: Storm Damage — Common insurance claim mistakes Texas homeowners make after ...
+📍 City: Corpus Christi
+
+🤖 Generating title...
+   EN: Avoiding Insurance Pitfalls in Corpus Christi: A Guide to Navigating Hail Claims for Local Homeowners
+   ES: Evitando Trampas de Seguro en Corpus Christi: Una Guía para que Propietarios Locales Naveguen por Sus Reclamaciones por Granizo
+
+🤖 Generating EN article...
+   1333 chars | ~3 min read
+🤖 Translating to Spanish...
+   3800 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Avoiding Insurance Pitfalls in Corpus Christi: A Guide to Navigating Hail Claims for Local Homeowners
+SLUG:     2026-06-14-corpus-christi-avoiding-insurance-pitfalls-in-corpus-christi-a-guide-to-navigati
+CITY:     Corpus Christi
+CATEGORY: storm-damage
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+**Is Hail Damage Devastating Your Corpus Christi Home?**
+
+If you're a homeowner in Corpus Christi, Texas, you know that unpredictable weather can be a major concern. Heavy rain and hail storms last week brought flooding risks to Central Texas, leaving many worried about their properties.
+
+Here are 3...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (11 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-14-corpus-christi-avoiding-insurance-pitfalls-in-corpus-christi-a-guide-to-navigati
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-14
+[main 500e4ae] content: auto-publish article for 2026-06-14
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   68feaa3..500e4ae  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+[main b0a6862] content: auto-publish article 2026-06-14
+ 1 file changed, 17 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   500e4ae..b0a6862  HEAD -> main
+[13:00:01] ==============================================================
+[13:00:01] 🚀  Texas Property Help — Daily Automation Pipeline
+[13:00:01]     Sunday, June 14, 2026 at 13:00 CT
+[13:00:01] ==============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:02]    Found 0 relevant alert(s)
+[13:00:02] 
+📰 Step 2: Fetching Texas storm/property news...
+[13:00:05]    Found 3 relevant story/stories
+[13:00:05]    📍 KXAN Austin: Flood Watch in effect through Tuesday evening
+[13:00:05]    📍 KVUE Austin: Weather Impact Alert | Flood threat due to heavy tropical rain Monday
+[13:00:05] 
+📅 Step 3: Selecting topic and city...
+[13:00:05]    Topic: Storm Damage — Common insurance claim mistakes Texas homeowners make a...
+[13:00:05]    City:  Corpus Christi
+[13:00:05] 
+🤖 Step 4: Generating article with Ollama...
+[13:00:05]    ⏳ Title (EN)...
+[13:00:12]    ⏳ Title (ES)...
+[13:00:13]    ✓ Title: Avoiding Common Pitfalls: A Guide for Corpus Christi Homeowners After Hail Insurance Claims
+[13:00:13]    ⏳ Article body (EN)...
+[13:00:17]    ✓ EN: 2499 chars
+[13:00:17]    ⏳ Article body (ES)...
+[13:00:23]    ✓ ES: 2966 chars
+[13:00:23]    ⏳ Summaries...
+[13:00:23]    ⏳ Facebook post text...
+[13:00:27]    📎 Slug: 2026-06-14-corpus-christi-avoiding-common-pitfalls-a-guide-for-corpus-christi-homeowners-af
+[13:00:27]    🔗 URL: https://texaspropertyhelp.com/updates/2026-06-14-corpus-christi-avoiding-common-pitfalls-a-guide-for-corpus-christi-homeowners-af
+[13:00:27] 
+💾 Step 5: Saved to posts.json (12 total)
+[13:00:27] 
+🚀 Step 6: Publishing to website (git push → Vercel)...
+[13:00:28]    ✅ Pushed — Vercel deploying...
+[13:00:28]    🔗 Will be live at: https://texaspropertyhelp.com/updates/2026-06-14-corpus-christi-avoiding-common-pitfalls-a-guide-for-corpus-christi-homeowners-af
+
+══════════════════════════════════════════════════════════════
+📄  ARTICLE: Avoiding Common Pitfalls: A Guide for Corpus Christi Homeowners After Hail Insurance Claims
+🔗  URL: https://texaspropertyhelp.com/updates/2026-06-14-corpus-christi-avoiding-common-pitfalls-a-guide-for-corpus-christi-homeowners-af
+──────────────────────────────────────────────────────────────
+🇺🇸  FACEBOOK POST (EN)
+**Hail Damage Got You Down?**
+
+As a Corpus Christi homeowner, you're no stranger to the devastating effects of hail storms on your property. But did you know that many homeowners make mistakes when filing insurance claims for hail damage? 🌪️ According to the Texas Department of Insurance (TDI), hail damage is one of the most common types of insurance claims filed in the state.
+
+Here are a few key takeaways from our latest guide:
+
+* **Don't assume your policy covers everything**: Review your policy carefully to ensure you understand what's covered and what's not.
+* **Document, document, document**: Take photos and videos of any damage before starting repairs, and keep receipts for all work done.
+* **Be prepared to prove the damage**: Keep records of weather reports, insurance adjuster visits, and communication with your insurer.
+
+Read the full guide → texaspropertyhelp.com/updates/
+
+🇲🇽  FACEBOOK POST (ES)
+**Daño por granizo te tiene abajo?**
+
+Como dueño de una casa en Corpus Christi, no es extraño que sepas los devastadores efectos que las tormentas de granizo pueden tener en tu propiedad. Pero ¿sabías que muchos dueños de casas cometen errores al presentar reclamos de seguro por daño por granizo?  🌪️ Según el Departamento de Seguros del Texas (TDI), el daño por granizo es uno de los tipos más comunes de reclamos de seguros presentados en el estado.
+
+Aquí hay unos pocos puntos clave tomados de nuestra última guía:
+
+* **No asumas que tu póliza cubre todo**: Revisa cuidadosamente tu póliza para asegurarte de entender qué está cubierto y qué no.
+* **Documenta, documenta, documenta**: Toma fotos y videos del daño antes de comenzar las reparaciones, y guarda los recibos por toda la labor realizada.
+* **Está preparado para probar el daño**: Mantén registros de informes meteorológicos, visitas del ajustador de seguros, y comunicación con tu aseguradora.
+
+Lee la guía completa → texaspropertyhelp.com/updates/
+══════════════════════════════════════════════════════════════
+[13:00:28] 
+📁 Step 7: Daily output → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-14_storm_damage.json
+[13:00:28] 
+📤 Step 8: Posting to Facebook...
+[13:00:28]    ⚠️  FB credentials not set — skipping
+[13:00:28]    Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable
+[13:00:28] 
+✅ Daily pipeline complete.
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-15
+
+📡 Fetching weather alerts...
+   7 alert(s)
+📰 Fetching news...
+⚡ Active alerts → weather_alert topic
+📌 Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+📍 City: El Paso
+
+🤖 Generating title...
+   EN: El Paso Storm Preparedness Guide: Essential Tips for a Safer Home This Season
+   ES: Guía de Preparación para Tormentas en El Paso: Consejos Esenciales para una Casa Más Segura Esta Temporada
+
+🤖 Generating EN article...
+   2546 chars | ~3 min read
+🤖 Translating to Spanish...
+   3055 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    El Paso Storm Preparedness Guide: Essential Tips for a Safer Home This Season
+SLUG:     2026-06-15-el-paso-el-paso-storm-preparedness-guide-essential-tips-for-a-safer-home-this-se
+CITY:     El Paso
+CATEGORY: weather
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+"Are you prepared for this summer's storm season in El Paso? With multiple NWS alerts issued, it's time to take proactive steps to protect your home and family! Did you know that Storm Season is essentially Hail Season in our area?
+
+Here are 3 essential tips from the Texas Property Help guide:
+
+✨ Ge...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (13 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-preparedness-guide-essential-tips-for-a-safer-home-this-se
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-15
+[main 1161b6d] content: auto-publish article for 2026-06-15
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   b0a6862..1161b6d  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+[main bc583e6] content: auto-publish article 2026-06-15
+ 1 file changed, 17 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   1161b6d..bc583e6  HEAD -> main
+[13:00:01] ==============================================================
+[13:00:01] 🚀  Texas Property Help — Daily Automation Pipeline
+[13:00:01]     Monday, June 15, 2026 at 13:00 CT
+[13:00:01] ==============================================================
+[13:00:01] 
+📡 Step 1: Fetching NWS weather alerts...
+[13:00:01]    Found 5 relevant alert(s)
+[13:00:01]    🔴 Flash Flood Warning — Harris, TX; Montgomery, TX
+[13:00:01]    🔴 Flash Flood Warning — Harris, TX
+[13:00:01]    🔴 Flash Flood Warning — Bossier, LA; Caddo, LA; Gregg, TX; Harrison, TX; Marion, TX; Upshur, T
+[13:00:01] 
+📰 Step 2: Fetching Texas storm/property news...
+[13:00:05]    Found 3 relevant story/stories
+[13:00:05]    📍 KHOU Houston: Carolina Hurricanes beat Vegas Golden Knights to win their second Stan
+[13:00:05]    📍 KXAN Austin: Live updates: Flood threat across Central Texas Monday
+[13:00:05] 
+📅 Step 3: Selecting topic and city...
+[13:00:05]    ⚡ Active NWS alerts → switching to weather_alert topic
+[13:00:05]    Topic: Weather Update — Texas storm season update — what homeowners need to kno...
+[13:00:05]    City:  El Paso
+[13:00:05] 
+🤖 Step 4: Generating article with Ollama...
+[13:00:05]    ⏳ Title (EN)...
+[13:00:13]    ⏳ Title (ES)...
+[13:00:13]    ✓ Title: El Paso Storm Season Alert: Essential Precautions for Homeowners This Week
+[13:00:13]    ⏳ Article body (EN)...
+[13:00:18]    ✓ EN: 3004 chars
+[13:00:18]    ⏳ Article body (ES)...
+[13:00:24]    ✓ ES: 3362 chars
+[13:00:24]    ⏳ Summaries...
+[13:00:25]    ⏳ Facebook post text...
+[13:00:28]    📎 Slug: 2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+[13:00:28]    🔗 URL: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+[13:00:28] 
+💾 Step 5: Saved to posts.json (14 total)
+[13:00:28] 
+🚀 Step 6: Publishing to website (git push → Vercel)...
+[13:00:30]    ✅ Pushed — Vercel deploying...
+[13:00:30]    🔗 Will be live at: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+
+══════════════════════════════════════════════════════════════
+📄  ARTICLE: El Paso Storm Season Alert: Essential Precautions for Homeowners This Week
+🔗  URL: https://texaspropertyhelp.com/updates/2026-06-15-el-paso-el-paso-storm-season-alert-essential-precautions-for-homeowners-this-wee
+──────────────────────────────────────────────────────────────
+🇺🇸  FACEBOOK POST (EN)
+**Are You Ready for El Paso's Storm Season?**
+
+As a homeowner in El Paso, you're no stranger to Texas storm season. With temperatures soaring and summer storms brewing, it's essential to be prepared for the worst! Did you know that Texas is one of the top states for hail damage claims each year?
+
+Here are three key things to keep in mind:
+
+* **Understand your rights as a homeowner**: Know what's covered under your insurance policy and don't hesitate to reach out if you have questions.
+* **Inspect your roof regularly**: Catching issues before they become major problems can save you thousands of dollars down the line.
+* **Keep important documents handy**: In case of an emergency, make sure you have proof of ownership and any relevant insurance information easily accessible.
+
+Read the full guide → texaspropertyhelp.com/updates/
+
+🇲🇽  FACEBOOK POST (ES)
+**¿Estás listo para la temporada de tormentas en El Paso?**
+
+Como dueño de una casa en El Paso, no te sorprenderá saber que Texas es conocido por sus temporadas de tormentas. A medida que las temperaturas aumentan y se forman los veranos tormentosos, es esencial estar preparado para lo peor! ¿Sabías que Texas es uno de los estados con más reclamos de daños por granizo cada año?
+
+Aquí hay tres cosas importantes a tener en cuenta:
+
+* **Entiende tus derechos como dueño de una casa**: Conoce qué se cubre bajo tu póliza de seguros y no dudar en contactarnos si tienes alguna pregunta.
+* **Inspecciona tu techo con regularidad**: Cargar problemas antes de que se conviertan en problemas mayores puede ahorrarte miles de dólares a largo plazo.
+* **Ten documentos importantes a mano**: En caso de emergencia, asegúrate de tener la prueba de propiedad y cualquier información relevante de seguros accesible fácilmente.
+
+Lee el guía completo → texaspropertyhelp.com/updates/
+
+(Nota: Todas las URL's, términos como TDI, TDLR, TWIA, NFIP, ACV, RCV, BBB y SOS se han mantenido en inglés para mantener la exactitud y la consistencia.)
+══════════════════════════════════════════════════════════════
+[13:00:30] 
+📁 Step 7: Daily output → /home/rybiroed/projects/texaspropertyhelp/automation/output/2026-06-15_weather_alert.json
+[13:00:30] 
+📤 Step 8: Posting to Facebook...
+[13:00:30]    ⚠️  FB credentials not set — skipping
+[13:00:30]    Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable
+[13:00:30] 
+✅ Daily pipeline complete.
+  ⚠️  KSAT San Antonio: HTTP Error 404: Not Found
+  ⚠️  KRIS Corpus Christi: HTTP Error 404: Not Found
+
+📝 Article Generator — 2026-06-16
+
+📡 Fetching weather alerts...
+   1 alert(s)
+📰 Fetching news...
+⚡ Active alerts → weather_alert topic
+📌 Topic: Weather Update — Texas storm season update — what homeowners need to know thi...
+📍 City: Lubbock
+
+🤖 Generating title...
+   EN: Lubbock Homeowners: Preparing for the Next Storm - Essential Tips and Reminders
+   ES: Propietarios de Lubbock: Preparándose para la Próxima Tormenta - Consejos y Recuerdos Esenciales
+
+🤖 Generating EN article...
+   2889 chars | ~3 min read
+🤖 Translating to Spanish...
+   3526 chars
+
+🤖 Generating summaries...
+🤖 Generating Facebook posts...
+
+⏭️  Image generation skipped (--no-image)
+
+════════════════════════════════════════════════════════════
+TITLE:    Lubbock Homeowners: Preparing for the Next Storm - Essential Tips and Reminders
+SLUG:     2026-06-16-lubbock-lubbock-homeowners-preparing-for-the-next-storm-essential-tips-and-remin
+CITY:     Lubbock
+CATEGORY: weather
+READ:     3 min read
+────────────────────────────────────────────────────────────
+FB POST (EN):
+**Is Your Lubbock Home Storm-Ready?**
+
+As we head into Texas storm season, homeowners in Lubbock and surrounding areas need to be prepared for flash flood warnings that can quickly turn streets into rivers! Don't wait until it's too late - take these essential tips to heart:
+
+* Make sure you have a ...
+════════════════════════════════════════════════════════════
+
+✅ Saved to posts.json (15 total articles)
+   URL: https://texaspropertyhelp.com/updates/2026-06-16-lubbock-lubbock-homeowners-preparing-for-the-next-storm-essential-tips-and-remin
+📦 Publishing updated posts.json to GitHub...
+   Project: /home/rybiroed/projects/texaspropertyhelp
+   Date: 2026-06-16
+[main b53adbc] content: auto-publish article for 2026-06-16
+ 1 file changed, 18 insertions(+)
+To https://github.com/rybiroed/texaspropertyhelp.git
+   bc583e6..b53adbc  HEAD -> main
+
+✅ Published! Vercel will auto-deploy in ~60 seconds.
+   Check: https://texaspropertyhelp.com/updates/

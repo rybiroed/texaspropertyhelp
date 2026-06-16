@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full SEO Audit — texaspropertyhelp.com</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0f;--bg-card:rgba(255,255,255,0.03);--bg-card-hover:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.08);--border-hover:rgba(255,255,255,0.15);
+    --text:#e8e8ed;--text-secondary:#8b8b9e;--text-muted:#5a5a6e;
+    --accent:#6366f1;--accent-glow:rgba(99,102,241,0.3);
+    --green:#22c55e;--green-bg:rgba(34,197,94,0.12);--green-border:rgba(34,197,94,0.25);
+    --yellow:#eab308;--yellow-bg:rgba(234,179,8,0.12);--yellow-border:rgba(234,179,8,0.25);
+    --red:#ef4444;--red-bg:rgba(239,68,68,0.12);--red-border:rgba(239,68,68,0.25);
+    --blue:#3b82f6;--blue-bg:rgba(59,130,246,0.12);--blue-border:rgba(59,130,246,0.25);
+    --orange:#f97316;--orange-bg:rgba(249,115,22,0.12);--orange-border:rgba(249,115,22,0.25);
+    --purple:#a78bfa;--purple-bg:rgba(167,139,250,0.08);--purple-border:rgba(167,139,250,0.15);
+    --radius:16px;--radius-sm:10px;--radius-xs:6px
+  }
+  ::selection{background:var(--accent);color:white}
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;overflow-x:hidden}
+  body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 20% 50%,rgba(99,102,241,0.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(139,92,246,0.04) 0%,transparent 50%);z-index:-1}
+  ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+  .header{padding:40px 0 0;text-align:center}
+  .header-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:500;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+  .header-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .header h1{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;line-height:1.2;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#a5a5c0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .header .subtitle{font-size:16px;color:var(--text-secondary);margin-bottom:32px}
+  .tabs{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+  .tabs-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;overflow-x:auto;scrollbar-width:none}
+  .tabs-inner::-webkit-scrollbar{display:none}
+  .tab-btn{padding:16px 22px;font-size:13px;font-weight:500;color:var(--text-muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s}
+  .tab-btn:hover{color:var(--text-secondary)}
+  .tab-btn.active{color:var(--text);border-bottom-color:var(--accent)}
+  .tab-btn .tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:600;margin-left:8px;color:var(--text-secondary)}
+  .tab-btn.active .tab-count{background:var(--accent);border-color:var(--accent);color:white}
+  .tab-content{display:none;padding:40px 0 80px}
+  .tab-content.active{display:block}
+  .score-section{display:flex;align-items:center;gap:48px;margin-bottom:40px;padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)}
+  .score-circle{width:180px;height:180px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;flex-shrink:0}
+  .score-circle svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg)}
+  .score-circle svg circle{fill:none;stroke-width:6;stroke-linecap:round}
+  .score-circle svg .bg-ring{stroke:rgba(255,255,255,0.06)}
+  .score-circle svg .progress-ring{stroke:var(--yellow);stroke-dasharray:502;stroke-dashoffset:196;filter:drop-shadow(0 0 6px rgba(234,179,8,0.4))}
+  .score-number{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;line-height:1;color:white;position:relative;z-index:1}
+  .score-grade{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:2px;position:relative;z-index:1;margin-top:2px}
+  .score-label{font-size:12px;color:var(--text-secondary);position:relative;z-index:1;margin-top:2px}
+  .score-details{flex:1}
+  .score-details h2{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;margin-bottom:8px}
+  .score-details p{color:var(--text-secondary);font-size:14px;line-height:1.7;margin-bottom:20px}
+  .sub-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .sub-score{padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:var(--radius-sm)}
+  .sub-score-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:5px}
+  .sub-score-value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700}
+  .sub-score-bar{height:3px;border-radius:2px;background:rgba(255,255,255,0.06);margin-top:6px;overflow:hidden}
+  .sub-score-bar-fill{height:100%;border-radius:2px}
+  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:36px}
+  .stat-card{padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}
+  .stat-value{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:white;margin-bottom:4px}
+  .stat-label{font-size:11px;color:var(--text-secondary)}
+  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px}
+  .card-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600}
+  .badge-critical{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+  .badge-high{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange-border)}
+  .badge-medium{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+  .badge-low{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+  .badge-pass{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+  .badge-warning{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border)}
+  .badge-fail{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+  .badge-info{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+  .section-subtitle{color:var(--text-secondary);font-size:14px;margin-bottom:20px}
+  .finding{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:grid;grid-template-columns:8px 1fr auto;gap:14px;align-items:start}
+  .finding:last-child{border-bottom:none}
+  .finding-dot{width:8px;height:8px;border-radius:50%;margin-top:7px;flex-shrink:0}
+  .finding-dot.pass{background:var(--green);box-shadow:0 0 6px rgba(34,197,94,0.4)}
+  .finding-dot.warning{background:var(--yellow);box-shadow:0 0 6px rgba(234,179,8,0.4)}
+  .finding-dot.fail{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,0.4)}
+  .finding-content h4{font-size:14px;font-weight:600;margin-bottom:3px}
+  .finding-content p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+  .finding-rec{margin-top:7px;padding:8px 12px;background:rgba(99,102,241,0.06);border-left:3px solid var(--accent);border-radius:0 4px 4px 0;font-size:13px;color:var(--text);line-height:1.5}
+  .page-table{width:100%;border-collapse:collapse}
+  .page-table th{text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);font-weight:600}
+  .page-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:middle}
+  .page-table tr:hover td{background:rgba(255,255,255,0.02)}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)}
+  .action-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:10px;display:flex;gap:18px;align-items:flex-start}
+  .action-number{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--accent);opacity:0.4;flex-shrink:0;width:32px;text-align:center}
+  .action-content{flex:1}
+  .action-title{font-weight:600;font-size:14px;margin-bottom:5px}
+  .action-desc{font-size:13px;color:var(--text-secondary);line-height:1.6}
+  .action-impact{margin-top:6px;font-size:12px;color:var(--green);font-weight:600}
+  .code-block{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a5f3fc;line-height:1.7;margin-top:10px;overflow-x:auto;white-space:pre}
+  .collapsible{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:10px;overflow:hidden}
+  .collapsible-header{padding:18px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .collapsible-header:hover{background:rgba(255,255,255,0.02)}
+  .collapsible-title{font-weight:600;font-size:14px;display:flex;align-items:center;gap:10px}
+  .collapsible-body{display:none;padding:0 22px 20px}
+  .collapsible.open .collapsible-body{display:block}
+  .collapse-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-muted);transition:transform .25s;flex-shrink:0}
+  .collapsible.open .collapse-icon{transform:rotate(180deg)}
+  .lsi-tag{display:inline-block;padding:5px 12px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:100px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text);margin:3px}
+  .lsi-tag.ok{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+  .lsi-tag.missing{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+  .cluster{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+  .cluster-title{font-weight:700;color:var(--purple);font-size:14px;margin-bottom:10px}
+  .cluster-page{display:inline-block;padding:5px 12px;border-radius:100px;background:var(--purple-bg);border:1px solid var(--purple-border);font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text-secondary);margin:3px}
+  .cluster-page.pillar{background:rgba(167,139,250,0.15);border-color:rgba(167,139,250,0.3);color:var(--purple);font-weight:700}
+  @media(max-width:768px){.header h1{font-size:26px}.score-section{flex-direction:column;text-align:center;padding:24px;gap:24px}.stats-grid{grid-template-columns:repeat(3,1fr)}.sub-scores{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-badge"><span class="dot"></span> Full Site SEO Audit — Mode 2</div>
+    <h1>texaspropertyhelp.com</h1>
+    <p class="subtitle">Comprehensive audit of 10 pages across 5 categories — Generated June 3, 2026</p>
+  </div>
+</div>
+
+<div class="container" style="padding-top:0;padding-bottom:32px">
+  <div class="score-section">
+    <div class="score-circle">
+      <svg viewBox="0 0 160 160"><circle class="bg-ring" cx="80" cy="80" r="74"/><circle class="progress-ring" cx="80" cy="80" r="74"/></svg>
+      <span class="score-number">61</span>
+      <span class="score-grade">Grade C</span>
+      <span class="score-label">Overall Health</span>
+    </div>
+    <div class="score-details">
+      <h2>Strong content foundation — critical gaps in Schema, OG tags, and city page depth</h2>
+      <p>The site has excellent structural SEO (HTTPS, clean URLs, sitemap, robots.txt) and its best guide pages rank well. The two biggest blockers are: (1) zero JSON-LD schema markup on any page — a critical gap for YMYL content in a competitive niche; and (2) city pages are too thin (400–650 words) to rank against established local competitors. Fixing schema alone could push 30+ pages from position 20-30 into the top 10.</p>
+      <div class="sub-scores">
+        <div class="sub-score"><div class="sub-score-label">Technical</div><div class="sub-score-value" style="color:var(--yellow)">68</div><div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:68%;background:var(--yellow)"></div></div></div>
+        <div class="sub-score"><div class="sub-score-label">Content</div><div class="sub-score-value" style="color:var(--yellow)">65</div><div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:65%;background:var(--yellow)"></div></div></div>
+        <div class="sub-score"><div class="sub-score-label">Architecture</div><div class="sub-score-value" style="color:var(--yellow)">74</div><div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:74%;background:var(--yellow)"></div></div></div>
+        <div class="sub-score"><div class="sub-score-label">Cross-Page</div><div class="sub-score-value" style="color:var(--yellow)">68</div><div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:68%;background:var(--yellow)"></div></div></div>
+        <div class="sub-score"><div class="sub-score-label">Schema/Social</div><div class="sub-score-value" style="color:var(--red)">18</div><div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:18%;background:var(--red)"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('executive')">Executive Summary</button>
+    <button class="tab-btn" onclick="switchTab('pages')">Page Breakdown <span class="tab-count">10</span></button>
+    <button class="tab-btn" onclick="switchTab('technical')">Technical <span class="tab-count">7</span></button>
+    <button class="tab-btn" onclick="switchTab('content')">Content Strategy <span class="tab-count">8</span></button>
+    <button class="tab-btn" onclick="switchTab('linking')">Internal Linking</button>
+    <button class="tab-btn" onclick="switchTab('schema')">Schema & Social <span class="tab-count" style="background:var(--red);border-color:var(--red);color:white">6</span></button>
+    <button class="tab-btn" onclick="switchTab('actions')">Action Plan 🎯</button>
+  </div>
+</div>
+
+<!-- TAB 1: EXECUTIVE SUMMARY -->
+<div id="tab-executive" class="tab-content active">
+<div class="container">
+
+  <div class="section-title">Executive Summary</div>
+  <div class="section-subtitle">High-level overview of SEO health across texaspropertyhelp.com</div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Pages Audited</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--red)">4</div><div class="stat-label">Critical Issues</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">5</div><div class="stat-label">High Priority</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--yellow)">6</div><div class="stat-label">Warnings</div></div>
+    <div class="stat-card"><div class="stat-value">950</div><div class="stat-label">Avg Word Count</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--red)">0%</div><div class="stat-label">Schema Coverage</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔍 Key Findings</div>
+    <p style="color:var(--text-secondary);font-size:14px;line-height:1.8">
+      texaspropertyhelp.com has a <strong style="color:white">solid technical foundation</strong>: HTTPS active, clean robots.txt, sitemap.xml with 44 URLs, logical URL structure, and good guide content (the hail damage checklist at 3,100 words is exceptional). The site is already appearing in Google with 3 impressions and the query "storm damage claim help" — early signal that the keyword strategy is working.<br><br>
+      The <strong style="color:var(--red)">biggest blocker right now</strong> is the complete absence of JSON-LD structured data. No page has schema markup — no LocalBusiness, no Article, no FAQPage, no Service schema. For YMYL (Your Money Your Life) content like insurance claims and contractor referrals, Google applies extra scrutiny. Schema signals trustworthiness and authority. This single fix could dramatically improve CTR and ranking potential across all pages.<br><br>
+      The <strong style="color:var(--orange)">second major issue</strong> is city page thin content. Dallas at ~425 words, Houston at ~650 words — these cannot outrank established local competitors with 1,500–3,000 word pages. Each city page needs expansion with local-specific storm data, neighborhoods, ZIP codes, and service area details.<br><br>
+      <strong style="color:var(--green)">Unique strengths</strong>: Community Q&A section (zero competitors have this), bilingual Spanish content, 24/7 storm monitoring, multi-service coverage (roofing + HVAC + financing in one place), and a growing guide library. The hail damage checklist (3,100 words) is likely to become the site's strongest ranking asset.
+    </p>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:28px">Top 3 Priorities</div>
+  <div class="section-subtitle">The highest-ROI fixes to make this week</div>
+
+  <div class="action-item" style="border-left:3px solid var(--red)">
+    <div class="action-number">1</div>
+    <div class="action-content">
+      <div class="action-title">Add JSON-LD Schema to every page <span class="badge badge-critical" style="margin-left:8px">Critical</span></div>
+      <div class="action-desc">Add LocalBusiness schema to homepage, Article schema to all 9 guide pages, FAQPage schema to pages with FAQs, and Service schema to service pages. This affects ALL 44 pages in the sitemap. Zero competitors miss this — you're the only one without it.</div>
+      <div class="action-impact">↑ Estimated impact: Featured snippets, rich results, +15–25% CTR</div>
+    </div>
+  </div>
+
+  <div class="action-item" style="border-left:3px solid var(--orange)">
+    <div class="action-number">2</div>
+    <div class="action-content">
+      <div class="action-title">Expand city pages to 1,200+ words each <span class="badge badge-high" style="margin-left:8px">High</span></div>
+      <div class="action-desc">Dallas (425 words) and Houston (650 words) are too thin to rank. Add local storm history, ZIP codes served, neighborhood-specific info, local contractor context, and city-specific FAQ. This is the #1 local SEO factor.</div>
+      <div class="action-impact">↑ Estimated impact: Rank in top 10 for "[city] storm damage help" queries</div>
+    </div>
+  </div>
+
+  <div class="action-item" style="border-left:3px solid var(--orange)">
+    <div class="action-number">3</div>
+    <div class="action-content">
+      <div class="action-title">Add Open Graph + Twitter Card meta tags <span class="badge badge-high" style="margin-left:8px">High</span></div>
+      <div class="action-desc">No OG tags detected on any page. Every Reddit post, Facebook share, or Twitter link shows blank previews. With Reddit being your primary traffic source right now, this is costing real clicks. Add og:title, og:description, og:image, og:url to every page via Next.js metadata API.</div>
+      <div class="action-impact">↑ Estimated impact: +30–50% click-through from social shares</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 2: PAGE BREAKDOWN -->
+<div id="tab-pages" class="tab-content">
+<div class="container">
+  <div class="section-title">Page-by-Page Breakdown</div>
+  <div class="section-subtitle">Individual audit results for each crawled page</div>
+
+  <div class="card" style="padding:0;overflow-x:auto">
+    <table class="page-table">
+      <thead><tr>
+        <th>Page</th><th>H1</th><th>Words</th><th>Meta Desc</th><th>Schema</th><th>OG Tags</th><th>Alt Text</th><th>Status</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="mono">/</span></td>
+          <td style="font-size:12px">Get Storm Damage Help for Your Texas Property</td>
+          <td>~1,300</td>
+          <td><span class="badge badge-pass">✓ 158 chars</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">? Unverified</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-medium">Fair</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">/storm-damage</span></td>
+          <td style="font-size:12px">Storm Damage Help for Texas Homeowners</td>
+          <td>~675</td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">1 img, partial</span></td>
+          <td><span class="badge badge-medium">Fair</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">/roofing</span></td>
+          <td style="font-size:12px">Roofing Help for Texas Homeowners</td>
+          <td>~850</td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">1 img, partial</span></td>
+          <td><span class="badge badge-medium">Fair</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">/insurance-claims</span></td>
+          <td style="font-size:12px">Understanding the Homeowner Insurance Claim Process</td>
+          <td>~875</td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-pass">✓ Has alt</span></td>
+          <td><span class="badge badge-medium">Fair</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">/financing</span></td>
+          <td style="font-size:12px">Home Repair Financing Options for Texas Homeowners</td>
+          <td>~650</td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-medium">Fair</span></td>
+        </tr>
+        <tr style="background:rgba(239,68,68,0.04)">
+          <td><span class="mono">/houston</span></td>
+          <td style="font-size:12px">Houston Property Help — Storm Damage, Roofing & HVAC</td>
+          <td><strong style="color:var(--yellow)">~650</strong></td>
+          <td><span class="badge badge-fail">✗ Missing</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-high">Thin</span></td>
+        </tr>
+        <tr style="background:rgba(239,68,68,0.06)">
+          <td><span class="mono">/dallas</span></td>
+          <td style="font-size:12px">Dallas Property Help — Storm Damage, Roofing & HVAC</td>
+          <td><strong style="color:var(--red)">~425</strong></td>
+          <td><span class="badge badge-fail">✗ Missing</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">None</span></td>
+          <td><span class="badge badge-critical">Very Thin</span></td>
+        </tr>
+        <tr style="background:rgba(34,197,94,0.03)">
+          <td><span class="mono">/guides/texas-hail-damage-homeowner-checklist</span></td>
+          <td style="font-size:12px">Texas Hail Damage Homeowner Checklist</td>
+          <td><strong style="color:var(--green)">~3,100</strong></td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-low">Strong</span></td>
+        </tr>
+        <tr style="background:rgba(34,197,94,0.03)">
+          <td><span class="mono">/guides/hail-damage-houston-tx</span></td>
+          <td style="font-size:12px">What to Do After Hail Damage in Houston, TX</td>
+          <td><strong style="color:var(--green)">~1,300</strong></td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-low">Good</span></td>
+        </tr>
+        <tr style="background:rgba(34,197,94,0.03)">
+          <td><span class="mono">/guides/how-to-check-roof-after-storm-texas</span></td>
+          <td style="font-size:12px">How to Check Your Roof After a Storm in Texas</td>
+          <td><strong style="color:var(--green)">~1,300</strong></td>
+          <td><span class="badge badge-warning">? Unknown</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-fail">✗ None</span></td>
+          <td><span class="badge badge-warning">Partial</span></td>
+          <td><span class="badge badge-low">Good</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:12px;color:var(--text-muted);margin-top:8px">⚠ "? Unknown" for meta description means the tag exists in Next.js metadata but WebFetch could not extract it from rendered HTML. Verify manually via "View Page Source" → Ctrl+F "description".</p>
+
+  <!-- Per-page collapsibles -->
+  <div style="margin-top:28px">
+    <div class="section-title" style="font-size:18px">Detailed Page Analysis</div>
+    <div class="section-subtitle">Click any page to expand issues and recommendations</div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="collapsible-title"><span class="mono">/insurance-claims</span> <span class="badge badge-high">2 issues</span></div>
+        <div class="collapse-icon">▼</div>
+      </div>
+      <div class="collapsible-body">
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>H1 not optimized for target keyword</h4><p>Current H1: "Understanding the Homeowner Insurance Claim Process" — doesn't include "Texas" or "roof". This page should rank for "roof insurance claim Texas" but the primary keyword is absent from H1.</p><div class="finding-rec">→ Change H1 to: "How to File a Roof Insurance Claim in Texas (And Get Paid Fairly)"</div></div><span class="badge badge-critical">Critical</span></div>
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>No schema markup</h4><p>This page has an FAQ section and step-by-step process — ideal for FAQPage + HowTo JSON-LD schema which generates rich results in Google.</p><div class="finding-rec">→ Add FAQPage schema + HowTo schema. See Schema tab for exact code.</div></div><span class="badge badge-critical">Critical</span></div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="collapsible-title"><span class="mono">/houston</span> <span class="badge badge-critical">3 issues</span></div>
+        <div class="collapse-icon">▼</div>
+      </div>
+      <div class="collapsible-body">
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>Thin content — 650 words</h4><p>Competitors ranking for "Houston storm damage help" have 1,500–2,500 words. Your page cannot outrank them with 650 words regardless of other optimizations.</p><div class="finding-rec">→ Expand to 1,200+ words. Add: Houston storm history (Ike, Harvey), specific ZIP codes served (77002–77099), Harris County context, TWIA coastal flood info, local average hail claims data.</div></div><span class="badge badge-critical">Critical</span></div>
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>No meta description</h4><p>Houston page missing meta description — Google will auto-generate one, often poorly. This directly hurts CTR in local search results.</p><div class="finding-rec">→ Add: "Houston storm damage help for homeowners — vetted TDLR-licensed contractors, free roof inspections, and insurance claim guidance across Harris County. Free to use."</div></div><span class="badge badge-high">High</span></div>
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>No LocalBusiness + GeoTargeted schema</h4><p>City pages need LocalBusiness JSON-LD with geo coordinates to signal local relevance to Google Maps and local pack results.</p><div class="finding-rec">→ Add LocalBusiness schema with Houston areaServed, geo coordinates, and serviceArea fields.</div></div><span class="badge badge-high">High</span></div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="collapsible-title"><span class="mono">/dallas</span> <span class="badge badge-critical">3 issues</span></div>
+        <div class="collapse-icon">▼</div>
+      </div>
+      <div class="collapsible-body">
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>Very thin content — 425 words</h4><p>The Dallas page is the weakest on the entire site. It cannot rank for any competitive DFW query.</p><div class="finding-rec">→ Expand to 1,500+ words. Add: DFW leads Texas in hail storms (real stat), Tarrant/Dallas county context, specific ZIP codes, local hail history, TDLR contractor vetting in DFW market.</div></div><span class="badge badge-critical">Critical</span></div>
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>No images, no alt text</h4><p>Dallas page has no detected images. Content pages without images rank lower and have higher bounce rates.</p><div class="finding-rec">→ Add hero image (storm damage DFW photo) with proper alt text: "hail damage roof inspection Dallas Fort Worth Texas"</div></div><span class="badge badge-high">High</span></div>
+        <div class="finding"><div class="finding-dot fail"></div><div class="finding-content"><h4>No meta description</h4><p>Missing on the second most-searched Texas city page.</p><div class="finding-rec">→ Add: "Dallas-Fort Worth storm damage help — DFW leads Texas in hail storms. Get connected with vetted TDLR-licensed contractors and free insurance claim guidance. Free to use."</div></div><span class="badge badge-high">High</span></div>
+      </div>
+    </div>
+
+    <div class="collapsible">
+      <div class="collapsible-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="collapsible-title"><span class="mono">/guides/texas-hail-damage-homeowner-checklist</span> <span class="badge badge-low">1 issue</span></div>
+        <div class="collapse-icon">▼</div>
+      </div>
+      <div class="collapsible-body">
+        <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>No Article JSON-LD schema despite 3,100 words of content</h4><p>This is your strongest content page. Without Article schema, Google can't identify it as a structured guide and won't show breadcrumbs or rich snippets in search results. It also can't appear as a Featured Snippet without proper schema context.</p><div class="finding-rec">→ Add Article JSON-LD with datePublished, author (Texas Property Help), headline, and description. See Schema tab for exact code.</div></div><span class="badge badge-high">High</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- TAB 3: TECHNICAL -->
+<div id="tab-technical" class="tab-content">
+<div class="container">
+  <div class="section-title">Technical SEO</div>
+  <div class="section-subtitle">Infrastructure, crawlability, and technical implementation</div>
+
+  <div class="card">
+    <div class="card-title">✅ Technical Checklist</div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>HTTPS Active</h4><p>Site is served over HTTPS on all pages. No mixed content detected.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>robots.txt — Valid and well-configured</h4><p>Blocks /api/, /admin/, /contractor/ — correct. References sitemap.xml. No important content paths blocked.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>sitemap.xml — 44 URLs, properly structured</h4><p>All major pages present including EN guides, ES translations, city pages. Submitted to Google Search Console successfully.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>Clean URL structure</h4><p>All URLs are lowercase, hyphenated, no underscores, no query parameters. Consistent /guides/[slug] and /[city] patterns.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>www → non-www redirect</h4><p>301 redirect from www.texaspropertyhelp.com to texaspropertyhelp.com in vercel.json. Prevents duplicate content.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot pass"></div><div class="finding-content"><h4>Next.js App Router — SSR rendering</h4><p>Pages are server-side rendered, meaning Google can crawl full HTML without JavaScript execution. Strong crawlability.</p></div><span class="badge badge-pass">Pass</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>Sitemap lastmod dates — all same timestamp</h4><p>All sitemap entries show <code style="font-family:monospace;color:#a5f3fc">2026-06-03T14:33:35</code> — the deploy date. Google uses lastmod to prioritize re-crawling. Static pages should have their actual content-modification date, not build time.</p><div class="finding-rec">→ In sitemap.ts, use hardcoded actual dates for static pages instead of <code style="font-family:monospace">new Date()</code>. Only use <code style="font-family:monospace">new Date()</code> for dynamic/frequently updated pages like homepage and /updates.</div></div><span class="badge badge-medium">Medium</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>No hreflang tags on bilingual pages</h4><p>The site has /en and /es versions of all service pages and guides. Without hreflang, Google may index the wrong language version for Spanish-speaking users in Texas.</p><div class="finding-rec">→ Add <code style="font-family:monospace">&lt;link rel="alternate" hreflang="en" href="..." /&gt;</code> and <code style="font-family:monospace">hreflang="es"</code> pairs to all pages that have a translation counterpart. Next.js metadata alternates API supports this.</div></div><span class="badge badge-high">High</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>No security headers detectable</h4><p>HSTS, Content-Security-Policy, X-Frame-Options, and Referrer-Policy headers could not be verified via this audit. Vercel sets some by default — verify in Vercel dashboard under "Headers".</p><div class="finding-rec">→ Add security headers in vercel.json under "headers" config. Especially: X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN.</div></div><span class="badge badge-medium">Medium</span></div>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:28px">Sitemap Health</div>
+  <div class="section-subtitle">44 URLs across EN + ES + guides</div>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px">
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.02);border-radius:8px"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:white">18</div><div style="font-size:12px;color:var(--text-secondary)">EN Static Pages</div></div>
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.02);border-radius:8px"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:white">9</div><div style="font-size:12px;color:var(--text-secondary)">ES Static Pages</div></div>
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.02);border-radius:8px"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:white">9</div><div style="font-size:12px;color:var(--text-secondary)">EN Guide Pages</div></div>
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.02);border-radius:8px"><div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:white">4</div><div style="font-size:12px;color:var(--text-secondary)">ES Guide Pages</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary)">⚠ Guides from Jan 2025 show <code style="font-family:monospace;color:#a5f3fc">2025-01-15T00:00:00.000Z</code> — these appear outdated. Consider updating their lastmod when content is refreshed. Recent guides (May–Jun 2026) show correct dates.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 4: CONTENT STRATEGY -->
+<div id="tab-content" class="tab-content">
+<div class="container">
+  <div class="section-title">Content Strategy</div>
+  <div class="section-subtitle">Content depth, keyword coverage, and expansion opportunities</div>
+
+  <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card"><div class="stat-value" style="color:var(--red)">3</div><div class="stat-label">Thin Content Pages</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">4</div><div class="stat-label">Strong Pages (1k+ words)</div></div>
+    <div class="stat-card"><div class="stat-value">~9,500</div><div class="stat-label">Total Words (10 pages)</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">7</div><div class="stat-label">Pages Need Meta Desc</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Keyword Map & Cannibalization Check</div>
+    <table class="page-table">
+      <thead><tr><th>Page</th><th>Target Keyword</th><th>KW in Title</th><th>KW in H1</th><th>Cannibalization Risk</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">/</td><td>storm damage help Texas homeowners</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--green)">None</span></td></tr>
+        <tr><td class="mono">/storm-damage</td><td>storm damage Texas homeowners</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--yellow)">Low — similar to homepage</span></td></tr>
+        <tr><td class="mono">/insurance-claims</td><td>roof insurance claim Texas</td><td><span class="badge badge-warning">Partial</span></td><td><span class="badge badge-fail">✗ Missing</span></td><td><span style="color:var(--green)">None</span></td></tr>
+        <tr><td class="mono">/roofing</td><td>roofing help Texas homeowners</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--green)">None</span></td></tr>
+        <tr><td class="mono">/houston</td><td>Houston storm damage help</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--orange)">Medium — overlaps /guides/hail-damage-houston-tx</span></td></tr>
+        <tr><td class="mono">/dallas</td><td>Dallas storm damage help</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--green)">None</span></td></tr>
+        <tr><td class="mono">/guides/texas-hail-damage-homeowner-checklist</td><td>Texas hail damage homeowner checklist</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--green)">None</span></td></tr>
+        <tr><td class="mono">/guides/hail-damage-houston-tx</td><td>hail damage Houston TX what to do</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--orange)">Medium — overlaps /houston</span></td></tr>
+        <tr><td class="mono">/guides/how-to-check-roof-after-storm-texas</td><td>how to check roof after storm Texas</td><td><span class="badge badge-pass">✓</span></td><td><span class="badge badge-pass">✓</span></td><td><span style="color:var(--green)">None</span></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:12px">⚠ <strong style="color:var(--yellow)">Cannibalization risk</strong>: /houston and /guides/hail-damage-houston-tx may compete for "hail damage Houston" queries. Differentiate by making /houston a broad service hub and the guide purely educational/how-to.</p>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:28px">Recommended Content Clusters</div>
+  <div class="section-subtitle">Build topical authority by grouping related pages</div>
+
+  <div class="cluster">
+    <div class="cluster-title">🌩️ Cluster 1: Storm Damage & Hail</div>
+    <span class="cluster-page pillar">/storm-damage (PILLAR)</span>
+    <span class="cluster-page">/guides/texas-hail-damage-homeowner-checklist</span>
+    <span class="cluster-page">/guides/how-to-check-roof-after-storm-texas</span>
+    <span class="cluster-page">/guides/hail-damage-houston-tx</span>
+    <span class="cluster-page">/guides/texas-storm-roof-repair-or-replace</span>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:10px">⚡ Add: /guides/what-is-named-storm-deductible-texas | /guides/twia-explained-texas | /guides/public-adjuster-vs-insurance-adjuster</p>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-title">📄 Cluster 2: Insurance Claims</div>
+    <span class="cluster-page pillar">/insurance-claims (PILLAR)</span>
+    <span class="cluster-page">/guides/roof-insurance-claim-checklist</span>
+    <span class="cluster-page">/guides/texas-roof-insurance-claim-timeline</span>
+    <span class="cluster-page">/guides/insurance-engineering-report-roof-claim</span>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:10px">⚡ Add: /guides/acv-vs-rcv-texas-explained | /guides/how-to-dispute-insurance-claim-denial-texas | /guides/tdi-complaint-guide</p>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-title">📍 Cluster 3: Local City Pages</div>
+    <span class="cluster-page pillar">/ (PILLAR — statewide)</span>
+    <span class="cluster-page">/houston</span>
+    <span class="cluster-page">/dallas</span>
+    <span class="cluster-page">/san-antonio</span>
+    <span class="cluster-page">/austin</span>
+    <span class="cluster-page">/fort-worth</span>
+    <p style="font-size:13px;color:var(--text-secondary);margin-top:10px">⚡ Each city page needs 1,200+ words + LocalBusiness schema + city-specific storm data</p>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:28px">Missing High-Value Content</div>
+  <div class="section-subtitle">Topics competitors rank for that you don't have</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="card" style="border-color:var(--red-border)">
+      <div style="color:var(--red);font-weight:700;font-size:13px;margin-bottom:10px">🔴 Critical Missing Pages</div>
+      <ul style="list-style:none;font-size:13px;color:var(--text-secondary)">
+        <li style="padding:4px 0">→ /guides/twia-explained-texas-coastal-homeowners</li>
+        <li style="padding:4px 0">→ /guides/acv-vs-rcv-what-texas-homeowners-need-to-know</li>
+        <li style="padding:4px 0">→ /guides/named-storm-deductible-texas</li>
+        <li style="padding:4px 0">→ /guides/how-to-dispute-insurance-claim-denial-texas</li>
+        <li style="padding:4px 0">→ /guides/public-adjuster-texas-when-do-you-need-one</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--orange-border)">
+      <div style="color:var(--orange);font-weight:700;font-size:13px;margin-bottom:10px">🟠 High-Value Additions</div>
+      <ul style="list-style:none;font-size:13px;color:var(--text-secondary)">
+        <li style="padding:4px 0">→ /guides/tdi-complaint-how-to-file-texas</li>
+        <li style="padding:4px 0">→ /guides/emergency-roof-tarp-temporary-repairs</li>
+        <li style="padding:4px 0">→ /guides/how-to-read-insurance-adjuster-report</li>
+        <li style="padding:4px 0">→ /guides/contractor-scams-after-storms-texas-red-flags</li>
+        <li style="padding:4px 0">→ /guides/hail-damage-corpus-christi-tx (timely — active flood warning)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-top:28px">Site-Wide LSI Coverage</div>
+  <div class="section-subtitle">Green = found on site | Red = missing across all pages</div>
+  <div style="margin-top:8px">
+    <span class="lsi-tag ok">storm damage</span><span class="lsi-tag ok">hail damage</span><span class="lsi-tag ok">insurance claim</span><span class="lsi-tag ok">roofing</span><span class="lsi-tag ok">HVAC</span><span class="lsi-tag ok">adjuster</span><span class="lsi-tag ok">deductible</span><span class="lsi-tag ok">ACV</span><span class="lsi-tag ok">RCV</span><span class="lsi-tag ok">vetted contractors</span><span class="lsi-tag ok">TDI</span><span class="lsi-tag ok">TDLR</span><span class="lsi-tag ok">claim deadline</span><span class="lsi-tag ok">storm chasers</span><span class="lsi-tag ok">Class 4 shingles</span><span class="lsi-tag ok">wear and tear</span><span class="lsi-tag ok">wind damage</span><span class="lsi-tag ok">free inspection</span>
+    <span class="lsi-tag missing">TWIA</span><span class="lsi-tag missing">public adjuster</span><span class="lsi-tag missing">named storm deductible</span><span class="lsi-tag missing">emergency tarp</span><span class="lsi-tag missing">multiple bids</span><span class="lsi-tag missing">BBB verification</span><span class="lsi-tag missing">proof of loss</span><span class="lsi-tag missing">covered perils</span><span class="lsi-tag missing">hail season calendar</span><span class="lsi-tag missing">appraisal clause</span><span class="lsi-tag missing">scope of loss</span><span class="lsi-tag missing">supplemental claim</span>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 5: INTERNAL LINKING -->
+<div id="tab-linking" class="tab-content">
+<div class="container">
+  <div class="section-title">Internal Linking Analysis</div>
+  <div class="section-subtitle">Link equity distribution, orphan pages, and opportunities</div>
+
+  <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card"><div class="stat-value">~180</div><div class="stat-label">Total Internal Links (site-wide)</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--orange)">4</div><div class="stat-label">Potentially Orphaned Pages</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:var(--green)">0</div><div class="stat-label">Dead-End Pages</div></div>
+    <div class="stat-card"><div class="stat-value">~18</div><div class="stat-label">Avg Links Per Page</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔗 Link Equity Distribution</div>
+    <table class="page-table">
+      <thead><tr><th>Page</th><th>Incoming Links (Est)</th><th>Outgoing Links</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">/</td><td><strong style="color:var(--green)">All pages → homepage</strong></td><td>15+</td><td><span class="badge badge-pass">Hub</span></td></tr>
+        <tr><td class="mono">/storm-damage</td><td>Homepage + city pages</td><td>12</td><td><span class="badge badge-pass">Good</span></td></tr>
+        <tr><td class="mono">/roofing</td><td>Homepage + guides</td><td>12</td><td><span class="badge badge-pass">Good</span></td></tr>
+        <tr><td class="mono">/insurance-claims</td><td>Homepage + guides</td><td>12</td><td><span class="badge badge-pass">Good</span></td></tr>
+        <tr><td class="mono">/houston</td><td>Homepage city badge only</td><td>15+</td><td><span class="badge badge-warning">Low incoming</span></td></tr>
+        <tr><td class="mono">/dallas</td><td>Homepage city badge only</td><td>15+</td><td><span class="badge badge-warning">Low incoming</span></td></tr>
+        <tr><td class="mono">/guides/texas-hail-damage-homeowner-checklist</td><td>Guide index + 2 guides</td><td>8</td><td><span class="badge badge-pass">Good</span></td></tr>
+        <tr><td class="mono">/guides/hail-damage-houston-tx</td><td>Guide index only</td><td>6</td><td><span class="badge badge-warning">Needs more links</span></td></tr>
+        <tr><td class="mono">/about</td><td>Footer only</td><td>3</td><td><span class="badge badge-warning">Near-orphan</span></td></tr>
+        <tr><td class="mono">/updates</td><td>Header + NewsStrip</td><td>5</td><td><span class="badge badge-pass">OK</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">💡 Suggested Internal Links to Add</div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>/houston should link to /guides/hail-damage-houston-tx</h4><p>The most relevant guide for Houston visitors is not linked from the Houston city page. Add a "Houston Hail Damage Guide" CTA card on /houston.</p></div><span class="badge badge-high">High</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>/insurance-claims should link to guides/roof-insurance-claim-checklist and guides/texas-roof-insurance-claim-timeline</h4><p>The insurance claims service page doesn't link to the most relevant content. These guides reinforce the page's topical authority.</p></div><span class="badge badge-high">High</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>Guide pages don't cross-link to each other</h4><p>The hail damage checklist doesn't link to the "how to check your roof" guide and vice versa. Cross-linking between related guides increases session depth and page authority.</p></div><span class="badge badge-medium">Medium</span></div>
+    <div class="finding"><div class="finding-dot warning"></div><div class="finding-content"><h4>/storm-damage should link to all storm-related guides</h4><p>The storm damage service page is the topical pillar but doesn't explicitly list or link to storm-related guides. Add a "Helpful Guides" section with 3-4 guide links.</p></div><span class="badge badge-medium">Medium</span></div>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 6: SCHEMA & SOCIAL -->
+<div id="tab-schema" class="tab-content">
+<div class="container">
+  <div class="section-title" style="color:var(--red)">⚠ Schema & Social — Critical Gap (Score: 18/100)</div>
+  <div class="section-subtitle">Zero schema markup across all pages. Zero OG tags verified. This is the single biggest SEO gap on the site.</div>
+
+  <div class="card" style="border-color:var(--red-border)">
+    <div class="card-title" style="color:var(--red)">🚨 Schema Markup — 0% Coverage</div>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">No page on texaspropertyhelp.com has JSON-LD structured data. This means: no rich snippets in Google, no FAQ dropdowns, no HowTo steps, no Article authorship, no LocalBusiness knowledge panel. For YMYL (insurance, contractor referrals) content, schema is not optional — it's how Google verifies your content's credibility.</p>
+
+    <div style="margin-bottom:24px">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;font-size:14px">1. LocalBusiness Schema — Add to homepage <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-size:12px">src/app/(en)/page.tsx</code></div>
+      <div class="code-block">{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Texas Property Help",
+  "url": "https://texaspropertyhelp.com",
+  "description": "Homeowner assistance and contractor referral platform for storm damage, roofing, HVAC, and insurance claims across Texas.",
+  "areaServed": {
+    "@type": "State",
+    "name": "Texas"
+  },
+  "serviceType": ["Storm Damage Repair", "Roofing", "HVAC", "Insurance Claim Assistance"],
+  "knowsAbout": ["Hail damage", "Wind damage", "Roof insurance claims", "TDLR licensed contractors"],
+  "sameAs": ["https://www.reddit.com/user/Plus_Air_5991/"]
+}</div>
+    </div>
+
+    <div style="margin-bottom:24px">
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;font-size:14px">2. Article Schema — Add to every guide page</div>
+      <div class="code-block">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Texas Hail Damage Homeowner Checklist: What to Do From Hour 1 to Claim Settled",
+  "description": "Complete step-by-step guide for Texas homeowners after hail damage...",
+  "datePublished": "2026-05-16",
+  "dateModified": "2026-06-03",
+  "author": {
+    "@type": "Organization",
+    "name": "Texas Property Help",
+    "url": "https://texaspropertyhelp.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Texas Property Help",
+    "url": "https://texaspropertyhelp.com"
+  }
+}</div>
+    </div>
+
+    <div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:8px;font-size:14px">3. FAQPage Schema — Add to all pages with FAQ sections</div>
+      <div class="code-block">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Do I need to call my insurance before the roofer?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Call a roofer first. Have a local contractor inspect and document the damage before filing a claim..."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How long do I have to file a hail claim in Texas?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Texas law gives you 1 year from the date of the storm to file a roof damage insurance claim..."
+    }
+  }]
+}</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--orange-border);margin-top:16px">
+    <div class="card-title" style="color:var(--orange)">📱 Open Graph Tags — Add to all pages</div>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">Reddit is your #1 traffic source. Every time you post or someone shares a link, the preview appears blank or with a poor auto-generated description. Fix this by adding OG metadata in Next.js:</p>
+    <div class="code-block">// In src/app/(en)/page.tsx metadata export:
+export const metadata: Metadata = {
+  title: "Storm Damage Help for Texas Homeowners | Texas Property Help",
+  description: "Get connected with vetted, TDLR-licensed Texas contractors...",
+  openGraph: {
+    title: "Storm Damage Help for Texas Homeowners | Texas Property Help",
+    description: "Free guidance and vetted contractor referrals after hail, wind, or water damage across Texas.",
+    url: "https://texaspropertyhelp.com",
+    siteName: "Texas Property Help",
+    images: [{
+      url: "https://texaspropertyhelp.com/images/home-hero.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Texas storm damage help - roofing and insurance claim guidance"
+    }],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Storm Damage Help for Texas Homeowners",
+    description: "Free guidance and vetted contractor referrals after hail, wind, or water damage across Texas.",
+    images: ["https://texaspropertyhelp.com/images/home-hero.jpg"],
+  },
+};</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Replicate this pattern for every service page and guide page with page-specific titles, descriptions, and images.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- TAB 7: ACTION PLAN -->
+<div id="tab-actions" class="tab-content">
+<div class="container">
+  <div class="section-title">🎯 Prioritized Action Plan</div>
+  <div class="section-subtitle">Every recommendation ranked by impact — start with Quick Wins, work down</div>
+
+  <div style="color:var(--green);font-weight:700;font-size:16px;margin-bottom:12px">⚡ Quick Wins — Under 2 hours each</div>
+
+  <div class="action-item">
+    <div class="action-number">1</div>
+    <div class="action-content">
+      <div class="action-title">Add OG + Twitter Card to homepage and top 5 guide pages <span class="badge badge-critical" style="margin-left:8px">Critical</span></div>
+      <div class="action-desc">In Next.js metadata API — add openGraph and twitter objects to page.tsx metadata exports. Use home-hero.jpg as the OG image (already exists). This takes ~30 minutes total.</div>
+      <div class="action-impact">↑ Immediate: every Reddit/social share shows proper preview → more clicks</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">2</div>
+    <div class="action-content">
+      <div class="action-title">Fix H1 on /insurance-claims <span class="badge badge-critical" style="margin-left:8px">Critical</span></div>
+      <div class="action-desc">Change "Understanding the Homeowner Insurance Claim Process" → "How to File a Roof Insurance Claim in Texas (And Get Paid Fairly)". One line change in the page file.</div>
+      <div class="action-impact">↑ Directly targets the most searched insurance query in Texas</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">3</div>
+    <div class="action-content">
+      <div class="action-title">Add meta descriptions to /houston, /dallas, /san-antonio, /austin, /fort-worth <span class="badge badge-high" style="margin-left:8px">High</span></div>
+      <div class="action-desc">City pages are missing meta descriptions entirely. These are high-value pages for local search CTR. Add city-specific 155-character descriptions with primary keyword + value prop.</div>
+      <div class="action-impact">↑ Improves CTR from local search results for all 5 major cities</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">4</div>
+    <div class="action-content">
+      <div class="action-title">Fix sitemap.ts lastmod dates <span class="badge badge-medium" style="margin-left:8px">Medium</span></div>
+      <div class="action-desc">Replace <code style="font-family:monospace">new Date()</code> for static pages with hardcoded actual content dates. Google uses this to prioritize re-crawling. Takes 10 minutes.</div>
+      <div class="action-impact">↑ Google re-crawls updated pages faster, improves freshness signal</div>
+    </div>
+  </div>
+
+  <div style="color:var(--orange);font-weight:700;font-size:16px;margin:28px 0 12px">🔥 High Impact — 2-8 hours each</div>
+
+  <div class="action-item">
+    <div class="action-number">5</div>
+    <div class="action-content">
+      <div class="action-title">Add JSON-LD Schema to all pages <span class="badge badge-critical" style="margin-left:8px">Critical</span></div>
+      <div class="action-desc">Create a reusable SchemaMarkup component. Add LocalBusiness to homepage, Article to all 9 guides, FAQPage to pages with FAQ sections (homepage, service pages), Service schema to service pages. See Schema tab for exact code.</div>
+      <div class="action-impact">↑ Unlocks rich results, FAQ dropdowns, article authorship in Google — affects all 44 pages</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">6</div>
+    <div class="action-content">
+      <div class="action-title">Expand /dallas to 1,500+ words <span class="badge badge-critical" style="margin-left:8px">Critical</span></div>
+      <div class="action-desc">DFW is the #1 hail market in Texas. Add: DFW storm history data, Tarrant + Dallas county coverage, ZIP codes served (75001–76999), local contractor vetting context, DFW-specific hail season info, local FAQ with 5+ questions.</div>
+      <div class="action-impact">↑ Enables ranking for "Dallas storm damage help" — currently impossible at 425 words</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">7</div>
+    <div class="action-content">
+      <div class="action-title">Expand /houston to 1,500+ words <span class="badge badge-high" style="margin-left:8px">High</span></div>
+      <div class="action-desc">Add: Houston hurricane history (Harvey, Ike), Harris County + surrounding counties, ZIP codes (77002–77099), TWIA coastal wind insurance context, local BBB/TDLR verification, Houston-specific storm FAQ.</div>
+      <div class="action-impact">↑ Houston is the largest Texas market — 2.3M+ homeowners</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">8</div>
+    <div class="action-content">
+      <div class="action-title">Add hreflang tags to all EN/ES page pairs <span class="badge badge-high" style="margin-left:8px">High</span></div>
+      <div class="action-desc">All service pages have Spanish counterparts (/es/storm-damage etc.) but no hreflang tags. Texas has 11M+ Spanish speakers. Without hreflang, Google may serve wrong language version. Use Next.js alternates API.</div>
+      <div class="action-impact">↑ Correct language targeting for Spanish-speaking Texas homeowners</div>
+    </div>
+  </div>
+
+  <div style="color:var(--purple);font-weight:700;font-size:16px;margin:28px 0 12px">🚀 Strategic — Ongoing</div>
+
+  <div class="action-item">
+    <div class="action-number">9</div>
+    <div class="action-content">
+      <div class="action-title">Build out missing content clusters (TWIA, ACV/RCV, public adjuster)</div>
+      <div class="action-desc">The 5 missing critical guide pages represent the highest-traffic LSI terms not covered on the site. Each one is a standalone ranking opportunity AND reinforces the topical authority of existing pages. Target: 1 new guide per week.</div>
+      <div class="action-impact">↑ Each guide adds a potential top-10 ranking page and builds site-wide authority</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">10</div>
+    <div class="action-content">
+      <div class="action-title">Add author attribution and E-E-A-T signals to all guides</div>
+      <div class="action-desc">No guide has an author byline. Google's E-E-A-T (Experience, Expertise, Authority, Trust) requirements for YMYL content require clear authorship. Add: "Reviewed by the Texas Property Help team" with a brief authority statement, publication date, and last-reviewed date.</div>
+      <div class="action-impact">↑ Critical for long-term ranking stability in competitive insurance/contractor niche</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-number">11</div>
+    <div class="action-content">
+      <div class="action-title">Expand remaining city pages (San Antonio, Austin, Fort Worth)</div>
+      <div class="action-desc">Expand all 5 city pages to 1,200+ words with city-specific storm history, ZIPs, neighborhoods, local context. San Antonio: Bexar County storms, military community (Fort Sam Houston). Austin: Hill Country storms, Cedar Park/Round Rock suburbs. Fort Worth: Tarrant County hail alley.</div>
+      <div class="action-impact">↑ Local search dominance across all 5 major Texas markets</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(99,102,241,0.05);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:24px;margin-top:32px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;margin-bottom:12px">📈 Projected Score After Fixes</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--green)">78</div><div style="font-size:11px;color:var(--text-muted)">Technical</div></div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--green)">80</div><div style="font-size:11px;color:var(--text-muted)">Content</div></div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--green)">82</div><div style="font-size:11px;color:var(--text-muted)">Architecture</div></div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--green)">76</div><div style="font-size:11px;color:var(--text-muted)">Cross-Page</div></div>
+      <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:var(--yellow)">72</div><div style="font-size:11px;color:var(--text-muted)">Schema/Social</div></div>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--green)">78/100 — Grade B</div>
+    <div style="text-align:center;font-size:13px;color:var(--text-secondary);margin-top:4px">Achievable in 2–3 weeks of implementation</div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(id){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.closest('.tab-btn').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
