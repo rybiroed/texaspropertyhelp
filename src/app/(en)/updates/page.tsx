@@ -53,6 +53,29 @@ export default function UpdatesPage() {
 
   // Manually authored guides from guides.ts
   const guides = getPublishedGuides();
+
+  // ItemList schema for Google
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Texas Property Help — Articles & Guides",
+    url: "https://texaspropertyhelp.com/updates",
+    numberOfItems: posts.length + guides.length,
+    itemListElement: [
+      ...posts.slice(0, 10).map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `https://texaspropertyhelp.com/updates/${p.slug}`,
+        name: p.title,
+      })),
+      ...guides.slice(0, 5).map((g, i) => ({
+        "@type": "ListItem",
+        position: Math.min(posts.length, 10) + i + 1,
+        url: `https://texaspropertyhelp.com/guides/${g.slug}`,
+        name: g.title,
+      })),
+    ],
+  };
   const guideItems: FeedItem[] = guides.map((g) => ({
     slug:     g.slug,
     href:     `/guides/${g.slug}`,
@@ -80,6 +103,7 @@ export default function UpdatesPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       {/* Hero */}
       <section style={{ backgroundColor: "var(--navy)" }} className="py-14 px-4">
         <div className="max-w-2xl mx-auto">
