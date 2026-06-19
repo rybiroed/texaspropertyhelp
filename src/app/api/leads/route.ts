@@ -172,16 +172,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   };
 
   // ── Persist to Supabase ──────────────────────────────────────────────────
+  let supabaseSaved = false;
   if (supabase) {
     const { error } = await supabase.from("leads").insert(lead);
     if (error) {
-      console.error("[leads] Supabase insert error:", error.message);
-      return NextResponse.json({ message: "Failed to save your request. Please try again." }, { status: 500 });
+      // Log but do NOT block — email notification still goes out so no lead is lost
+      console.error("[leads] Supabase insert error:", error.message, "| lead will still be emailed to admin");
+    } else {
+      supabaseSaved = true;
     }
   } else {
-    console.log("[leads] Supabase not configured — lead data:");
-    console.log(JSON.stringify(lead, null, 2));
+    console.log("[leads] Supabase not configured — lead will be sent via email only");
   }
+  console.log("[leads] supabaseSaved:", supabaseSaved);
 
   // ── Send emails ──────────────────────────────────────────────────────────
   // Failures are logged but do not affect the 201 response.
