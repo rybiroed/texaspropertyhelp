@@ -65,6 +65,44 @@ TOPIC_CATEGORY = {
     "weather_alert": "weather",
     "community_qa":  "storm-damage",
 }
+# ── Pollinations.ai image prompts per category ───────────────────────────────
+POLLINATIONS_PROMPTS = {
+    "roofing": "professional roofers replacing shingles on Texas suburban house, sunny day, 8k photorealistic, wide shot",
+    "storm-damage": "Texas house with hail storm damage on roof, dramatic sky clearing, insurance inspection, documentary photo",
+    "hvac": "HVAC technician servicing air conditioner outside Texas home, summer heat, professional uniform, photorealistic",
+    "insurance-claims": "Texas homeowner reviewing insurance papers at table, serious focus, bright kitchen, lifestyle photography",
+    "financing": "Texas homeowner signing home improvement loan documents, banker helping, professional office, photorealistic",
+    "weather": "severe thunderstorm approaching Texas suburb, dark clouds, lightning distant, dramatic wide angle photo",
+}
+
+def generate_pollinations_image(slug: str, category: str, city: str = None) -> str:
+    """Generate hero image via Pollinations.ai (free, no API key needed)."""
+    import urllib.request, urllib.parse, os, time, shutil
+    base_prompt = POLLINATIONS_PROMPTS.get(category, POLLINATIONS_PROMPTS["storm-damage"])
+    city_ctx = f"{city}, Texas, " if city else "Texas, "
+    prompt = f"{city_ctx}{base_prompt}"
+    encoded = urllib.parse.quote(prompt)
+    url = f"https://image.pollinations.ai/prompt/{encoded}?width=1280&height=720&nologo=true&seed={abs(hash(slug)) % 99999}"
+    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "images", "posts")
+    os.makedirs(out_dir, exist_ok=True)
+    local_path = os.path.join(out_dir, f"{slug}.jpg")
+    try:
+        print(f"   Fetching image from Pollinations.ai...")
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as resp, open(local_path, "wb") as f:
+            shutil.copyfileobj(resp, f)
+        size_kb = os.path.getsize(local_path) // 1024
+        if size_kb < 5:
+            print(f"   Image too small ({size_kb}KB) — skipping")
+            os.remove(local_path)
+            return ""
+        print(f"   Image saved: {slug}.jpg ({size_kb}KB)")
+        return f"/images/posts/{slug}.jpg"
+    except Exception as e:
+        print(f"   Pollinations image failed: {e}")
+        return ""
+
+
 
 # ── Read time estimate (~200 words/min) ──────────────────────────────────────
 def estimate_read_time(html: str) -> str:
