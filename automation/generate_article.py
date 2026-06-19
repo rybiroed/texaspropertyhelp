@@ -75,19 +75,65 @@ POLLINATIONS_PROMPTS = {
     "weather": "severe thunderstorm approaching Texas suburb, dark clouds, lightning distant, dramatic wide angle photo",
 }
 
-def generate_pollinations_image(slug: str, category: str, city: str = None) -> str:
-    """Generate hero image via Pollinations.ai (free, no API key needed)."""
-    import urllib.request, urllib.parse, os, time, shutil
-    base_prompt = POLLINATIONS_PROMPTS.get(category, POLLINATIONS_PROMPTS["storm-damage"])
-    city_ctx = f"{city}, Texas, " if city else "Texas, "
-    prompt = f"{city_ctx}{base_prompt}"
+def generate_image_prompt_via_ollama(title: str, category: str, city: str = None) -> str:
+    """Use local Ollama model to create a detailed, article-specific image prompt."""
+    import json as _json
+    city_ctx = f"{city}, Texas" if city else "Texas"
+    base_style = POLLINATIONS_PROMPTS.get(category, POLLINATIONS_PROMPTS["storm-damage"])
+    system_msg = (
+        "You are a professional photographer. Write ONE photorealistic image prompt "
+        "for an AI image generator, max 2 sentences. Output ONLY the prompt, no preamble, no quotes."
+    )
+    user_msg = (
+        f"Article: \"{title}\" in {city_ctx}. "
+        f"Category: {category}. Style hint: {base_style}. "
+        f"Write the image prompt now."
+    )
+    payload = _json.dumps({
+        "model": MODEL,
+        "prompt": f"{system_msg}\n\n{user_msg}\n\nPhotographic prompt:",
+        "stream": False,
+        "options": {"temperature": 0.7, "num_predict": 100},
+    }).encode()
+    try:
+        req = urllib.request.Request(
+            OLLAMA_URL,
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result = _json.loads(resp.read())
+            prompt = result.get("response", "").strip()
+            # Strip any preamble like "Here is the prompt:" or quotes
+            for prefix in ["Here is the photorealistic image prompt:", "Here is the image prompt:", "Prompt:", "Image prompt:"]:
+                if prompt.lower().startswith(prefix.lower()):
+                    prompt = prompt[len(prefix):].strip()
+            prompt = prompt.strip('"').strip("'").strip()
+            if prompt and len(prompt) > 20:
+                print(f"   Ollama image prompt: {prompt[:120]}...")
+                return prompt
+    except Exception as e:
+        print(f"   Ollama prompt generation failed: {e} — using default")
+    # Fallback to static category prompt with city context
+    city_prefix = f"{city}, Texas, " if city else "Texas, "
+    return city_prefix + POLLINATIONS_PROMPTS.get(category, POLLINATIONS_PROMPTS["storm-damage"])
+
+
+def generate_image(slug: str, title: str, category: str, city: str = None) -> str:
+    """Generate hero image: Ollama writes the prompt, Pollinations renders it."""
+    import urllib.parse, shutil
+    print(f"\n🎨 Generating hero image via internal model (Ollama → Pollinations)...")
+    prompt = generate_image_prompt_via_ollama(title=title, category=category, city=city)
     encoded = urllib.parse.quote(prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded}?width=1280&height=720&nologo=true&seed={abs(hash(slug)) % 99999}"
-    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "images", "posts")
+    url = (
+        f"https://image.pollinations.ai/prompt/{encoded}"
+        f"?width=1280&height=720&nologo=true&seed={abs(hash(slug)) % 99999}"
+    )
+    out_dir = os.path.join(PROJECT_ROOT, "public", "images", "posts")
     os.makedirs(out_dir, exist_ok=True)
     local_path = os.path.join(out_dir, f"{slug}.jpg")
     try:
-        print(f"   Fetching image from Pollinations.ai...")
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=60) as resp, open(local_path, "wb") as f:
             shutil.copyfileobj(resp, f)
@@ -99,7 +145,7 @@ def generate_pollinations_image(slug: str, category: str, city: str = None) -> s
         print(f"   Image saved: {slug}.jpg ({size_kb}KB)")
         return f"/images/posts/{slug}.jpg"
     except Exception as e:
-        print(f"   Pollinations image failed: {e}")
+        print(f"   Image generation failed: {e}")
         return ""
 
 
@@ -397,15 +443,12 @@ def main():
     category = TOPIC_CATEGORY.get(topic["topic"], "storm-damage")
     read_time = estimate_read_time(content_html)
 
-    # ── Generate image with ComfyUI (optional)
+    # ── Generate image (Ollama prompt → Pollinations render)
     image_url = None
-    if not args.no_image and not args.dry_run and IMAGE_GEN_AVAILABLE:
-        print("\n🎨 Generating hero image with ComfyUI...")
-        image_url = generate_article_image(slug=slug, topic=category, city=city)
+    if not args.no_image and not args.dry_run:
+        image_url = generate_image(slug=slug, title=title_en, category=category, city=city)
     elif args.no_image:
         print("\n⏭️  Image generation skipped (--no-image)")
-    elif not IMAGE_GEN_AVAILABLE:
-        print("\n⚠️  generate_image.py not importable — no image")
 
     post_entry = {
         "slug":          slug,
