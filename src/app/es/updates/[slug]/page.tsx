@@ -80,9 +80,9 @@ export default async function PostESPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {post.imageUrl && (
-        <div style={{ width: "100%", aspectRatio: "16/9", maxHeight: "480px", overflow: "hidden", position: "relative" }}>
-          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center top" }} priority sizes="100vw" />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 100%)" }} />
+        <div style={{ position: "relative", width: "100%", height: "360px", overflow: "hidden" }}>
+          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center center" }} priority sizes="100vw" />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%)" }} />
         </div>
       )}
 
