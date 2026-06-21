@@ -69,42 +69,43 @@ export default async function PostPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      {/* Hero — image background with title overlay */}
-      <section style={{ position: "relative", backgroundColor: "var(--navy)", minHeight: "420px", display: "flex", alignItems: "flex-end" }}>
+      {/* Hero — fixed 460px container, image covers it, title at bottom */}
+      <section style={{ position: "relative", height: "460px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
         {post.imageUrl && (
-          <>
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              fill
-              style={{ objectFit: "cover", objectPosition: "center center" }}
-              priority
-              sizes="100vw"
-            />
-            {/* gradient: transparent top → dark bottom so text is readable */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.85) 100%)" }} />
-          </>
+          <Image
+            src={post.imageUrl}
+            alt={post.title}
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            priority
+            sizes="100vw"
+          />
         )}
-        <div className="max-w-2xl mx-auto" style={{ position: "relative", zIndex: 1, width: "100%", padding: "56px 16px 40px" }}>
-          <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap", alignItems: "center" }}>
-            <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              {cat.label}
-            </span>
-            {post.city && (
-              <span style={{ backgroundColor: "rgba(118,185,0,0.15)", color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px" }}>
-                📍 {post.city}, TX
+        {/* gradient only at bottom for text readability */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%)" }} />
+        {/* title pinned to bottom */}
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0 16px 32px", zIndex: 1 }}>
+          <div className="max-w-2xl mx-auto">
+            <div style={{ display: "flex", gap: "8px", marginBottom: "12px", flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                {cat.label}
               </span>
-            )}
-            <span style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.6)", fontSize: "0.75rem", padding: "4px 10px", borderRadius: "4px" }}>
-              {post.readTime}
-            </span>
+              {post.city && (
+                <span style={{ backgroundColor: "rgba(118,185,0,0.15)", color: "var(--accent)", fontSize: "0.75rem", fontWeight: 700, padding: "4px 10px", borderRadius: "4px" }}>
+                  📍 {post.city}, TX
+                </span>
+              )}
+              <span style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)", fontSize: "0.75rem", padding: "4px 10px", borderRadius: "4px" }}>
+                {post.readTime}
+              </span>
+            </div>
+            <h1 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.4rem, 3.5vw, 2.2rem)", fontWeight: 700, lineHeight: 1.25, marginBottom: "10px", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+              {post.title}
+            </h1>
+            <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.85rem" }}>
+              Published {date} · Texas Property Help
+            </p>
           </div>
-          <h1 style={{ color: "white", fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 4vw, 2.3rem)", fontWeight: 700, lineHeight: 1.25, marginBottom: "16px" }}>
-            {post.title}
-          </h1>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem" }}>
-            Published {date} · Texas Property Help
-          </p>
         </div>
       </section>
 
