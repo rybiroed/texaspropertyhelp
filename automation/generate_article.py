@@ -492,8 +492,37 @@ def main():
         save_posts(posts)
         print(f"\n✅ Saved to posts.json ({len(posts)} total articles)")
         print(f"   URL: https://texaspropertyhelp.com/updates/{slug}")
+        # Ping IndexNow so Bing/Yandex index the new article immediately
+        _ping_indexnow(slug)
 
     return post_entry, slug
+
+
+def _ping_indexnow(slug: str) -> None:
+    """Notify Bing/Yandex of new article via IndexNow protocol."""
+    INDEXNOW_KEY = "c5c6208b3fd9d754a77fcc6e2eb54d9e"
+    urls = [
+        f"https://texaspropertyhelp.com/updates/{slug}",
+        f"https://texaspropertyhelp.com/es/updates/{slug}",
+        f"https://texaspropertyhelp.com/updates",
+    ]
+    payload = json.dumps({
+        "host": "texaspropertyhelp.com",
+        "key": INDEXNOW_KEY,
+        "keyLocation": f"https://texaspropertyhelp.com/{INDEXNOW_KEY}.txt",
+        "urlList": urls,
+    }).encode()
+    try:
+        req = urllib.request.Request(
+            "https://api.indexnow.org/IndexNow",
+            data=payload,
+            headers={"Content-Type": "application/json; charset=utf-8"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            print(f"   IndexNow ping: HTTP {resp.status} — Bing notified of {len(urls)} URLs")
+    except Exception as e:
+        print(f"   IndexNow ping failed (non-critical): {e}")
 
 
 if __name__ == "__main__":
