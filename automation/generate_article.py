@@ -189,6 +189,7 @@ def call_ollama(prompt: str, max_tokens: int = 1200) -> str:
 # ── Prompts ───────────────────────────────────────────────────────────────────
 def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_ctx: str) -> str:
     city_line = f"Target city/area: {city}, Texas" if city else "Target audience: Texas homeowners statewide"
+    city_ref = city if city else "Texas"
     ctx_parts = []
     if weather_ctx:
         ctx_parts.append(f"Active NWS alerts: {weather_ctx[:300]}")
@@ -196,42 +197,133 @@ def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_c
         ctx_parts.append(f"Recent Texas news: {news_ctx[:300]}")
     ctx_block = ("\n\nLive context (weave in naturally if relevant):\n" + "\n".join(ctx_parts)) if ctx_parts else ""
 
-    return f"""You are a content writer for Texas Property Help — a free homeowner assistance service.
+    # Rotate structure so every article has a different format
+    variant = datetime.datetime.now().timetuple().tm_yday % 3
 
-Write a helpful article for Texas homeowners. Output ONLY valid HTML (no markdown, no code block fences).
+    if variant == 0:
+        structure = f"""Use this article structure:
+<h2>Subtitle — state the main problem or mistake homeowners make</h2>
+<p>Opening: Describe a specific scenario a {city_ref} homeowner is dealing with. Use second person ("you") or describe a real situation. Do NOT start with "As a homeowner in {city_ref}..." Give a surprising or little-known fact in sentence 2. 3-4 sentences.</p>
+
+<h3>Why this keeps happening — and what it costs you</h3>
+<p>Explain the root cause with Texas-specific context. Reference a specific Texas law, insurer behavior, or climate fact. 3-4 sentences.</p>
+<p>Follow-up paragraph with a concrete number or timeframe: e.g., "In Texas, you have exactly 2 years from the storm date to file a claim..." or "State Farm and Allstate handle depreciation very differently..." 2-3 sentences.</p>
+
+<h3>What the insurance company doesn't volunteer</h3>
+<p>A key insight or lesser-known fact that costs homeowners money when they don't know it. 2-3 sentences.</p>
+<ul><li>Specific actionable tip 1 with detail</li><li>Specific actionable tip 2 with detail</li><li>Specific actionable tip 3 with detail</li><li>Specific actionable tip 4 with detail</li></ul>
+
+<h3>Exactly what to do — step by step</h3>
+<ol><li>First action — specific about who to contact or what to look for</li><li>Second action — name a specific resource (license.tdlr.texas.gov, tdi.texas.gov, storms.noaa.gov)</li><li>Third action — documentation or evidence to gather</li><li>Fourth action — what to do if the first steps don't work</li></ol>
+
+<h3>Mistakes that kill {city_ref} claims</h3>
+<p>Describe 2-3 specific mistakes homeowners make — written as flowing text, not a list. Be concrete about why each one matters and what it costs. 4-5 sentences.</p>
+
+<p>Closing paragraph: What a homeowner who follows these steps can realistically expect as an outcome. Honest — no hype, no promises. Do NOT write "Bottom line:" — just write a natural closing paragraph. 2-3 sentences.</p>"""
+
+    elif variant == 1:
+        structure = f"""Use this article structure:
+<h2>Subtitle — frame it as a question or a surprising fact about Texas</h2>
+<p>Opening: Lead with a counterintuitive fact or a number that will surprise a {city_ref} homeowner. Do NOT start with "As a homeowner..." Give the reader a reason to keep reading in the first sentence. 2-3 sentences.</p>
+
+<h3>The Texas difference: why this state has unique rules</h3>
+<p>Explain what makes Texas law, climate, or insurance market create this specific challenge. Be specific — cite the Texas Insurance Code, TDI regulations, or actual climate data for {city_ref} or the surrounding region. 3-4 sentences.</p>
+<p>Second paragraph: what changed recently (new policy exclusions, carrier exits, updated building codes). Give a year or timeframe. 2-3 sentences.</p>
+
+<h3>What you're actually owed — the real numbers</h3>
+<p>Break down the realistic dollar amounts. Not vague — give a specific range: "A typical {city_ref} homeowner on a 1,800 sq ft house insured at $320k faces a 1% hail deductible, meaning $3,200 out of pocket before insurance pays anything." 3-4 sentences.</p>
+
+<h3>How to get the most from your claim or contractor</h3>
+<p>Practical steps — 2-sentence intro, then a list:</p>
+<ul><li>Step or tip with specific detail and why it matters</li><li>Step or tip with specific detail</li><li>Step or tip referencing a Texas-specific resource</li><li>Step or tip about documentation or timing</li></ul>
+
+<h3>Red flags: when the contractor or insurer is acting in bad faith</h3>
+<p>3-4 specific warning signs with examples of exact language a bad actor uses. E.g., "If a contractor says 'we'll cover your deductible,' that's insurance fraud under Texas Insurance Code 27.02 — walk away." 4-5 sentences.</p>
+
+<p>Closing: One concrete action the reader should take this week — specific to their situation in {city_ref}. Do NOT write "Bottom line:" — end naturally. 2 sentences.</p>"""
+
+    else:
+        structure = f"""Use this article structure:
+<h2>Subtitle — state a specific benefit or action, not a vague topic</h2>
+<p>Opening: Ask the reader a direct question about their exact situation, then immediately answer it. 3 sentences max. Do NOT start with "As a homeowner in {city_ref}..."</p>
+
+<h3>What you're actually dealing with (and why Texas makes it harder)</h3>
+<p>Define the core issue in plain English — no jargon without explanation. Explain what makes this different in Texas versus other states. 3-4 sentences.</p>
+<p>Second paragraph: the financial stakes. Give real numbers for {city_ref} or this region of Texas. 2-3 sentences.</p>
+
+<h3>The numbers: what to expect in {city_ref}</h3>
+<p>Specific dollar figures, timeframes, or percentages that are realistic for this market. Example: "Roofing contractors in the {city_ref} area charged $380-560 per square for architectural shingle replacement in 2025 — a 22% increase from 2022 driven by material costs and demand after back-to-back hail seasons." 3-4 sentences.</p>
+<p>What drives these numbers and what homeowners can push back on. 2-3 sentences.</p>
+
+<h3>How to verify who you're working with</h3>
+<p>Specific steps to verify a contractor or adjuster — name exact resources: license.tdlr.texas.gov, tdi.texas.gov, the NRCA, Haag Engineering. 3-4 sentences.</p>
+<ul><li>Verification step 1 — specific tool or website to use</li><li>Verification step 2 — what to look for in the result</li><li>Verification step 3 — what to do if they don't pass</li></ul>
+
+<h3>Your Texas rights if things go wrong</h3>
+<p>Specific legal protections: Texas prompt payment law (15/15/15 rule), appraisal clause, TDI complaint process, bad faith statute penalties. Give the actual numbers and timeframes. 4-5 sentences.</p>
+
+<p>Closing paragraph: Realistic expectation for a homeowner who takes these steps. How long does this usually take? What should they expect? Do NOT write "Bottom line:" — end with a natural, encouraging paragraph. 2-3 sentences.</p>"""
+
+    return f"""You are an expert homeowner advocate writing for Texas Property Help — a free homeowner assistance site in Texas.
+
+Write a detailed, genuinely useful article for Texas homeowners. Output ONLY valid HTML (no markdown, no code block fences, no text before or after the HTML).
 
 Topic: {topic['angle']}
 Section: {topic['section']}
 {city_line}
 Keywords to include naturally: {', '.join(topic['keywords'])}{ctx_block}
 
-HTML structure to follow (use these exact tags):
-<h2>Compelling subtitle about the main point</h2>
-<p>Opening paragraph — hook the reader with a relatable scenario or surprising fact. 2-3 sentences.</p>
+{structure}
 
-<h3>First key point</h3>
-<p>Explanation paragraph. Include specific Texas details (law, climate, insurers). 2-3 sentences.</p>
-<ul><li>Specific tip 1</li><li>Specific tip 2</li><li>Specific tip 3</li></ul>
+STRICT writing rules — violating these makes the article unusable:
+1. Target 1200-1600 words of actual content
+2. NEVER start any paragraph with "As a homeowner in {city_ref}, Texas, you're no stranger to..."
+3. NEVER end the article with "Bottom line:" — close with a natural paragraph
+4. NEVER write vague statistics: "studies show..." or "many homeowners..." — always give a specific number, source, or example
+5. EVERY section must have at least one Texas-specific detail: a law number, an insurer name, a city/county, a dollar amount, or a specific timeframe
+6. Vary sentence length — mix short punchy sentences (5-8 words) with longer explanatory ones (20-30 words)
+7. No corporate buzzwords: avoid "navigating," "solutions," "leverage," "seamless" — write like a knowledgeable neighbor
+8. Do NOT mention texaspropertyhelp.com in the article body
+9. HTML must be valid — every <ul> or <ol> must have proper <li> tags, every opened tag must be closed
+10. Write ALL sections completely — do not stop mid-section or mid-sentence
+11. Output ONLY the HTML fragment. Nothing before <h2>, nothing after the last </p>."""
 
-<h3>Second key point</h3>
-<p>Explanation paragraph with real numbers or timeframes.</p>
 
-<h3>Third key point</h3>
-<p>Explanation — include something about documentation, contractor vetting, or claim filing.</p>
+def build_article_expand_prompt(part1_html: str, topic: dict, city: str | None) -> str:
+    city_ref = city if city else "Texas"
+    # Extract H3 headings already written to avoid repetition
+    written_sections = re.findall(r"<h3>(.*?)</h3>", part1_html)
+    written_list = ", ".join(f'"{s}"' for s in written_sections) if written_sections else "none yet"
+    # Get last paragraph to help continuation
+    last_para = part1_html[-500:] if len(part1_html) > 500 else part1_html
 
-<h3>What to Do Right Now</h3>
-<p>3-step action checklist as a numbered list:</p>
-<ol><li>Step 1 — specific action</li><li>Step 2 — specific action</li><li>Step 3 — specific action</li></ol>
+    return f"""You are expanding a Texas homeowner article for Texas Property Help. The article already has these sections: {written_list}.
 
-<p><strong>Bottom line:</strong> One-sentence takeaway.</p>
+Add 2-3 NEW sections with additional practical depth. Output ONLY valid HTML. Do NOT repeat any section already written.
+
+Topic: {topic['angle']} — {city_ref}, Texas
+
+Sections already written (DO NOT repeat these headings):
+{written_list}
+
+The article so far ends with:
+...{last_para}
+
+Now continue with 2-3 NEW <h3> sections that add more practical value. Good additional sections include:
+- How to read your Explanation of Loss document
+- When to hire a public adjuster vs. an attorney in Texas
+- Texas-specific resources and phone numbers (TDI, TDLR, TWIA)
+- What happens during an appraisal process
+- Realistic timelines: how long claims actually take in Texas
+- City-specific contractor red flags or local context for {city_ref}
 
 Rules:
-- 700-900 words total
-- Texas-specific: mention TDI, TDLR, Texas law, specific Texas cities/counties where natural
-- No generic content — every paragraph should feel written for a Texas homeowner
-- No hashtags, no "texaspropertyhelp.com" in article body (it's in the CTA block)
-- Professional but approachable tone — helpful neighbor, not lawyer or salesperson
-- Output ONLY the HTML fragment. Nothing before <h2>, nothing after </p>."""
+- Each new section: 1-2 paragraphs of 3-4 sentences each, or a list
+- Include at least one specific dollar amount, law, or resource per section
+- Do NOT start with "As a homeowner in {city_ref}..."
+- Do NOT use "Bottom line:" anywhere
+- End with a natural closing <p> paragraph (no section heading needed)
+- Output ONLY the HTML fragment starting with <h3>. No preamble, no explanation."""
 
 
 def build_summary_prompt(article_html: str, title: str) -> str:
@@ -269,6 +361,24 @@ Rules:
 - Keep city/county names in English
 - Translate naturally — not word-for-word
 - Same warm, helpful tone as original
+
+CRITICAL terminology (use these translations ONLY — wrong terms disqualify the translation):
+- "hail" = "granizo" (NEVER "hielo" which means ice/frost)
+- "hail storm" = "tormenta de granizo"
+- "deductible" = "deducible" (NEVER "prima" or "franco")
+- "claim" = "reclamo" or "reclamación" (NEVER "queja")
+- "insurance adjuster" = "ajustador de seguros"
+- "roof" = "techo" (general) or "tejado" (tile roof)
+- "coverage" = "cobertura"
+- "homeowner" = "propietario" or "dueño de casa"
+- "contractor" = "contratista"
+- "licensed" = "con licencia" or "licenciado"
+- "storm damage" = "daños por tormenta"
+- "wind damage" = "daños por viento"
+- "wear and tear" = "desgaste normal" or "deterioro por uso"
+- "replacement cost" = "costo de reemplazo"
+- "actual cash value" = "valor en efectivo real"
+- "appraisal clause" = "cláusula de tasación"
 
 HTML to translate:
 {en_html}
@@ -409,16 +519,32 @@ def main():
     print(f"   ES: {title_es}")
 
     # ── Generate article body
-    print("\n🤖 Generating EN article...")
-    content_html = call_ollama(build_article_prompt(topic, city, weather_ctx, news_ctx))
-    # Ensure it starts with an HTML tag
-    if not content_html.startswith("<"):
-        content_html = "<p>" + content_html
+    print("\n🤖 Generating EN article (pass 1/2)...")
+    part1 = call_ollama(build_article_prompt(topic, city, weather_ctx, news_ctx), max_tokens=2200)
+    if not part1.startswith("<"):
+        part1 = "<p>" + part1
 
-    print(f"   {len(content_html)} chars | ~{estimate_read_time(content_html)}")
+    print(f"   Pass 1: {len(part1)} chars | ~{estimate_read_time(part1)}")
+
+    print("🤖 Generating EN article (pass 2/2 — expanding)...")
+    part2 = call_ollama(build_article_expand_prompt(part1, topic, city), max_tokens=2000)
+    # Strip any intro text that duplicates part1 headers
+    if part2.startswith("<h2>"):
+        # Model repeated the title — skip to first non-duplicate section
+        part2_lines = part2.split("\n")
+        skip = 0
+        for i, line in enumerate(part2_lines):
+            if line.startswith("<h3>") and line not in part1:
+                skip = i
+                break
+        part2 = "\n".join(part2_lines[skip:])
+    # Remove duplicate closing </p> if part1 already ends with one
+    content_html = part1.rstrip() + "\n\n" + part2.lstrip()
+    print(f"   Pass 2: {len(part2)} chars")
+    print(f"   Total: {len(content_html)} chars | ~{estimate_read_time(content_html)}")
 
     print("🤖 Translating to Spanish...")
-    content_html_es = call_ollama(build_es_translate_prompt(content_html), max_tokens=1400)
+    content_html_es = call_ollama(build_es_translate_prompt(content_html), max_tokens=4000)
     print(f"   {len(content_html_es)} chars")
 
     # ── Summary
