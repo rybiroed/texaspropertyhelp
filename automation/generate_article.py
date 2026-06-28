@@ -351,6 +351,46 @@ Rules:
 Output ONLY the title. No quotes, no explanation."""
 
 
+def build_humanize_prompt(html: str, city: str | None) -> str:
+    city_ref = city if city else "Texas"
+    return f"""Rewrite this HTML article so it reads like it was written by a real person — a Texas homeowner advocate with 10+ years of experience helping people navigate insurance claims and storm repairs.
+
+The current draft is too polished and formulaic. Rewrite it to sound genuinely human.
+
+PERSONA: You are writing in the voice of someone who has personally helped hundreds of Texas homeowners. You've sat across from adjusters, argued over scope-of-loss documents, and watched people get shortchanged. You're direct, occasionally blunt, and you actually care.
+
+TECHNIQUES to use (apply all of them):
+1. Contractions everywhere: "don't", "won't", "you'll", "they're", "it's", "there's", "that's"
+2. Vary sentence length DRAMATICALLY. Mix 4-word sentences with 25-word ones. Back to back.
+3. Start some sentences with "And", "But", "Look,", "Here's the thing —", "Honestly,", "The truth is,"
+4. Add ONE brief personal observation per section: "I've seen this happen...", "In my experience...", "The homeowners who get the best outcomes..."
+5. Use casual Texas phrasing: "worth knowing", "real quick", "heads up", "the short version is"
+6. Break up long paragraphs — a paragraph can be 1-2 sentences if the point is made
+7. Ask the reader a direct question in at least one section
+8. Use em dashes for asides — like this — instead of parentheses
+9. Occasionally acknowledge complexity: "It's more nuanced than that, but...", "Every situation is different, but generally..."
+10. Remove ALL of these AI tells if present:
+    - "It's important to note that"
+    - "It's worth mentioning"
+    - "In conclusion" / "To summarize"
+    - "Additionally," starting a paragraph
+    - "Furthermore,"
+    - "navigating" as a buzzword
+    - Three-part parallel lists that all start the same way
+    - Any sentence starting with "This means that"
+
+HTML to rewrite:
+{html}
+
+Rules:
+- Keep ALL HTML tags exactly as they are (<h2>, <h3>, <p>, <ul>, <li>, <ol>, <strong>, etc.)
+- Keep all facts, numbers, laws, and specific details — just change the VOICE
+- Keep the same structure and sections
+- Do NOT add texaspropertyhelp.com mentions
+- Target: someone who reads this should think "this was written by a real person who knows their stuff"
+- Output ONLY the rewritten HTML. No explanation, no preamble."""
+
+
 def build_es_translate_prompt(en_html: str) -> str:
     return f"""Translate this HTML article from English to Spanish (Latin American Spanish for Texas Mexican-American readers).
 
@@ -542,6 +582,12 @@ def main():
     content_html = part1.rstrip() + "\n\n" + part2.lstrip()
     print(f"   Pass 2: {len(part2)} chars")
     print(f"   Total: {len(content_html)} chars | ~{estimate_read_time(content_html)}")
+
+    print("🤖 Humanizing (anti-AI-detection pass)...")
+    content_html = call_ollama(build_humanize_prompt(content_html, city), max_tokens=3500)
+    if not content_html.startswith("<"):
+        content_html = "<p>" + content_html
+    print(f"   Humanized: {len(content_html)} chars | ~{estimate_read_time(content_html)}")
 
     print("🤖 Translating to Spanish...")
     content_html_es = call_ollama(build_es_translate_prompt(content_html), max_tokens=4000)
