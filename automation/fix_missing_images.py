@@ -48,7 +48,7 @@ def fetch_image(slug, prompt):
     os.makedirs(OUT_DIR, exist_ok=True)
     local_path = os.path.join(OUT_DIR, f"{slug}.jpg")
     encoded = urllib.parse.quote(prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded}?model=flux&width=1280&height=720&nologo=true&seed={abs(hash(slug)) % 99999}"
+    url = f"https://image.pollinations.ai/prompt/{encoded}?model=flux&width=1440&height=600&nologo=true&seed={abs(hash(slug)) % 99999}"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=60) as resp, open(local_path, "wb") as f:

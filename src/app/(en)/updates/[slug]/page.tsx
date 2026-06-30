@@ -76,7 +76,7 @@ export default async function PostPage({ params }: Props) {
             src={post.imageUrl}
             alt={post.title}
             fill
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{ objectFit: "cover", objectPosition: "center 30%" }}
             priority
             sizes="100vw"
           />

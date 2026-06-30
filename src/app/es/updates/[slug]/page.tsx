@@ -82,7 +82,7 @@ export default async function PostESPage({ params }: Props) {
       {/* Hero — fixed 460px container, image covers it, title at bottom */}
       <section style={{ position: "relative", height: "460px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
         {post.imageUrl && (
-          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center" }} priority sizes="100vw" />
+          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center 30%" }} priority sizes="100vw" />
         )}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%)" }} />
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0 16px 32px", zIndex: 1 }}>

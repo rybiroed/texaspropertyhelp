@@ -128,7 +128,7 @@ def generate_image(slug: str, title: str, category: str, city: str = None) -> st
     encoded = urllib.parse.quote(prompt)
     url = (
         f"https://image.pollinations.ai/prompt/{encoded}"
-        f"?model=flux&width=1280&height=720&nologo=true&seed={abs(hash(slug)) % 99999}"
+        f"?model=flux&width=1440&height=600&nologo=true&seed={abs(hash(slug)) % 99999}"
     )
     out_dir = os.path.join(PROJECT_ROOT, "public", "images", "posts")
     os.makedirs(out_dir, exist_ok=True)
