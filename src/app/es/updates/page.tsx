@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts, CATEGORY_META } from "@/lib/posts";
+import { getPublishedGuides } from "@/lib/guides";
 
 export const metadata: Metadata = {
   title: "Actualizaciones de Propiedades en Texas | Texas Property Help",
@@ -18,15 +19,58 @@ export const metadata: Metadata = {
   },
 };
 
+type FeedItem = {
+  slug: string;
+  href: string;
+  title: string;
+  date: string;
+  category: string;
+  readTime?: string;
+  summary: string;
+  city?: string | null;
+  imageUrl?: string;
+  type: "post" | "guide";
+};
+
 export default function UpdatesESPage() {
   const posts = getAllPosts();
+  const guides = getPublishedGuides();
 
-  const grouped: Record<string, typeof posts> = {};
-  for (const post of posts) {
-    const month = new Date(post.publishedAt).toLocaleDateString("es-US", { month: "long", year: "numeric" });
+  const postItems: FeedItem[] = posts.map((p) => ({
+    slug: p.slug,
+    href: `/es/updates/${p.slug}`,
+    title: p.titleEs || p.title,
+    date: p.publishedAt,
+    category: p.category,
+    readTime: p.readTime,
+    summary: p.summaryEs || p.summary,
+    city: p.city,
+    imageUrl: p.imageUrl || "",
+    type: "post",
+  }));
+
+  const guideItems: FeedItem[] = guides.map((g) => ({
+    slug: g.slug,
+    href: `/es/guides/${g.slug}`,
+    title: g.title,
+    date: g.lastUpdated,
+    category: g.category,
+    readTime: g.readTime,
+    summary: g.description,
+    city: null,
+    type: "guide",
+  }));
+
+  const allItems: FeedItem[] = [...postItems, ...guideItems].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  const grouped: Record<string, FeedItem[]> = {};
+  for (const item of allItems) {
+    const month = new Date(item.date).toLocaleDateString("es-US", { month: "long", year: "numeric" });
     const key = month.charAt(0).toUpperCase() + month.slice(1);
     if (!grouped[key]) grouped[key] = [];
-    grouped[key].push(post);
+    grouped[key].push(item);
   }
 
   return (
@@ -44,8 +88,8 @@ export default function UpdatesESPage() {
           </p>
           <div style={{ display: "flex", gap: "24px", marginTop: "24px", flexWrap: "wrap" }}>
             <div>
-              <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: "1.5rem" }}>{posts.length}</span>
-              <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem", marginLeft: "6px" }}>artículos publicados</span>
+              <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: "1.5rem" }}>{postItems.length + guideItems.length}</span>
+              <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.875rem", marginLeft: "6px" }}>artículos y guías</span>
             </div>
             <div>
               <span style={{ color: "var(--accent)", fontWeight: 700, fontSize: "1.5rem" }}>20+</span>
@@ -57,7 +101,7 @@ export default function UpdatesESPage() {
 
       <section style={{ backgroundColor: "white" }} className="py-12 px-4">
         <div className="max-w-2xl mx-auto">
-          {posts.length === 0 && (
+          {allItems.length === 0 && (
             <div style={{ border: "1px dashed var(--content-border)", borderRadius: "8px", padding: "32px", textAlign: "center" }}>
               <p style={{ color: "var(--content-muted)", fontSize: "0.9375rem", margin: 0 }}>
                 ⛈️ Los artículos se publican diariamente. Vuelva mañana para alertas de tormentas y guías.
@@ -75,31 +119,29 @@ export default function UpdatesESPage() {
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                {items.map((post) => {
-                  const cat = CATEGORY_META[post.category as keyof typeof CATEGORY_META]
-                    ?? { label: post.category, color: "#d6d3d1", bg: "#1c1917" };
-                  const title = post.titleEs || post.title;
-                  const summary = post.summaryEs || post.summary;
+                {items.map((item) => {
+                  const cat = CATEGORY_META[item.category as keyof typeof CATEGORY_META]
+                    ?? { label: item.category, color: "#d6d3d1", bg: "#1c1917" };
 
                   return (
                     <Link
-                      key={post.slug}
-                      href={`/es/updates/${post.slug}`}
+                      key={item.slug}
+                      href={item.href}
                       style={{ display: "flex", gap: "16px", textDecoration: "none", alignItems: "flex-start" }}
                     >
                       <div style={{ textAlign: "center", minWidth: "44px", paddingTop: "3px" }}>
                         <span style={{ color: "var(--content-muted)", fontSize: "0.75rem", fontWeight: 600, display: "block" }}>
-                          {new Date(post.publishedAt).toLocaleDateString("es-US", { month: "short" })}
+                          {new Date(item.date).toLocaleDateString("es-US", { month: "short" })}
                         </span>
                         <span style={{ color: "var(--content-primary)", fontSize: "1rem", fontWeight: 700, display: "block" }}>
-                          {new Date(post.publishedAt).toLocaleDateString("es-US", { day: "2-digit" })}
+                          {new Date(item.date).toLocaleDateString("es-US", { day: "2-digit" })}
                         </span>
                       </div>
 
                       <div style={{ flex: 1, borderLeft: "2px solid var(--content-border)", paddingLeft: "16px", paddingBottom: "4px", display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                        {post.imageUrl && (
+                        {item.imageUrl && (
                           <div style={{ width: "90px", height: "64px", borderRadius: "6px", overflow: "hidden", flexShrink: 0, position: "relative" }}>
-                            <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover" }} sizes="90px" />
+                            <Image src={item.imageUrl} alt={item.title} fill style={{ objectFit: "cover" }} sizes="90px" />
                           </div>
                         )}
                         <div style={{ flex: 1 }}>
@@ -107,20 +149,25 @@ export default function UpdatesESPage() {
                             <span style={{ backgroundColor: cat.bg, color: cat.color, fontSize: "0.7rem", fontWeight: 700, padding: "2px 8px", borderRadius: "3px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                               {cat.label}
                             </span>
-                            {post.city && (
+                            {item.city && (
                               <span style={{ backgroundColor: "rgba(118,185,0,0.12)", color: "var(--accent)", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "3px" }}>
-                                📍 {post.city}, TX
+                                📍 {item.city}, TX
                               </span>
                             )}
-                            {post.readTime && (
-                              <span style={{ color: "var(--content-muted)", fontSize: "0.75rem" }}>{post.readTime}</span>
+                            {item.type === "guide" && (
+                              <span style={{ backgroundColor: "#f0f9ff", color: "#0369a1", fontSize: "0.7rem", fontWeight: 600, padding: "2px 8px", borderRadius: "3px" }}>
+                                Guía
+                              </span>
+                            )}
+                            {item.readTime && (
+                              <span style={{ color: "var(--content-muted)", fontSize: "0.75rem" }}>{item.readTime}</span>
                             )}
                           </div>
                           <h3 style={{ color: "var(--content-primary)", fontWeight: 700, fontSize: "0.9375rem", lineHeight: 1.4, margin: "0 0 4px" }}>
-                            {title}
+                            {item.title}
                           </h3>
                           <p style={{ color: "var(--content-secondary)", fontSize: "0.8125rem", lineHeight: 1.5, margin: 0 }}>
-                            {summary.slice(0, 130)}{summary.length > 130 ? "…" : ""}
+                            {item.summary.slice(0, 130)}{item.summary.length > 130 ? "…" : ""}
                           </p>
                         </div>
                       </div>

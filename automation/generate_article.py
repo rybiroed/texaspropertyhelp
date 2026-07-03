@@ -353,42 +353,70 @@ Output ONLY the title. No quotes, no explanation."""
 
 def build_humanize_prompt(html: str, city: str | None) -> str:
     city_ref = city if city else "Texas"
-    return f"""Rewrite this HTML article so it reads like it was written by a real person — a Texas homeowner advocate with 10+ years of experience helping people navigate insurance claims and storm repairs.
+    return f"""Rewrite this HTML article to completely defeat AI content detectors. Your goal: make it score under 30% AI probability on GPTZero, Originality.ai, and similar tools.
 
-The current draft is too polished and formulaic. Rewrite it to sound genuinely human.
+PERSONA: A real Texas homeowner advocate — 10+ years helping people fight insurance claims and storm repairs. Direct, occasionally blunt, genuinely frustrated by how adjusters lowball people.
 
-PERSONA: You are writing in the voice of someone who has personally helped hundreds of Texas homeowners. You've sat across from adjusters, argued over scope-of-loss documents, and watched people get shortchanged. You're direct, occasionally blunt, and you actually care.
+THE CORE PROBLEM WITH AI WRITING (fix all of these):
+- AI sentences are all similar length. Humans write wildly varied lengths.
+- AI always picks the most expected word. Humans use unexpected phrasing.
+- AI paragraphs are always 3-5 sentences. Humans write 1-sentence paragraphs too.
+- AI writing is grammatically perfect. Humans use comma splices, fragments, casual asides.
+- AI never digresses. Humans do it constantly.
 
-TECHNIQUES to use (apply all of them):
-1. Contractions everywhere: "don't", "won't", "you'll", "they're", "it's", "there's", "that's"
-2. Vary sentence length DRAMATICALLY. Mix 4-word sentences with 25-word ones. Back to back.
-3. Start some sentences with "And", "But", "Look,", "Here's the thing —", "Honestly,", "The truth is,"
-4. Add ONE brief personal observation per section: "I've seen this happen...", "In my experience...", "The homeowners who get the best outcomes..."
-5. Use casual Texas phrasing: "worth knowing", "real quick", "heads up", "the short version is"
-6. Break up long paragraphs — a paragraph can be 1-2 sentences if the point is made
-7. Ask the reader a direct question in at least one section
-8. Use em dashes for asides — like this — instead of parentheses
-9. Occasionally acknowledge complexity: "It's more nuanced than that, but...", "Every situation is different, but generally..."
-10. Remove ALL of these AI tells if present:
-    - "It's important to note that"
-    - "It's worth mentioning"
-    - "In conclusion" / "To summarize"
-    - "Additionally," starting a paragraph
-    - "Furthermore,"
-    - "navigating" as a buzzword
-    - Three-part parallel lists that all start the same way
-    - Any sentence starting with "This means that"
+MANDATORY TECHNIQUES (every single one must appear in the output):
+
+SENTENCE BURSTINESS — this is the #1 thing AI detectors check:
+- After every 2-3 regular sentences, drop a very short one. Like this. Or even shorter.
+- Then follow it with a longer, more detailed sentence that explains context and adds nuance — the kind of sentence that wanders a bit before landing.
+- Repeat this pattern throughout every section.
+
+AUTHENTIC VOICE:
+- Contractions everywhere: don't, won't, you'll, they're, it's, there's, that's, I've, I'd
+- Start sentences with: "And", "But", "Look —", "Here's the thing:", "Honestly,", "Real talk:", "The thing is,"
+- Use Texas casual: "y'all", "heads up", "worth knowing", "real quick", "no kidding"
+- Add one mid-thought correction per article: "Well — actually, let me back up."
+- Add one thinking-out-loud moment: "And you know what? That's the part most people miss."
+
+IMPERFECT GRAMMAR (humans aren't perfect):
+- Use at least 2 comma splices (joining two independent clauses with just a comma)
+- Use at least 2 sentence fragments as their own paragraph. Like this one.
+- Use "gonna" or "kinda" once
+- Use ellipsis (...) for trailing thoughts at least once
+
+STRUCTURAL VARIATION:
+- At least 3 one-sentence paragraphs
+- At least one 2-word paragraph for emphasis ("No kidding." / "Every time." / "Big mistake.")
+- Use em dashes — like this — for asides instead of parentheses
+- Ask the reader a direct question mid-article (not at the end)
+
+PERSONAL EXPERIENCE (pick 2-3, use naturally):
+- "I've seen this go wrong more times than I can count."
+- "The homeowners who fare best are the ones who..."
+- "In my experience, adjusters will..."
+- "Sat across from an adjuster once who tried to..."
+- "And I'll be honest — this one surprised me too."
+
+BANNED PHRASES (remove every single one):
+- "It's important to note" → delete or rephrase
+- "It's worth mentioning" → delete
+- "In conclusion" / "To summarize" / "In summary" → delete
+- "Additionally," at paragraph start → change to "Also," or "And another thing —"
+- "Furthermore," → delete
+- "navigating" as metaphor for dealing with bureaucracy → use "dealing with" instead
+- "This means that" starting a sentence → rephrase
+- "Homeowners should" + "ensure" or "be aware" → rephrase as direct advice
+- Perfect three-part parallel lists → break the pattern, vary one item
 
 HTML to rewrite:
 {html}
 
-Rules:
-- Keep ALL HTML tags exactly as they are (<h2>, <h3>, <p>, <ul>, <li>, <ol>, <strong>, etc.)
-- Keep all facts, numbers, laws, and specific details — just change the VOICE
-- Keep the same structure and sections
-- Do NOT add texaspropertyhelp.com mentions
-- Target: someone who reads this should think "this was written by a real person who knows their stuff"
-- Output ONLY the rewritten HTML. No explanation, no preamble."""
+STRICT RULES:
+- Keep ALL HTML tags exactly as-is (<h2>, <h3>, <p>, <ul>, <li>, <ol>, <strong>)
+- Keep all facts, numbers, laws, dollar amounts — only change the VOICE
+- Keep the same sections and headings
+- Do NOT mention texaspropertyhelp.com
+- Output ONLY the rewritten HTML. Zero preamble, zero explanation after."""
 
 
 def build_es_translate_prompt(en_html: str) -> str:
