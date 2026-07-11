@@ -121,32 +121,41 @@ def generate_image_prompt_via_ollama(title: str, category: str, city: str = None
 
 
 def generate_image(slug: str, title: str, category: str, city: str = None) -> str:
-    """Generate hero image: Ollama writes the prompt, Pollinations renders it."""
-    import urllib.parse, shutil
+    """Generate hero image: Ollama writes the prompt, Pollinations renders it. 4 retries with fallback seeds."""
+    import urllib.parse, shutil, time
     print(f"\n🎨 Generating hero image via internal model (Ollama → Pollinations)...")
     prompt = generate_image_prompt_via_ollama(title=title, category=category, city=city)
     encoded = urllib.parse.quote(prompt)
-    url = (
-        f"https://image.pollinations.ai/prompt/{encoded}"
-        f"?model=flux&width=1440&height=600&nologo=true&seed={abs(hash(slug)) % 99999}"
-    )
     out_dir = os.path.join(PROJECT_ROOT, "public", "images", "posts")
     os.makedirs(out_dir, exist_ok=True)
     local_path = os.path.join(out_dir, f"{slug}.jpg")
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=60) as resp, open(local_path, "wb") as f:
-            shutil.copyfileobj(resp, f)
-        size_kb = os.path.getsize(local_path) // 1024
-        if size_kb < 5:
-            print(f"   Image too small ({size_kb}KB) — skipping")
-            os.remove(local_path)
-            return ""
-        print(f"   Image saved: {slug}.jpg ({size_kb}KB)")
-        return f"/images/posts/{slug}.jpg"
-    except Exception as e:
-        print(f"   Image generation failed: {e}")
-        return ""
+    base_seed = abs(hash(slug)) % 99999
+    seeds = [base_seed, (base_seed + 12345) % 99999, (base_seed + 54321) % 99999, (base_seed + 77777) % 99999]
+    for attempt, seed in enumerate(seeds, 1):
+        url = (
+            f"https://image.pollinations.ai/prompt/{encoded}"
+            f"?model=flux&width=1440&height=600&nologo=true&seed={seed}"
+        )
+        try:
+            if attempt > 1:
+                time.sleep(8 * (attempt - 1))
+                print(f"   Retry {attempt}/4 (seed={seed})...")
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=90) as resp, open(local_path, "wb") as f:
+                shutil.copyfileobj(resp, f)
+            size_kb = os.path.getsize(local_path) // 1024
+            if size_kb < 5:
+                os.remove(local_path)
+                print(f"   Too small ({size_kb}KB), retrying...")
+                continue
+            print(f"   Image saved: {slug}.jpg ({size_kb}KB)")
+            return f"/images/posts/{slug}.jpg"
+        except Exception as e:
+            print(f"   Attempt {attempt} failed: {e}")
+            if os.path.exists(local_path):
+                os.remove(local_path)
+    print(f"   All {len(seeds)} attempts failed — article saved without image")
+    return ""
 
 
 
