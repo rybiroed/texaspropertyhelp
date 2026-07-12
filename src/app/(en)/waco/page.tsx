@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Waco Storm Damage Help — Free Hail, Roofing & Insurance Claim Guidance",
+  title: "Waco Storm Damage Help | Free TX Homeowner Guide",
   description:
     "Free help for Waco homeowners after hail, tornado, or storm damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim across McLennan County.",
   alternates: { canonical: "https://texaspropertyhelp.com/waco" },

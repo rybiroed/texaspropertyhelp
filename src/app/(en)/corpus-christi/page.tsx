@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Corpus Christi Storm Damage Help — Free Roofing, HVAC & Insurance Guidance",
+  title: "Corpus Christi Storm Damage Help | Free TX Guide",
   description:
     "Free help for Corpus Christi homeowners after hurricane, hail, or wind damage. TWIA windstorm coverage guidance, vetted TDLR-licensed contractors, and insurance claim support.",
   alternates: { canonical: "https://texaspropertyhelp.com/corpus-christi" },

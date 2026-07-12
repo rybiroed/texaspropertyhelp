@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Laredo Storm Damage Help — Free Roofing, HVAC & Insurance Claim Guidance",
+  title: "Laredo Storm Damage Help | Free TX Homeowner Guide",
   description:
     "Free help for Laredo homeowners after storm, wind, or hail damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim. Bilingual EN/ES service.",
   alternates: { canonical: "https://texaspropertyhelp.com/laredo" },

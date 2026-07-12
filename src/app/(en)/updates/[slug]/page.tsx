@@ -26,6 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "Texas Property Help",
       type: "article",
       publishedTime: post.publishedAt,
+      images: post.imageUrl
+        ? [{ url: `https://texaspropertyhelp.com${post.imageUrl}`, width: 1440, height: 600, alt: post.title }]
+        : [{ url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: post.imageUrl ? [`https://texaspropertyhelp.com${post.imageUrl}`] : ["https://texaspropertyhelp.com/images/home-hero.jpg"],
     },
   };
 }
@@ -44,8 +53,16 @@ export default async function PostPage({ params }: Props) {
     description: post.summary,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: { "@type": "Organization", name: "Texas Property Help" },
-    publisher: { "@type": "Organization", name: "Texas Property Help", url: "https://texaspropertyhelp.com" },
+    image: post.imageUrl
+      ? `https://texaspropertyhelp.com${post.imageUrl}`
+      : "https://texaspropertyhelp.com/images/home-hero.jpg",
+    author: { "@type": "Organization", name: "Texas Property Help", url: "https://texaspropertyhelp.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "Texas Property Help",
+      url: "https://texaspropertyhelp.com",
+      logo: { "@type": "ImageObject", url: "https://texaspropertyhelp.com/images/logo.png" },
+    },
     mainEntityOfPage: `https://texaspropertyhelp.com/updates/${post.slug}`,
     ...(post.city ? { about: { "@type": "Place", name: `${post.city}, Texas` } } : {}),
   };

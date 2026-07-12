@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "McAllen Storm Damage Help — Free Roofing, HVAC & Insurance Claim Guidance",
+  title: "McAllen Storm Damage Help | Free TX Homeowner Guide",
   description:
     "Free help for McAllen and Rio Grande Valley homeowners after storm, hail, or hurricane damage. TDLR-licensed contractors, insurance claim guidance. Bilingual EN/ES service.",
   alternates: { canonical: "https://texaspropertyhelp.com/mcallen" },

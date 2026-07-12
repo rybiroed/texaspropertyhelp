@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Dallas Storm Damage Help — Free Hail, Roofing & Insurance Claim Guidance",
+  title: "Dallas Hail & Storm Damage Help | Free TX Guide",
   description:
     "Free help for Dallas-Fort Worth homeowners after hail, tornado, or wind damage. Connect with vetted, TDLR-licensed DFW contractors and navigate your insurance claim. Fast, no pressure.",
   alternates: {

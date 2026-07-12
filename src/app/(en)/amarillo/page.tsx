@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Amarillo Storm Damage Help — Free Hail, Wind & Insurance Claim Guidance",
+  title: "Amarillo Hail & Storm Damage Help | Free TX Guide",
   description:
     "Free help for Amarillo homeowners after hail, tornado, or high-wind damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim in the Texas Panhandle.",
   alternates: { canonical: "https://texaspropertyhelp.com/amarillo" },

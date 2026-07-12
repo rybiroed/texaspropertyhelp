@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Fort Worth Storm Damage Help — Free Hail, Roofing & Insurance Claim Guidance",
+  title: "Fort Worth Storm Damage Help | Free TX Guide",
   description:
     "Free help for Fort Worth and Tarrant County homeowners after hail, tornado, or wind damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim.",
   alternates: {

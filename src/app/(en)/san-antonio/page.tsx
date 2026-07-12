@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "San Antonio Storm Damage Help — Free Roofing, HVAC & Insurance Claim Guidance",
+  title: "San Antonio Storm Damage Help | Free TX Guide",
   description:
     "Free help for San Antonio homeowners after hail, storm, or wind damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim. Bilingual EN/ES service.",
   alternates: {

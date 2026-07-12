@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "El Paso Storm Damage Help — Free Roofing, HVAC & Insurance Claim Guidance",
+  title: "El Paso Storm Damage Help | Free TX Homeowner Guide",
   description:
     "Free help for El Paso homeowners after wind, hail, or storm damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim. Bilingual EN/ES service.",
   alternates: { canonical: "https://texaspropertyhelp.com/el-paso" },

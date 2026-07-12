@@ -5,7 +5,7 @@ import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Austin Storm Damage Help — Free Hail, Roofing & Insurance Claim Guidance",
+  title: "Austin Storm Damage Help | Free TX Homeowner Guide",
   description:
     "Free help for Austin homeowners after hail, storm, or wind damage. Connect with vetted, TDLR-licensed contractors and navigate your insurance claim across Travis County and the Austin metro.",
   alternates: {

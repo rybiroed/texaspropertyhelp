@@ -155,6 +155,16 @@ export default function HomePage() {
 
   const recentPosts = getRecentPosts(6);
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://texaspropertyhelp.com/#website",
+    "url": "https://texaspropertyhelp.com",
+    "name": "Texas Property Help",
+    "description": "Free homeowner assistance for Texas storm damage, roofing, HVAC, and insurance claims.",
+    "publisher": { "@type": "Organization", "@id": "https://texaspropertyhelp.com/#organization" },
+  };
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -195,6 +205,10 @@ export default function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -329,8 +343,8 @@ export default function HomePage() {
       <NewsStrip
         guides={recentGuides}
         stormAlert={{
-          level: "slight",
-          text: "⚠️ Active Flood Warning — Corpus Christi area through June 5. Flash Flood Warning in Midland/Odessa (winding down). No severe threats to Dallas, Houston, San Antonio, or Austin today.",
+          level: "none",
+          text: "⛈️ Texas Storm Season 2026 — Stay prepared. Check your roof, document any hail damage, and verify your coverage before the next storm. We help homeowners across all of Texas.",
         }}
       />
 
