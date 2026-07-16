@@ -343,7 +343,7 @@ export default function HomePage() {
       <NewsStrip
         guides={recentGuides}
         stormAlert={{
-          level: "none",
+          level: "clear",
           text: "⛈️ Texas Storm Season 2026 — Stay prepared. Check your roof, document any hail damage, and verify your coverage before the next storm. We help homeowners across all of Texas.",
         }}
       />
