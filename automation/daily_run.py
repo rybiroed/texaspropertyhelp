@@ -50,6 +50,32 @@ SITE_URL     = "https://texaspropertyhelp.com"
 OLLAMA_URL   = "http://localhost:11434/api/generate"
 MODEL        = "llama3.1:8b"
 
+
+def load_env_files():
+    """Load .env.local / .env into os.environ.
+
+    cron runs with a bare environment, so anything set only in .env.local
+    (FB_PAGE_ID, FB_ACCESS_TOKEN, ...) is invisible to the pipeline without this.
+    Real environment variables always win over file values.
+    """
+    for name in (".env.local", ".env"):
+        path = os.path.join(PROJECT_ROOT, name)
+        if not os.path.exists(path):
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip().lstrip("\\")  # line 1 of .env.local is "\#..."
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, val = line.split("=", 1)
+                key = key.strip()
+                val = val.strip().strip('"').strip("'")
+                if key and key not in os.environ:
+                    os.environ[key] = val
+
+
+load_env_files()
+
 sys.path.insert(0, SCRIPT_DIR)
 from fetch_weather      import get_texas_alerts
 from fetch_news         import get_texas_storm_news
@@ -395,7 +421,8 @@ def main():
 
         if not fb_page_id or not fb_token:
             log("   ⚠️  FB credentials not set — skipping", logfile)
-            log("   Export FB_PAGE_ID and FB_ACCESS_TOKEN to enable", logfile)
+            log("   Add FB_PAGE_ID and FB_ACCESS_TOKEN to .env.local (gitignored)", logfile)
+            log("   Verify with: python3 automation/post_to_facebook.py --check", logfile)
         else:
             if args.lang in ("en", "both"):
                 result = post_link_to_facebook(post_en, article_url)

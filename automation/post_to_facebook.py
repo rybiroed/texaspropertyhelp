@@ -35,7 +35,28 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
-# ── Config — set via environment variables or hardcode here ─────────────────
+# ── Config — read from .env.local (gitignored) or the environment ───────────
+def _load_env_files():
+    """Load .env.local / .env so credentials need not be exported by hand."""
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for name in (".env.local", ".env"):
+        path = os.path.join(project_root, name)
+        if not os.path.exists(path):
+            continue
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip().lstrip("\\")
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, val = line.split("=", 1)
+                key = key.strip()
+                val = val.strip().strip('"').strip("'")
+                if key and key not in os.environ:
+                    os.environ[key] = val
+
+
+_load_env_files()
+
 PAGE_ID      = os.environ.get("FB_PAGE_ID", "")           # Your Facebook Page ID
 ACCESS_TOKEN = os.environ.get("FB_ACCESS_TOKEN", "")      # Page Access Token
 GRAPH_API    = "https://graph.facebook.com/v19.0"
@@ -97,13 +118,55 @@ def check_credentials() -> bool:
     return True
 
 
+def verify_token() -> bool:
+    """Read-only check: confirm the token works and can post to the page.
+
+    Publishes nothing. Prints the page name and whether pages_manage_posts
+    is granted, so a freshly pasted token can be validated safely.
+    """
+    if not check_credentials():
+        return False
+
+    url = f"{GRAPH_API}/{PAGE_ID}?fields=name,id&access_token={urllib.parse.quote(ACCESS_TOKEN)}"
+    try:
+        with urllib.request.urlopen(url, timeout=20) as resp:
+            page = json.loads(resp.read().decode("utf-8"))
+        print(f"✅ Token valid — page: {page.get('name', '?')} (ID {page.get('id', '?')})")
+    except urllib.error.HTTPError as e:
+        err = e.read().decode("utf-8", errors="replace")
+        print(f"❌ Token rejected by Facebook: {err[:300]}")
+        return False
+    except Exception as e:
+        print(f"❌ Could not reach Facebook: {e}")
+        return False
+
+    perm_url = f"{GRAPH_API}/me/permissions?access_token={urllib.parse.quote(ACCESS_TOKEN)}"
+    try:
+        with urllib.request.urlopen(perm_url, timeout=20) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        granted = {p["permission"] for p in data.get("data", []) if p.get("status") == "granted"}
+        if "pages_manage_posts" in granted:
+            print("✅ pages_manage_posts granted — autoposting will work")
+        else:
+            print("⚠️  pages_manage_posts NOT granted — posting will fail")
+            print(f"   Granted: {', '.join(sorted(granted)) or 'none'}")
+            return False
+    except Exception:
+        print("ℹ️  Could not read permissions (page tokens often hide this) — try a --dry-run post")
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description="Post to Facebook Page via Graph API")
     parser.add_argument("--file",    help="Path to generated post JSON file")
     parser.add_argument("--text",    help="Post text directly")
     parser.add_argument("--lang",    default="en", choices=["en", "es"], help="Language to post (en or es)")
     parser.add_argument("--dry-run", action="store_true", help="Print post text without publishing")
+    parser.add_argument("--check",   action="store_true", help="Verify credentials only — publishes nothing")
     args = parser.parse_args()
+
+    if args.check:
+        sys.exit(0 if verify_token() else 1)
 
     if not args.file and not args.text:
         parser.print_help()
