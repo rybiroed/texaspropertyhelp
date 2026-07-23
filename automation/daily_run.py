@@ -147,6 +147,40 @@ def git_push(today: str, logfile=None) -> bool:
         return False
 
 
+# ── Facebook token health ─────────────────────────────────────────────────────
+def warn_if_token_expiring(logfile=None) -> None:
+    """Warn while there is still time to act.
+
+    A page token never expires, but Meta's 90-day data-access window does.
+    When it lapses the API starts refusing posts, which would otherwise look
+    like autoposting silently stopping again. Re-run setup_facebook.py to reset it.
+    """
+    token = os.environ.get("FB_ACCESS_TOKEN", "")
+    if not token:
+        return
+    import urllib.parse
+    url = "https://graph.facebook.com/v19.0/debug_token?" + urllib.parse.urlencode(
+        {"input_token": token, "access_token": token}
+    )
+    try:
+        with urllib.request.urlopen(url, timeout=20) as resp:
+            info = json.loads(resp.read().decode("utf-8")).get("data", {})
+    except Exception:
+        return  # never let a health check break the pipeline
+
+    if not info.get("is_valid", True):
+        log("   ⚠️  FB token is NO LONGER VALID — re-run automation/setup_facebook.py", logfile)
+        return
+
+    expiry = info.get("data_access_expires_at") or 0
+    if not expiry:
+        return
+    days_left = (expiry - datetime.datetime.now().timestamp()) / 86400
+    if days_left < 14:
+        log(f"   ⚠️  FB data access expires in {days_left:.0f} day(s) — "
+            "re-run automation/setup_facebook.py to avoid posting failures", logfile)
+
+
 # ── Facebook link post ────────────────────────────────────────────────────────
 def post_link_to_facebook(message: str, article_url: str) -> str | bool:
     """Post a link post to Facebook. Returns post ID or False."""
@@ -424,6 +458,7 @@ def main():
             log("   Add FB_PAGE_ID and FB_ACCESS_TOKEN to .env.local (gitignored)", logfile)
             log("   Verify with: python3 automation/post_to_facebook.py --check", logfile)
         else:
+            warn_if_token_expiring(logfile)
             if args.lang in ("en", "both"):
                 result = post_link_to_facebook(post_en, article_url)
                 if result:
