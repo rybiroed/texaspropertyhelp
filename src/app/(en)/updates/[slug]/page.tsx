@@ -87,14 +87,15 @@ export default async function PostPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      {/* Hero — fixed 460px container, image covers it, title at bottom */}
-      <section style={{ position: "relative", height: "460px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
+      {/* Hero — container tracks the 1440×600 image ratio so the photo is barely
+          cropped at any width; min/max keep text readable on phones and capped on wide screens */}
+      <section style={{ position: "relative", width: "100%", aspectRatio: "1440 / 600", minHeight: "300px", maxHeight: "520px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
         {post.imageUrl && (
           <Image
             src={post.imageUrl}
             alt={post.title}
             fill
-            style={{ objectFit: "cover", objectPosition: "center 30%" }}
+            style={{ objectFit: "cover", objectPosition: "center 35%" }}
             priority
             sizes="100vw"
           />

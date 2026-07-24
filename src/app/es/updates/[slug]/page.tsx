@@ -84,10 +84,11 @@ export default async function PostESPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      {/* Hero — fixed 460px container, image covers it, title at bottom */}
-      <section style={{ position: "relative", height: "460px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
+      {/* Hero — container tracks the 1440×600 image ratio so the photo is barely
+          cropped at any width; min/max keep text readable on phones and capped on wide screens */}
+      <section style={{ position: "relative", width: "100%", aspectRatio: "1440 / 600", minHeight: "300px", maxHeight: "520px", overflow: "hidden", backgroundColor: "var(--navy)" }}>
         {post.imageUrl && (
-          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center 30%" }} priority sizes="100vw" />
+          <Image src={post.imageUrl} alt={title} fill style={{ objectFit: "cover", objectPosition: "center 35%" }} priority sizes="100vw" />
         )}
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%)" }} />
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "0 16px 32px", zIndex: 1 }}>
