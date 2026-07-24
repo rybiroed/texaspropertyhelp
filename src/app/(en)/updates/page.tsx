@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Texas Property Updates — Storm Alerts & Homeowner Guides | Texas Property Help",
   description:
     "Latest updates from Texas Property Help — storm alerts, new homeowner guides, and property help resources for Texas homeowners across 20+ Texas cities.",
-  alternates: pageAlternates("/updates", null),
+  alternates: pageAlternates("/updates", "/es/updates"),
   openGraph: {
     title: "Texas Property Updates — Storm Alerts & Homeowner Guides",
     description: "Stay up to date with storm alerts, homeowner guides, and property help resources for Texas homeowners. New articles published daily.",

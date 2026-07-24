@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, CATEGORY_META } from "@/lib/posts";
+import { pageAlternates } from "@/lib/metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: summary,
-    alternates: { canonical: `https://texaspropertyhelp.com/es/updates/${post.slug}` },
+    alternates: pageAlternates(`/updates/${post.slug}`, `/es/updates/${post.slug}`, true),
     openGraph: {
       title,
       description: summary,
@@ -28,7 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: "es_US",
       type: "article",
       publishedTime: post.publishedAt,
-      images: [{ url: post.imageUrl || "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630 }],
+      images: [
+        post.imageUrl
+          ? { url: `https://texaspropertyhelp.com${post.imageUrl}`, width: 1440, height: 600, alt: title }
+          : { url: "https://texaspropertyhelp.com/images/home-hero.jpg", width: 1200, height: 630 },
+      ],
     },
     twitter: { card: "summary_large_image" },
   };

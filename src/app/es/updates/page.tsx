@@ -3,11 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts, CATEGORY_META } from "@/lib/posts";
 import { getPublishedGuides } from "@/lib/guides";
+import { pageAlternates } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Actualizaciones de Propiedades en Texas | Texas Property Help",
   description: "Últimas actualizaciones de Texas Property Help — alertas de tormentas, guías para propietarios y recursos de ayuda para propietarios en más de 20 ciudades de Texas.",
-  alternates: { canonical: "https://texaspropertyhelp.com/es/updates" },
+  alternates: pageAlternates("/updates", "/es/updates", true),
   openGraph: {
     title: "Actualizaciones de Propiedades en Texas",
     description: "Alertas de tormentas, guías para propietarios y recursos actualizados diariamente para propietarios en Texas.",

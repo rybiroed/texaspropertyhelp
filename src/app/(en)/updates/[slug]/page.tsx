@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug, CATEGORY_META } from "@/lib/posts";
+import { pageAlternates } from "@/lib/metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.summary,
-    alternates: { canonical: `https://texaspropertyhelp.com/updates/${post.slug}` },
+    alternates: pageAlternates(`/updates/${post.slug}`, `/es/updates/${post.slug}`),
     openGraph: {
       title: post.title,
       description: post.summary,
