@@ -43,10 +43,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/laredo`,                      lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/waco`,                        lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE}/mcallen`,                     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.75 },
-    // Standalone guide pages (also appear in enGuides via getPublishedGuides)
-    { url: `${BASE}/guides/acv-vs-rcv-texas`,             lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
-    { url: `${BASE}/guides/storm-chaser-contractors-texas`, lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
-    { url: `${BASE}/guides/twia-guide-coastal-texas`,     lastModified: new Date("2026-06-03"), changeFrequency: "monthly", priority: 0.80 },
+    // Standalone guides are NOT listed here — enGuides below already emits every
+    // published guide. Listing them twice put duplicate <loc> entries in the XML.
   ];
 
   const staticES: MetadataRoute.Sitemap = [
@@ -92,5 +90,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.60,
   }));
 
-  return [...staticEN, ...staticES, ...enGuides, ...esGuides, ...postUrls, ...esPostUrls];
+  const all = [...staticEN, ...staticES, ...enGuides, ...esGuides, ...postUrls, ...esPostUrls];
+
+  // Safety net: a URL listed twice is a crawl-budget waste and a validation
+  // warning in Search Console. First occurrence wins.
+  const seen = new Set<string>();
+  return all.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 }
