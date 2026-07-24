@@ -16,6 +16,16 @@ import type { GuideCard } from "@/types";
  */
 export const GUIDES: GuideCard[] = [
   {
+    title: "Will Insurance Pay for a Roof Replacement in Texas?",
+    slug: "will-insurance-pay-roof-replacement-texas",
+    description:
+      "Whether your insurer pays for a new roof comes down to cause of damage, roof age, and your wind/hail deductible. Real payout math, 2026 Texas replacement costs, why claims get denied as wear and tear, and the four ways to dispute an underpayment.",
+    category: "insurance-claims",
+    readTime: "11 min read",
+    lastUpdated: "2026-07-23",
+    standalonePageExists: true,
+  },
+  {
     title: "What to Do After Hail Damage in Texas",
     slug: "what-to-do-after-hail-damage-texas",
     description:
