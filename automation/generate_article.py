@@ -215,8 +215,8 @@ def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_c
 <p>Opening: Describe a specific scenario a {city_ref} homeowner is dealing with. Use second person ("you") or describe a real situation. Do NOT start with "As a homeowner in {city_ref}..." Give a surprising or little-known fact in sentence 2. 3-4 sentences.</p>
 
 <h3>Why this keeps happening — and what it costs you</h3>
-<p>Explain the root cause with Texas-specific context. Reference a specific Texas law, insurer behavior, or climate fact. 3-4 sentences.</p>
-<p>Follow-up paragraph with a concrete number or timeframe: e.g., "In Texas, you have exactly 2 years from the storm date to file a claim..." or "State Farm and Allstate handle depreciation very differently..." 2-3 sentences.</p>
+<p>Explain the root cause with Texas-specific context — insurer behavior, deductible structure, or climate fact. Refer to Texas law in plain words only; do NOT invent a statute number. 3-4 sentences.</p>
+<p>Follow-up paragraph with a true, concrete detail: e.g., "your wind and hail deductible is a percentage of your home's insured value, not a flat amount" or "State Farm and Allstate handle depreciation differently." No fabricated statistics. 2-3 sentences.</p>
 
 <h3>What the insurance company doesn't volunteer</h3>
 <p>A key insight or lesser-known fact that costs homeowners money when they don't know it. 2-3 sentences.</p>
@@ -236,7 +236,7 @@ def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_c
 <p>Opening: Lead with a counterintuitive fact or a number that will surprise a {city_ref} homeowner. Do NOT start with "As a homeowner..." Give the reader a reason to keep reading in the first sentence. 2-3 sentences.</p>
 
 <h3>The Texas difference: why this state has unique rules</h3>
-<p>Explain what makes Texas law, climate, or insurance market create this specific challenge. Be specific — cite the Texas Insurance Code, TDI regulations, or actual climate data for {city_ref} or the surrounding region. 3-4 sentences.</p>
+<p>Explain what makes Texas law, climate, or the insurance market create this specific challenge. Refer to Texas rules in plain words (percentage wind/hail deductibles, separate flood coverage, contractor licensing) — do NOT invent a statute number. 3-4 sentences.</p>
 <p>Second paragraph: what changed recently (new policy exclusions, carrier exits, updated building codes). Give a year or timeframe. 2-3 sentences.</p>
 
 <h3>What you're actually owed — the real numbers</h3>
@@ -247,7 +247,7 @@ def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_c
 <ul><li>Step or tip with specific detail and why it matters</li><li>Step or tip with specific detail</li><li>Step or tip referencing a Texas-specific resource</li><li>Step or tip about documentation or timing</li></ul>
 
 <h3>Red flags: when the contractor or insurer is acting in bad faith</h3>
-<p>3-4 specific warning signs with examples of exact language a bad actor uses. E.g., "If a contractor says 'we'll cover your deductible,' that's insurance fraud under Texas Insurance Code 27.02 — walk away." 4-5 sentences.</p>
+<p>3-4 specific warning signs with examples of exact language a bad actor uses. E.g., "If a contractor says 'we'll cover your deductible,' walk away — it is illegal in Texas for a contractor to waive or pay your insurance deductible." Do NOT cite a statute number. 4-5 sentences.</p>
 
 <p>Closing: One concrete action the reader should take this week — specific to their situation in {city_ref}. Do NOT write "Bottom line:" — end naturally. 2 sentences.</p>"""
 
@@ -269,7 +269,7 @@ def build_article_prompt(topic: dict, city: str | None, weather_ctx: str, news_c
 <ul><li>Verification step 1 — specific tool or website to use</li><li>Verification step 2 — what to look for in the result</li><li>Verification step 3 — what to do if they don't pass</li></ul>
 
 <h3>Your Texas rights if things go wrong</h3>
-<p>Specific legal protections: Texas prompt payment law (15/15/15 rule), appraisal clause, TDI complaint process, bad faith statute penalties. Give the actual numbers and timeframes. 4-5 sentences.</p>
+<p>Real protections a Texas homeowner can use: the appraisal clause in the policy (a neutral umpire settles the amount without court), requesting a re-inspection with your own contractor present, hiring a licensed public adjuster, and filing a TDI complaint at 800-252-3439. Describe how each works in plain words — do NOT invent statute numbers or specific penalty figures. 4-5 sentences.</p>
 
 <p>Closing paragraph: Realistic expectation for a homeowner who takes these steps. How long does this usually take? What should they expect? Do NOT write "Bottom line:" — end with a natural, encouraging paragraph. 2-3 sentences.</p>"""
 
@@ -288,10 +288,14 @@ STRICT writing rules — violating these makes the article unusable:
 1. Target 1200-1600 words of actual content
 2. NEVER start any paragraph with "As a homeowner in {city_ref}, Texas, you're no stranger to..."
 3. NEVER end the article with "Bottom line:" — close with a natural paragraph
-4. NEVER write vague statistics: "studies show..." or "many homeowners..." — always give a specific number, source, or example
-5. EVERY section must have at least one Texas-specific detail: a law number, an insurer name, a city/county, a dollar amount, or a specific timeframe
+4. FACTUAL HONESTY — this is a legal/insurance site and false claims cause real harm:
+   - NEVER invent a statute or section number. Do NOT write "Texas Insurance Code 27.02" or any "§ N.NN" citation. You do not know the real numbers and inventing them is prohibited.
+   - The ONLY law facts you may state, because they are verified: (a) it is illegal for a Texas contractor to waive or pay your insurance deductible; (b) TDI can be reached at 800-252-3439 or tdi.texas.gov; (c) roofing contractors are licensed through TDLR at license.tdlr.texas.gov; (d) flood damage needs separate NFIP coverage. Refer to "Texas law" in plain words — never with a fabricated code number.
+   - NEVER invent statistics. Do NOT write "17 cents of every dollar", "$200 million annually", "1 in 5 homeowners", "25% increase", or any specific figure you cannot source. Percentages of a homeowner's OWN deductible/policy (e.g. "a 1% wind/hail deductible on a $300k home is $3,000") are fine because they are arithmetic, not claimed research.
+   - Do NOT use "pre-existing condition" — that is a health-insurance term, wrong for property claims.
+5. Every section should carry a concrete, TRUE Texas detail: an insurer name, a city/county, a real deductible calculation, a real resource (TDI/TDLR/TWIA/NFIP), or a real timeframe — never a fabricated number to hit a quota.
 6. Vary sentence length — mix short punchy sentences (5-8 words) with longer explanatory ones (20-30 words)
-7. No corporate buzzwords: avoid "navigating," "solutions," "leverage," "seamless" — write like a knowledgeable neighbor
+7. No corporate buzzwords: avoid "navigating," "solutions," "leverage," "seamless," "proactive," "significant burden," "costly surprises" — write like a knowledgeable neighbor
 8. Do NOT mention texaspropertyhelp.com in the article body
 9. HTML must be valid — every <ul> or <ol> must have proper <li> tags, every opened tag must be closed
 10. Write ALL sections completely — do not stop mid-section or mid-sentence
@@ -328,7 +332,7 @@ Now continue with 2-3 NEW <h3> sections that add more practical value. Good addi
 
 Rules:
 - Each new section: 1-2 paragraphs of 3-4 sentences each, or a list
-- Include at least one specific dollar amount, law, or resource per section
+- Include at least one true, concrete detail per section (real resource, real deductible arithmetic, insurer name) — never a fabricated statistic or invented statute number
 - Do NOT start with "As a homeowner in {city_ref}..."
 - Do NOT use "Bottom line:" anywhere
 - End with a natural closing <p> paragraph (no section heading needed)
